@@ -1,0 +1,24 @@
+durham:
+  bounds:
+    northeast:
+      lat: 36.1369289
+      lng: -78.762172
+    southwest:
+      lat: 35.8667249
+      lng: -79.00765
+  location:
+    lat: 35.9940329
+    lng: -78.898619
+
+chapel_hill:
+  bounds:
+    northeast:
+      lat: 35.972366
+      lng: -78.9954109
+    southwest:
+      lat: 35.869552
+      lng: -79.083171
+  location:
+    lat: 35.9131996
+    lng: -79.0558445
+
