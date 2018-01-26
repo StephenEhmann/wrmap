@@ -1,0 +1,32 @@
+# for Durham
+location:
+  lat: 35.9940329
+  lng: -78.898619
+bounds:
+  northeast:
+    lat: 36.1369289
+    lng: -78.762172
+  southwest:
+    lat: 35.8667249
+    lng: -79.00765
+
+evaluation:
+  enable:
+    grocery: 1
+
+  threshold:
+    grocery:
+      metric: distance_to_nearest
+      better: lower # lower distance is better
+      min: 0.3  # gets a max score if 0.3 miles or less
+      max: 1.0  # gets a 0 score if more than 1.0 miles, in between it is in linear
+      
+  weight:
+    grocery: 0.4
+
+grocery:
+  include:
+    Food Lion: 1
+    Kroger: 1
+  exclude:
+    Harris Teeter: 1
