@@ -10,6 +10,7 @@ import argparse
 import glob
 import re
 import time
+import importlib
 from datetime import datetime
 from yaml import load, dump
 try:
@@ -21,6 +22,7 @@ import googlemaps
 gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU')
 
 import utils
+import kml
 
 # TODO: subdivison alg for getting around the 60 query limit
 
@@ -45,65 +47,28 @@ if (0):
                                          departure_time=now)
     print('directions_result = ' + str(directions_result))
 
-def find(location, bounds, data, glist, name=None):
-    if (0):
-        geocode = gmaps.geocode('Durham NC');
-        print('location = ' + str(geocode[0]['geometry']['location']))
-        print('bounds = ' + str(geocode[0]['geometry']['bounds']))
-        if (0):
-            print('geocode:')
-            print(dump(geocode, default_flow_style=False, Dumper=Dumper))
 
-    more = True
-    token = None
-    while (more):
-        print('search...')
-        if (not token):
-            if (name):
-                psn = gmaps.places_nearby(location=location, rank_by='distance', keyword=name)
-            else:
-                psn = gmaps.places_nearby(location=location, rank_by='distance', type='grocery_or_supermarket')
-        else:
-            #print('token = ' + token) 
-            psn = gmaps.places_nearby(location=location, page_token=token)
-        #print('psn:')
-        #print(dump(psn, default_flow_style=False, Dumper=Dumper))
-        with open('psn.yml', 'w') as yaml_file:
-            dump(psn, yaml_file, default_flow_style=False, Dumper=Dumper)
-        print('saving token')
-        for p in psn['results']:
-            if (not utils.isInside(p['geometry']['location'], bounds)):
-                #print('this one is not inside:')
-                #print(dump(p, default_flow_style=False, Dumper=Dumper))
-                more = False
-                break
-            if (not data.get(p['place_id'])):
-                gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': utils.distance(p['geometry']['location'], location)}
-                data[p['place_id']] = gRec
-                glist.append(gRec)
-        token = psn.get('next_page_token')
-        if (not token):
-            # finished
-            more = False
-            break
-        time.sleep(2)
+def init(config):
+    data = {}
+    for k, v in iter(config['evaluation']['enable'].items()):
+        if (v):
+            # enabled
+            data[k] = {}
+            data[k]['module'] = importlib.import_module(k, package=None)
+            data[k]['data'] = data[k]['module'].init()
+            data[k]['threshold'] = config['evaluation']['threshold'][k]
+    return data
 
-def evaluate(loc, data, threshold):
-    metric = threshold['metric']
-    better = threshold['better']
-    mn = threshold['min']
-    mx = threshold['max']
-    if (metric != 'distance_to_nearest'):
-        raise Exception('ERROR: can only evaluate for metric distance_to_nearest')
 
-    minDist = 100
-    minK = ''
+def evaluate(loc, data, weight):
+    score = 0.0
     for k, v in iter(data.items()):
-        dist = utils.distance(loc, (v['location']['lat'], v['location']['lng']))
-        if (dist < minDist):
-            minDist = dist
-            minK = k
-    return utils.ramp(minDist, mn, mx, (better != 'lower'))
+        #print('eval for ' + k)
+        kscore = v['module'].evaluate(loc, v['data'], v['threshold'])
+        #print('kscore = ' + str(kscore))
+        score += weight[k] * kscore
+    return score
+
 
 if (__name__ == "__main__"):
     # main parser
@@ -118,10 +83,10 @@ if (__name__ == "__main__"):
     parser.add_argument('-help', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('--help', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('-geocode', type=str, help='get coordinates and other information for a given named (string) location')
+    parser.add_argument('-out', type=str, help='optional output kmz name: <name>.kmz')
     parser.add_argument('-location', type=str, help='location to evaluate')
-    # TODO: what are the units of -resolution?
-    parser.add_argument('-resolution', type=str, help='evaluate the entire bounds of the location at this resolution')
-    parser.add_argument('-eval', type=str, help='evaluate the overall score')
+    parser.add_argument('-resolution', type=int, help='evaluate the entire bounds of the location at this resolution (number of steps in the east/west direction, the north/south direction will be auto-scaled)')
+    parser.add_argument('-eval', action='store_true', help='evaluate the overall score')
     args = parser.parse_args()
 
     if (args.h or args.help):
@@ -164,7 +129,7 @@ if (__name__ == "__main__"):
     bounds = locations[config['location']] ['bounds']
 
     if (args.geocode):
-        print('geocode location ' + args.geocode)
+        #print('geocode location ' + args.geocode)
         geocode = gmaps.geocode(args.geocode);
         data = {}
         data[args.geocode] = {}
@@ -174,14 +139,61 @@ if (__name__ == "__main__"):
         print(dump(data, default_flow_style=False, Dumper=Dumper))
 
     elif (args.eval):
-        with open(criterionName + '.yml', 'r') as in_file:
-            data = load(in_file, Loader=Loader)
+        data = init(config)
         if (args.location):
             latlong = args.location.split(',')
-            e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['threshold'][criterionName])
+            e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['weight'])
             print(str(e))
         elif (args.resolution):
-            pass
+            results = {}
+            if (args.resolution < 2 or args.resolution > 100):
+                print('ERROR: -resolution must be a value in the range [2..100]')
+                sys.exit(1)
+
+            if (1):
+                xstart = bounds['southwest']['lng']
+                xend = bounds['northeast']['lng']
+                ystart = bounds['southwest']['lat']
+                yend = bounds['northeast']['lat']
+
+                xdist = utils.distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
+                                        (bounds['southwest']['lat'], bounds['southwest']['lng'] + 0.1))
+                ydist = utils.distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
+                                        (bounds['southwest']['lat'] + 0.1, bounds['southwest']['lng']))
+                xstep = (xend - xstart) / args.resolution
+                ystep = xstep * xdist / ydist
+                #print('xstep = ' + str(xstep))
+                #print('ystep = ' + str(ystep))
+
+                if (0):
+                    # test the two distances
+                    xdist = utils.distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
+                                            (bounds['southwest']['lat'], bounds['southwest']['lng'] + xstep))
+                    ydist = utils.distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
+                                            (bounds['southwest']['lat'] + ystep, bounds['southwest']['lng']))
+                    print('xdist = ' + str(xdist))
+                    print('ydist = ' + str(ydist))
+
+                xi = 0
+                x = xstart
+                while (x < xend):
+                    yi = 0
+                    y = ystart
+                    while (y < yend):
+                        results[(y, x)] = {}
+                        results[(y, x)]['val'] = evaluate((y, x), data, config['evaluation']['weight'])
+                        results[(y, x)]['name'] = str(xi) + ',' + str(yi)
+                        print('x,y = ' + str(x) + ' , ' + str(y) + ' = ' + str(results[(y, x)]['val']))
+                        yi += 1
+                        y += ystep
+
+                    xi += 1
+                    x += xstep
+
+            if (args.out):
+                os.makedirs(args.out, exist_ok=True)
+                kml.write(os.path.join(args.out, 'doc.kml'), config, data, results)
+
         else:
             print('INTERNAL ERROR')
             sys.exit(1)

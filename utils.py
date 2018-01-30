@@ -1,7 +1,4 @@
 import sys
-#from math import sin, cos, sqrt, atan2, radians
-
-sys.path.insert(0, '/home/scratch.sehmann_cad/python')
 import geopy.distance
 
 def isInside(loc, bounds):
@@ -9,8 +6,10 @@ def isInside(loc, bounds):
            loc['lat'] > bounds['southwest']['lat'] and loc['lat'] < bounds['northeast']['lat']
 
 def distance(loc, ref):
-    #return (loc['lng'] - ref['lng']) ** 2 + (loc['lat'] - ref['lat']) ** 2
-    #coords_1 = (loc['lat'], loc['lng'])
-    #coords_2 = (ref['lat'], ref['lng'])
-
     return geopy.distance.vincenty(loc, ref).miles
+
+def ramp(x, mn, mx, pos):
+    if (pos):
+        return 0.0 if x <= mn else 1.0 if x >= mx else (x - mn) / (mx - mn)
+    else:
+        return 1.0 if x <= mn else 0.0 if x >= mx else (x - mx) / (mn - mx)

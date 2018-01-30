@@ -17,48 +17,14 @@ try:
 except ImportError:
     from yaml import Loader, Dumper
 
-import utils
-
-sys.path.insert(0, '/home/scratch.sehmann_cad/python')
 import googlemaps
-
 gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU')
+
+import utils
 
 criterionName = 'grocery'
 
-# TODO: geocode query
-# TODO: subdivison alg for getting around the 60 query limit
-
-# Geocoding an address
-if (0):
-    geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
-    print('geocode_result = ' + str(geocode_result))
-    print('')
-
-# Look up an address with reverse geocoding
-if (0):
-    reverse_geocode_result = gmaps.reverse_geocode((40.714224, -73.961452))
-    print('reverse_geocode_result = ' + str(reverse_geocode_result))
-    print('')
-
-# Request directions via public transit
-if (0):
-    now = datetime.now()
-    directions_result = gmaps.directions("Sydney Town Hall",
-                                         "Parramatta, NSW",
-                                         mode="transit",
-                                         departure_time=now)
-    print('directions_result = ' + str(directions_result))
-
 def find(location, bounds, data, glist, name=None):
-    if (0):
-        geocode = gmaps.geocode('Durham NC');
-        print('location = ' + str(geocode[0]['geometry']['location']))
-        print('bounds = ' + str(geocode[0]['geometry']['bounds']))
-        if (0):
-            print('geocode:')
-            print(dump(geocode, default_flow_style=False, Dumper=Dumper))
-
     more = True
     token = None
     while (more):
@@ -91,7 +57,12 @@ def find(location, bounds, data, glist, name=None):
             # finished
             more = False
             break
-        time.sleep(2)
+        time.sleep(2) # next_page_token not immediately ready server-side
+
+def init():
+    with open(criterionName + '.yml', 'r') as in_file:
+        data = load(in_file, Loader=Loader)
+    return data
 
 def evaluate(loc, data, threshold):
     metric = threshold['metric']
@@ -108,31 +79,47 @@ def evaluate(loc, data, threshold):
         if (dist < minDist):
             minDist = dist
             minK = k
-    if (better == 'lower'):
-        score = 1.0 if minDist <= mn else 0.0 if minDist >= mx else (minDist - mx) / (mn - mx)
-    else:
-        score = 0.0 if minDist <= mn else 1.0 if minDist >= mx else (minDist - mn) / (mx - mn)
-    return score
+    return utils.ramp(minDist, mn, mx, (better != 'lower'))
+
 
 if (__name__ == "__main__"):
     # main parser
     class MainParser(argparse.ArgumentParser):
-        def print_help(self):
-            return
-
         def error(self, message):
             self.print_help()
             sys.stderr.write('error: %s\n' % message)
             sys.exit(2)
     parser = MainParser(add_help=False, allow_abbrev=False)
-    parser.add_argument('-name', type=str, help=argparse.SUPPRESS)
-    parser.add_argument('-db', action='store_true', help=argparse.SUPPRESS)
-    parser.add_argument('-evaluate', type=str, help=argparse.SUPPRESS)
+    parser.add_argument('-h', action='store_true', help=argparse.SUPPRESS)
+    parser.add_argument('--h', action='store_true', help=argparse.SUPPRESS)
+    parser.add_argument('-help', action='store_true', help=argparse.SUPPRESS)
+    parser.add_argument('--help', action='store_true', help=argparse.SUPPRESS)
+    parser.add_argument('-debug', action='store_true', help='print extra info')
+    parser.add_argument('-find', action='store_true', help='find all DB items and write them to ' + criterionName + '.yml')
+    parser.add_argument('-name', type=str, help='find only for this name')
+    parser.add_argument('-evaluate', type=str, help='evaluate the ' + criterionName + ' score for a given coordinate pair (eg. -evaluate 35.936164,-79.040997)')
     args = parser.parse_args()
 
-    if (args.db and args.evaluate or not args.db and not args.evaluate):
-        print('ERROR: exactly one action must be given, choose exactly one of -db or -evaluate')
+    if (args.h or args.help):
+        parser.print_help()
+        sys.exit(0)
+
+    if (args.find and args.evaluate or not args.find and not args.evaluate):
+        print('ERROR: exactly one action must be given, choose exactly one of -find or -evaluate')
         sys.exit(1)
+
+    if (not args.find and args.name):
+        print('ERROR: -name can only be used with -find')
+        sys.exit(1)
+
+    # read locations
+    try:
+        stream = open('location.yml', 'r')
+        locations = load(stream, Loader=Loader)
+        stream.close()
+    except Exception as e:
+        print(str(e))
+        raise Exception('ERROR: Failed to load yaml file ' + 'config.yml')
 
     # read config
     try:
@@ -143,18 +130,19 @@ if (__name__ == "__main__"):
         print(str(e))
         raise Exception('ERROR: Failed to load yaml file ' + 'config.yml')
 
-    if (args.db):
+    location = locations[config['location']] ['location']
+    bounds = locations[config['location']] ['bounds']
+
+    if (args.find):
         # Type - supermarket
         # https://developers.google.com/places/supported_types
         # example: https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
         data = {}
         glist = []
-        find(config['location'], config['bounds'], data, glist, args.name)
-        for i in config[criterionName]['include'].keys():
-            find(config['location'], config['bounds'], data, glist, i)
-
-        #with open('grocery.before.yml', 'w') as yaml_file:
-        #    dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
+        find(location, bounds, data, glist, args.name)
+        if (args.name == None):
+            for i in config[criterionName]['include'].keys():
+                find(location, bounds, data, glist, i)
 
         deletions = []
         for k, v in iter(data.items()):
@@ -165,11 +153,12 @@ if (__name__ == "__main__"):
         for d in deletions:
             del data[d]
 
-        print(criterionName + ':')
-        print(dump(data, default_flow_style=False, Dumper=Dumper))
+        if (args.debug):
+            print(criterionName + ':')
+            print(dump(data, default_flow_style=False, Dumper=Dumper))
 
-        print('glist:')
-        print(dump(glist, default_flow_style=False, Dumper=Dumper))
+            print('glist:')
+            print(dump(glist, default_flow_style=False, Dumper=Dumper))
 
         if (args.name == None):
             modName = ''
@@ -179,12 +168,12 @@ if (__name__ == "__main__"):
         with open(criterionName + '.' + modName + 'yml', 'w') as yaml_file:
             dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
 
-        with open('glist.' + modName + 'yml', 'w') as yaml_file:
-            dump(glist, yaml_file, default_flow_style=False, Dumper=Dumper)
+        if (args.debug):
+            with open('glist.' + modName + 'yml', 'w') as yaml_file:
+                dump(glist, yaml_file, default_flow_style=False, Dumper=Dumper)
 
     elif (args.evaluate):
-        with open(criterionName + '.yml', 'r') as in_file:
-            data = load(in_file, Loader=Loader)
+        data = init()
         latlong = args.evaluate.split(',')
         e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['threshold'][criterionName])
         print(str(e))
