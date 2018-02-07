@@ -24,11 +24,11 @@ import utils
 
 criterionName = 'grocery'
 
-def find(location, bounds, data, glist, name=None):
+def find(location, bounds, data, allData, glist, name=None):
     more = True
     token = None
     while (more):
-        print('search...')
+        #print('search...')
         if (not token):
             if (name):
                 psn = gmaps.places_nearby(location=location, rank_by='distance', keyword=name)
@@ -39,17 +39,18 @@ def find(location, bounds, data, glist, name=None):
             psn = gmaps.places_nearby(location=location, page_token=token)
         #print('psn:')
         #print(dump(psn, default_flow_style=False, Dumper=Dumper))
-        with open('psn.yml', 'w') as yaml_file:
-            dump(psn, yaml_file, default_flow_style=False, Dumper=Dumper)
-        print('saving token')
+        #print('saving token')
         for p in psn['results']:
+            allData.append(p)
             if (not utils.isInside(p['geometry']['location'], bounds)):
                 #print('this one is not inside:')
                 #print(dump(p, default_flow_style=False, Dumper=Dumper))
                 more = False
                 break
             if (not data.get(p['place_id'])):
-                gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': utils.distance(p['geometry']['location'], location)}
+                dist = utils.distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
+                                       (location['lat'], location['lng']))
+                gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': dist}
                 data[p['place_id']] = gRec
                 glist.append(gRec)
         token = psn.get('next_page_token')
@@ -138,16 +139,17 @@ if (__name__ == "__main__"):
         # https://developers.google.com/places/supported_types
         # example: https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
         data = {}
+        allData = []
         glist = []
-        find(location, bounds, data, glist, args.name)
+        find(location, bounds, data, allData, glist, args.name)
         if (args.name == None):
             for i in config[criterionName]['include'].keys():
-                find(location, bounds, data, glist, i)
+                find(location, bounds, data, allData, glist, i)
 
         deletions = []
         for k, v in iter(data.items()):
             if (config[criterionName]['exclude'].get(v['name'])):
-                print('deleting ' + k)
+                #print('deleting ' + k)
                 deletions.append(k)
 
         for d in deletions:
@@ -167,6 +169,9 @@ if (__name__ == "__main__"):
 
         with open(criterionName + '.' + modName + 'yml', 'w') as yaml_file:
             dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
+
+        with open(criterionName + '.' + modName + 'all.yml', 'w') as yaml_file:
+            dump(allData, yaml_file, default_flow_style=False, Dumper=Dumper)
 
         if (args.debug):
             with open('glist.' + modName + 'yml', 'w') as yaml_file:
