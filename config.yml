@@ -29,11 +29,35 @@ evaluation:
     safety: 0.0
 
 grocery:
+  # Note that some of these are required to be in the include section because they do not have the proper google places tagging
+  # (eg. Kroger has 'grocery_or_supermarket' which is a deprecated tag and does not have the proper 'supermarket' tag)
   include:
     Food Lion: 1
     Kroger: 1
+    Walmart: 1
+    Walmart Supercenter: 1
+    Walmart Neighborhood Market: 1
+    Supertarget: 1
+    ALDI: 1
+    Lidl: 1
+    Publix: 1
+    Lowes Foods: 1
+    Compare Foods: 1
+    Save-A-Lot: 1
+    Food World: 1
   exclude:
     Harris Teeter: 1
+    Whole Foods: 1
+    Harris Teeter: 1
+    Trader Joe's: 1
+    Sam's Club: 1
+    Durham Co-Op: 1
+    Whole Foods Market: 1
+    Family Dollar: 1
+    A&C SUPERMARKET EQUIPMENT: 1
+    tobacco & vape: 1
+    The Fresh Market: 1
+    los primos market alston: 1
   style:
     color: '000000'
     icon: shopping cart

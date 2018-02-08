@@ -33,7 +33,7 @@ def find(location, bounds, data, allData, glist, name=None):
             if (name):
                 psn = gmaps.places_nearby(location=location, rank_by='distance', keyword=name)
             else:
-                psn = gmaps.places_nearby(location=location, rank_by='distance', type='grocery_or_supermarket')
+                psn = gmaps.places_nearby(location=location, rank_by='distance', type='supermarket')
         else:
             #print('token = ' + token) 
             psn = gmaps.places_nearby(location=location, page_token=token)
@@ -41,18 +41,25 @@ def find(location, bounds, data, allData, glist, name=None):
         #print(dump(psn, default_flow_style=False, Dumper=Dumper))
         #print('saving token')
         for p in psn['results']:
-            allData.append(p)
             if (not utils.isInside(p['geometry']['location'], bounds)):
+                # Not in the bounding box
                 #print('this one is not inside:')
                 #print(dump(p, default_flow_style=False, Dumper=Dumper))
                 more = False
                 break
-            if (not data.get(p['place_id'])):
-                dist = utils.distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
-                                       (location['lat'], location['lng']))
-                gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': dist}
-                data[p['place_id']] = gRec
-                glist.append(gRec)
+            if (data.get(p['place_id'])):
+                # Already found this one
+                continue
+
+            dist = utils.distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
+                                   (location['lat'], location['lng']))
+            gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': dist}
+            data[p['place_id']] = gRec
+            glist.append(gRec)
+
+            p['distance'] = dist
+            allData.append(p)
+
         token = psn.get('next_page_token')
         if (not token):
             # finished
@@ -98,6 +105,7 @@ if (__name__ == "__main__"):
     parser.add_argument('-debug', action='store_true', help='print extra info')
     parser.add_argument('-find', action='store_true', help='find all DB items and write them to ' + criterionName + '.yml')
     parser.add_argument('-name', type=str, help='find only for this name')
+    parser.add_argument('-location', type=str, help='location to evaluate (will default to the location given in the config.yml file)')
     parser.add_argument('-evaluate', type=str, help='evaluate the ' + criterionName + ' score for a given coordinate pair (eg. -evaluate 35.936164,-79.040997)')
     args = parser.parse_args()
 
@@ -131,7 +139,11 @@ if (__name__ == "__main__"):
         print(str(e))
         raise Exception('ERROR: Failed to load yaml file ' + 'config.yml')
 
-    location = locations[config['location']] ['location']
+    if (args.location):
+        latlong = args.location.split(',')
+        location = {'lat': latlong[0], 'lng': latlong[1]}
+    else:
+        location = locations[config['location']] ['location']
     bounds = locations[config['location']] ['bounds']
 
     if (args.find):
@@ -149,7 +161,7 @@ if (__name__ == "__main__"):
         deletions = []
         for k, v in iter(data.items()):
             if (config[criterionName]['exclude'].get(v['name'])):
-                #print('deleting ' + k)
+                print('excluding ' + v['name'])
                 deletions.append(k)
 
         for d in deletions:
@@ -166,6 +178,9 @@ if (__name__ == "__main__"):
             modName = ''
         else:
             modName = re.sub(r'\s', r'_', args.name) + '.'
+
+        if (args.location):
+            modName = 'location.' + modName
 
         with open(criterionName + '.' + modName + 'yml', 'w') as yaml_file:
             dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)

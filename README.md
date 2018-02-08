@@ -5,4 +5,5 @@ World Relief Housing Mapping
 python >= 3.5
 pip install googlemaps
 pip install geopy
+pip install PyYAML
 
