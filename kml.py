@@ -130,3 +130,4 @@ def write(filename, config, data, results):
 
     with open(filename, 'w') as kml_file:
         kml_file.write(prettify(root))
+
