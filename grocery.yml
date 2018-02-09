@@ -27,7 +27,7 @@ ChIJ95aUcKXjrIkRoREtz0kZnRE:
   name: Food Lion
   vicinity: 3500 N Roxboro St, Durham
 ChIJFSGrEj_irIkRwywpFNsTD0g:
-  distance: 5.202377702416621
+  distance: 5.202377702415964
   location:
     lat: 36.0692185
     lng: -78.9064566
@@ -48,7 +48,7 @@ ChIJLZolc9zlrIkRzsSVaJ5DB9Y:
   name: Kroger
   vicinity: 3825 S Roxboro St Ste 101, Durham
 ChIJMYDA6376rIkRTiCIWGUAmSg:
-  distance: 8.577897421235777
+  distance: 8.577897421235926
   location:
     lat: 35.909886
     lng: -78.78591
@@ -138,6 +138,13 @@ ChIJf-r8enX7rIkRs17LnkJC258:
     lng: -78.7930253
   name: Food Lion
   vicinity: 121 Sherron Rd Ste 210, Durham
+ChIJg8D48SnirIkRvUsnOFpV2a8:
+  distance: 4.709623543790721
+  location:
+    lat: 36.0580981
+    lng: -78.9277929
+  name: Food Lion
+  vicinity: 3808 Guess Rd, Durham
 ChIJh-k-AGPkrIkRG0cH71eRRjo:
   distance: 0.6832697141767408
   location:
@@ -152,6 +159,13 @@ ChIJh119g2nkrIkRMPJko-IooJA:
     lng: -78.9004449
   name: Food World
   vicinity: 401 East Lakewood Avenue, Durham
+ChIJhQ3VMhPvrIkRWP6_6uKYu70:
+  distance: 6.563115995136486
+  location:
+    lat: 35.898841
+    lng: -78.8987607
+  name: Food Lion
+  vicinity: 4900 NC Hwy 55, Ste 300, Durham
 ChIJhfH-Eb3krIkRALYCJQTctWk:
   distance: 2.219320176745267
   location:
@@ -160,12 +174,19 @@ ChIJhfH-Eb3krIkRALYCJQTctWk:
   name: Food Lion
   vicinity: 2400 Holloway St, Durham
 ChIJjeBADFThrIkR1x8_uWmKF1s:
-  distance: 2.4289990187009702
+  distance: 2.4289990187012234
   location:
     lat: 36.0143416
     lng: -78.9340478
   name: Food Lion
   vicinity: 2930 W Main St, Durham
+ChIJkcyVs0HkrIkRt21WWWrqfxo:
+  distance: 0.7387018053489582
+  location:
+    lat: 35.9839613
+    lng: -78.9031157
+  name: los primos market alston
+  vicinity: 1006 South Roxboro Street, Durham
 ChIJl-s1Oz7krIkR1eI3n0YcyTA:
   distance: 0.8784606390042606
   location:
@@ -202,7 +223,7 @@ ChIJsZYSGBTirIkRlX0tLAVV8xM:
   name: Food Lion
   vicinity: 5279 Roxboro Rd, Durham
 ChIJubjSc2bprIkRw1Hnz5qyhgA:
-  distance: 7.30803618334493
+  distance: 7.3080361833445435
   location:
     lat: 35.9005728
     lng: -78.9601149
