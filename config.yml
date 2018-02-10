@@ -2,31 +2,57 @@ location: durham
 
 evaluation:
   enable:
+    bus: 1
     grocery: 1
-    bus: 0
+    resources: 0
+    employment: 0
     safety: 0
 
-  threshold:
-    grocery:
-      metric: distance_to_nearest
-      better: lower # lower distance is better
-      min: 0.3  # gets a max score if 0.3 miles or less
-      max: 1.0  # gets a 0 score if more than 1.0 miles, in between it is in linear
+  value:
     bus:
-      metric: distance_to_nearest
-      better: lower # lower distance is better
-      min: 0.3  # gets a max score if 0.3 miles or less
-      max: 1.0  # gets a 0 score if more than 1.0 miles, in between it is in linear
+      # TODO
+      selection: nearest
+      function:
+      - const: 1.0
+    grocery:
+      selection: nearest
+      function:
+      - point: [0.0,1.0]
+      - linear
+      - point: [0.25,0.95]
+      - linear
+      - point: [0.75,0.70]
+      - linear
+      - point: [1.25,0.20]
+      - exp: [6.4,-2.7726]
+    resources:
+      # TODO
+      selection: nearest
+      function:
+      - const: 0.0
+    employment:
+      # TODO
+      selection: nearest
+      function:
+      - const: 0.0
     safety:
-      metric: distance_to_nearest
-      better: lower # lower distance is better
-      min: 0.3  # gets a max score if 0.3 miles or less
-      max: 1.0  # gets a 0 score if more than 1.0 miles, in between it is in linear
+      selection: evaluated
 
-  weight:
-    grocery: 1.0
-    bus: 0.0
-    safety: 0.0
+  final:
+    mul:
+      - bus
+      - weighted_sum:
+          grocery: 1.0
+          resources: 0.0
+          employment: 0.0
+          safety: 0.0
+
+bus:
+  include: {}
+  exclude: {}
+  style:
+    color: '0000CC'
+    icon: bus
 
 grocery:
   # Note that some of these are required to be in the include section because they do not have the proper google places tagging
@@ -61,7 +87,12 @@ grocery:
     color: '000000'
     icon: shopping cart
 
-bus:
+resources:
+  include: {}
+  exclude: {}
+  style: {}
+
+employment:
   include: {}
   exclude: {}
   style: {}

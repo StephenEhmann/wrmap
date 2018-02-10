@@ -33,21 +33,7 @@ def init():
     return data
 
 def evaluate(loc, data, threshold):
-    metric = threshold['metric']
-    better = threshold['better']
-    mn = threshold['min']
-    mx = threshold['max']
-    if (metric != 'distance_to_nearest'):
-        raise Exception('ERROR: can only evaluate for metric distance_to_nearest')
-
-    minDist = 100
-    minK = ''
-    for k, v in iter(data.items()):
-        dist = utils.distance(loc, (v['location']['lat'], v['location']['lng']))
-        if (dist < minDist):
-            minDist = dist
-            minK = k
-    return utils.ramp(minDist, mn, mx, (better != 'lower'))
+    pass
 
 
 if (__name__ == "__main__"):

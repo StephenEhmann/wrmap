@@ -72,13 +72,11 @@ def init():
         data = load(in_file, Loader=Loader)
     return data
 
-def evaluate(loc, data, threshold):
-    metric = threshold['metric']
-    better = threshold['better']
-    mn = threshold['min']
-    mx = threshold['max']
-    if (metric != 'distance_to_nearest'):
-        raise Exception('ERROR: can only evaluate for metric distance_to_nearest')
+def evaluate(loc, data, value):
+    #print(str(value))
+    selection = value['selection']
+    if (selection != 'nearest'):
+        raise Exception('ERROR: can only evaluate for selection \'nearest\'')
 
     minDist = 100
     minK = ''
@@ -87,7 +85,8 @@ def evaluate(loc, data, threshold):
         if (dist < minDist):
             minDist = dist
             minK = k
-    return utils.ramp(minDist, mn, mx, (better != 'lower'))
+    # distance to nearest grocery store is x
+    return utils.evaluate_function(value['function'], minDist)
 
 
 if (__name__ == "__main__"):
@@ -195,7 +194,7 @@ if (__name__ == "__main__"):
     elif (args.evaluate):
         data = init()
         latlong = args.evaluate.split(',')
-        e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['threshold'][criterionName])
+        e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['value'][criterionName])
         print(str(e))
 
     sys.exit(0)

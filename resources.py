@@ -22,7 +22,7 @@ gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU')
 
 import utils
 
-criterionName = 'bus'
+criterionName = 'resources'
 
 def find(location, bounds, data, name=None):
     pass

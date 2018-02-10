@@ -56,18 +56,56 @@ def init(config):
             data[k] = {}
             data[k]['module'] = importlib.import_module(k, package=None)
             data[k]['data'] = data[k]['module'].init()
-            data[k]['threshold'] = config['evaluation']['threshold'][k]
+            data[k]['value'] = config['evaluation']['value'][k]
     return data
 
 
-def evaluate(loc, data, weight):
+def evaluate_data(loc, data, k):
+    #print('eval for ' + k)
+    v = data[k]
+    return v['module'].evaluate(loc, v['data'], v['value'])
+
+def evaluate_weighted_sum(loc, data, weights):
     score = 0.0
-    for k, v in iter(data.items()):
-        #print('eval for ' + k)
-        kscore = v['module'].evaluate(loc, v['data'], v['threshold'])
-        #print('kscore = ' + str(kscore))
-        score += weight[k] * kscore
+    for k, w in iter(weights.items()):
+        if (config['evaluation']['enable'][k]):
+            dataScore = evaluate_data(loc, data, k)
+            print('score for ' + k + ' = ' + str(dataScore))
+            score += w * dataScore
     return score
+
+def evaluate_mul(loc, data, mul):
+    score = 1.0
+    for v in mul:
+        if (isinstance(v, dict)):
+            score *= evaluate(loc, data, v)
+        elif (isinstance(v, list)):
+            raise Exception('ERROR: mul operand cannot be a list')
+        else:
+            # scalar
+            if (config['evaluation']['enable'][v]):
+                dataScore = evaluate_data(loc, data, v)
+                print('score for ' + v + ' = ' + str(dataScore))
+                score *= dataScore
+    return score
+
+def evaluate(loc, data, final):
+    count = 0
+    for op, v in iter(final.items()):
+        if (op == 'mul'):
+            if (not isinstance(v, list)):
+                raise Exception('ERROR: mul operator requires a list value')
+            return evaluate_mul(loc, data, v)
+        elif (op == 'weighted_sum'):
+            if (not isinstance(v, dict)):
+                raise Exception('ERROR: weighted_sum operator requires a map value')
+            return evaluate_weighted_sum(loc, data, v)
+        else:
+            raise Exception('ERROR: unimplemented op: ' + op)
+        count += 1
+
+    if (count > 1):
+        raise Exception('ERROR: only one top level op allowed for now')
 
 
 if (__name__ == "__main__"):
@@ -142,7 +180,7 @@ if (__name__ == "__main__"):
         data = init(config)
         if (args.location):
             latlong = args.location.split(',')
-            e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['weight'])
+            e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['final'])
             print(str(e))
         elif (args.resolution):
             results = {}
@@ -181,7 +219,7 @@ if (__name__ == "__main__"):
                     y = ystart
                     while (y < yend):
                         results[(y, x)] = {}
-                        results[(y, x)]['val'] = evaluate((y, x), data, config['evaluation']['weight'])
+                        results[(y, x)]['val'] = evaluate((y, x), data, config['evaluation']['final'])
                         results[(y, x)]['name'] = str(xi) + ',' + str(yi)
                         print('x,y = ' + str(x) + ' , ' + str(y) + ' = ' + str(results[(y, x)]['val']))
                         yi += 1
@@ -203,5 +241,8 @@ if (__name__ == "__main__"):
 # test:
 # wrmap.py -geocode 'Durham NC'
 # wrmap.py -eval -location 35.936164,-79.040997
+# = 0
 # wrmap.py -eval -location 35.96253900000001,-78.958224
+# = 1
 # wrmap.py -eval -location 35.916752,-78.963430
+# = 0.7141783742869423
