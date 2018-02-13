@@ -48,8 +48,6 @@ evaluation:
           safety: 0.0
 
 bus:
-  include: {}
-  exclude: {}
   style:
     color: '0000CC'
     icon: bus

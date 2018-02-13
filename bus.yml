@@ -1,245 +1,420 @@
-ChIJ2Uw3ynb6rIkRgzImXrkaJag:
-  distance: 8.814998115191878
+ChIJ-SRJ7W3krIkRh2yCfFzSN-4:
+  distance: 0.21461204600634148
   location:
-    lat: 35.9122691
-    lng: -78.7777304
-  name: Walmart Supercenter
-  vicinity: 10050 Glenwood Ave, Raleigh
-ChIJ5c2LX97grIkRzDs-4bJurXA:
-  distance: 5.2155569518882485
+    lat: 35.99561599999999
+    lng: -78.901917
+  name: E Main St at Corcoran St (Eastbound)
+  vicinity: United States
+ChIJ18pVt2TkrIkR9oXjHsF2j1w:
+  distance: 0.46818066913057726
   location:
-    lat: 36.03188919999999
-    lng: -78.9792296
-  name: Food Lion
-  vicinity: 4621 Hillsborough Rd, Durham
-ChIJ8a5KYi7urIkRThcNTY2YZCQ:
-  distance: 9.208258924445998
+    lat: 35.994608
+    lng: -78.890293
+  name: Holloway St at Elizabeth St
+  vicinity: United States
+ChIJ3SwHqWzkrIkRxRxnOUBEbyI:
+  distance: 0.471515187100655
   location:
-    lat: 35.867456
-    lng: -78.846223
-  name: Walmart Supercenter
-  vicinity: 1001 Shiloh Glenn Dr, Morrisville
-ChIJ95aUcKXjrIkRoREtz0kZnRE:
-  distance: 2.953596790839305
+    lat: 35.9918619
+    lng: -78.9065991
+  name: Willard St at Blackwell St
+  vicinity: United States
+ChIJ50zkenHkrIkR_pQAcdEdJZA:
+  distance: 0.3790570762743526
   location:
-    lat: 36.0364225
-    lng: -78.8910037
-  name: Food Lion
-  vicinity: 3500 N Roxboro St, Durham
-ChIJFSGrEj_irIkRwywpFNsTD0g:
-  distance: 5.202377702415964
+    lat: 35.99941999999999
+    lng: -78.89997
+  name: Rigsbee Ave at Seminary St
+  vicinity: United States
+ChIJ5TXJYG_krIkRiERxXlkfF44:
+  distance: 0.24576170730845054
   location:
-    lat: 36.0692185
-    lng: -78.9064566
-  name: Kroger
-  vicinity: 5116 N Roxboro St, Durham
-ChIJH71QirjnrIkRklM3UCDf3fE:
-  distance: 5.818091965398327
+    lat: 35.9918
+    lng: -78.8952
+  name: E Main St at S Dillard St
+  vicinity: United States
+ChIJ5fp-r27krIkRkjxTRVanqa4:
+  distance: 0.19383140692366543
   location:
-    lat: 35.9514299
-    lng: -78.9882298
-  name: Kroger
-  vicinity: 3420 SW Durham Dr, Durham
-ChIJLZolc9zlrIkRzsSVaJ5DB9Y:
-  distance: 3.3162864570238786
+    lat: 35.991461
+    lng: -78.900016
+  name: Roxboro Rd at Dillard St
+  vicinity: United States
+ChIJ6yR06m7krIkRhV-wC4FrSzI:
+  distance: 0.13724732175231613
   location:
-    lat: 35.9495862
-    lng: -78.9212376
-  name: Kroger
-  vicinity: 3825 S Roxboro St Ste 101, Durham
-ChIJMYDA6376rIkRTiCIWGUAmSg:
-  distance: 8.577897421235926
+    lat: 35.992053
+    lng: -78.898873
+  name: Pettigrew St at Roxboro St
+  vicinity: United States
+ChIJ70r1GHDkrIkRVWVWnVjP22o:
+  distance: 0.2079295095671263
   location:
-    lat: 35.909886
-    lng: -78.78591
-  name: Lowes Foods on Brier Creek Pkwy
-  vicinity: 8100 Brier Creek Pkwy, Raleigh
-ChIJNX_VHiDkrIkRlsk53XltwDc:
-  distance: 1.699963934262667
+    lat: 35.99632
+    lng: -78.8962
+  name: Roxboro St at Holloway St
+  vicinity: United States
+ChIJ7zCJd3DkrIkRw1yM3LcoR-k:
+  distance: 0.3246466754110057
   location:
-    lat: 35.9878143
-    lng: -78.92797759999999
-  name: Food Lion
-  vicinity: 2000 Chapel Hill Rd, Durham
-ChIJQUPCHFnmrIkRIpvivARBL6U:
-  distance: 3.8824877802880557
+    lat: 35.997705
+    lng: -78.894992
+  name: Roxboro St at Mallard Ave
+  vicinity: United States
+ChIJ8cqqB2XkrIkRRbs_wWTV-LM:
+  distance: 0.3462561779118517
   location:
-    lat: 35.9660128
-    lng: -78.9587147
-  name: Target
-  vicinity: 4037 Durham-Chapel Hill Blvd, Durham
-ChIJR916cejjrIkRkhSjMRqfFX8:
-  distance: 2.754151855019282
+    lat: 35.992963
+    lng: -78.89258099999999
+  name: Liberty St at Elizabeth St
+  vicinity: United States
+ChIJ91vqRHLkrIkR3Mjmtsz2wEc:
+  distance: 0.36180828466429193
   location:
-    lat: 36.0298137
-    lng: -78.9204785
-  name: Kroger
-  vicinity: 1802 N Pointe Dr, Durham
-ChIJS3gmZevorIkRItcfHKOC8SM:
-  distance: 7.0892561562515
+    lat: 35.99819
+    lng: -78.90256
+  name: Morgan St at The Carolina Theatre
+  vicinity: United States
+ChIJ9euIjm7krIkRhD-a-ROqzVI:
+  distance: 0.08999371058150976
   location:
-    lat: 35.9026607
-    lng: -78.9566131
-  name: Target
-  vicinity: 8210 Renaissance Pkwy, Durham
-ChIJW5V-OITwrIkRKeK5RPy0N2Y:
-  distance: 8.963191579450712
+    lat: 35.992954
+    lng: -78.899523
+  name: Pettigrew St at Roxboro St
+  vicinity: United States
+ChIJCVYNYW_krIkR0z17IF5nJF0:
+  distance: 0.2446799465516903
   location:
-    lat: 35.9024239
-    lng: -78.7851778
-  name: Target
-  vicinity: 8651 Brier Creek Pkwy, Raleigh
-ChIJa4uUdJrkrIkR82hsAIkepVc:
-  distance: 1.6604695221088164
+    lat: 35.991937
+    lng: -78.895095
+  name: E Main St at Oldham Towers
+  vicinity: United States
+ChIJD7atzm3krIkRY1aHI6c_Avc:
+  distance: 0.16580281433209054
   location:
-    lat: 35.9921734
-    lng: -78.8690721
-  name: Lowes Foods
-  vicinity: '1001 N Miami Blvd #207, Durham'
-ChIJa4uUdJrkrIkRq8hv7olvQ4w:
-  distance: 1.7092848846674185
+    lat: 35.994004
+    lng: -78.901578
+  name: Pettigrew St at Mangum St
+  vicinity: United States
+ChIJEbY5QG_krIkR82r2mcqte20:
+  distance: 0.21098267318333247
   location:
-    lat: 35.9936687
-    lng: -78.8681154
-  name: Compare Foods
-  vicinity: 1000 North Miami Boulevard, Durham
-ChIJaW3PVbDorIkRqXZtlJmb_5U:
-  distance: 5.993239070715947
+    lat: 35.99171400000001
+    lng: -78.89616199999999
+  name: S Dillard St at County Public Health
+  vicinity: United States
+ChIJFeWGoRLkrIkR6gUcBYKlBVs:
+  distance: 0.5283813996990105
   location:
-    lat: 35.9127409
-    lng: -78.93648329999999
-  name: Kroger
-  vicinity: 202 West NC Hwy 54, Durham
-ChIJcehQK9nlrIkRABrMPWi8VhQ:
-  distance: 3.3324416004105495
+    lat: 35.9966263
+    lng: -78.90749319999999
+  name: Willard St. outside of Durham Station Transportation Center, Durham, NC
+  vicinity: United States
+ChIJH_zUyG3krIkRiUPDlVk0n8c:
+  distance: 0.16745230670764544
   location:
-    lat: 35.9507857
-    lng: -78.92517079999999
-  name: Walmart Supercenter
-  vicinity: 1010 Martin Luther King Jr Pkwy, Durham
-ChIJcxJnsMrlrIkRwm1atDPWLCI:
-  distance: 2.1648925512513775
+    lat: 35.994153
+    lng: -78.90160399999999
+  name: Pettigrew St at Mangum St
+  vicinity: United States
+ChIJIYi0_2TkrIkRFTnPlf4RLYY:
+  distance: 0.3825508665952701
   location:
-    lat: 35.9636922
-    lng: -78.9085668
-  name: Food Lion
-  vicinity: 3022 Fayetteville St, Durham
-ChIJeRKpMEnhrIkRVVlYPEsDvYg:
-  distance: 3.2758744263691146
+    lat: 35.992893
+    lng: -78.891937
+  name: Liberty St at Elizabeth St
+  vicinity: United States
+ChIJJ6OZqBLkrIkRt2wNTTQ3kPM:
+  distance: 0.5040856612170295
   location:
-    lat: 36.0187587
-    lng: -78.94855319999999
-  name: Kroger
-  vicinity: 3457 Hillsborough Rd, Durham
-ChIJf-r8enX7rIkRs17LnkJC258:
-  distance: 6.074367414054686
+    lat: 35.9966726
+    lng: -78.9070091
+  name: Durham Station
+  vicinity: 515 West Pettigrew Street, Durham
+ChIJK5XxdG7krIkRS0kboc5WTGU:
+  distance: 0.10373680761884106
   location:
-    lat: 35.9741143
-    lng: -78.7930253
-  name: Food Lion
-  vicinity: 121 Sherron Rd Ste 210, Durham
-ChIJg8D48SnirIkRvUsnOFpV2a8:
-  distance: 4.709623543790721
+    lat: 35.994748
+    lng: -78.90024799999999
+  name: E Main St at Mangum St (EB)
+  vicinity: United States
+ChIJKxsaiGbkrIkRTxZ2aXf9xsI:
+  distance: 0.4929093198285213
   location:
-    lat: 36.0580981
-    lng: -78.9277929
-  name: Food Lion
-  vicinity: 3808 Guess Rd, Durham
-ChIJh-k-AGPkrIkRG0cH71eRRjo:
-  distance: 0.6832697141767408
+    lat: 35.989321
+    lng: -78.892003
+  name: Angier Ave at Hosiery Mills
+  vicinity: United States
+ChIJMY4lBG7krIkR3PyZXk1qblw:
+  distance: 0.14508413146729307
   location:
-    lat: 35.9922726
-    lng: -78.8866182
-  name: Save-A-Lot
-  vicinity: 812 Liberty Street, Durham
-ChIJh119g2nkrIkRMPJko-IooJA:
-  distance: 0.43490953086761236
+    lat: 35.99573
+    lng: -78.90015
+  name: Mangum St at Parrish St
+  vicinity: United States
+ChIJN4zdg2bkrIkRD2XwtD-XQx4:
+  distance: 0.4881114151359677
   location:
-    lat: 35.987902
-    lng: -78.9004449
-  name: Food World
-  vicinity: 401 East Lakewood Avenue, Durham
-ChIJhQ3VMhPvrIkRWP6_6uKYu70:
-  distance: 6.563115995136486
+    lat: 35.98977199999999
+    lng: -78.891662
+  name: Main St at Angier Ave
+  vicinity: United States
+ChIJNTsw0WXkrIkRmKxN2amLR4M:
+  distance: 0.4203357494829299
   location:
-    lat: 35.898841
-    lng: -78.8987607
-  name: Food Lion
-  vicinity: 4900 NC Hwy 55, Ste 300, Durham
-ChIJhfH-Eb3krIkRALYCJQTctWk:
-  distance: 2.219320176745267
+    lat: 35.990474
+    lng: -78.892528
+  name: E Main St at Elizabeth St
+  vicinity: United States
+ChIJO0RaZmrkrIkRNFTn8ansims:
+  distance: 0.5377403693925992
   location:
-    lat: 35.9891338
-    lng: -78.8594717
-  name: Food Lion
-  vicinity: 2400 Holloway St, Durham
-ChIJjeBADFThrIkR1x8_uWmKF1s:
-  distance: 2.4289990187012234
+    lat: 35.986956
+    lng: -78.902653
+  name: S Roxboro St at Chestnut St (NB)
+  vicinity: United States
+ChIJOelG223krIkRhljoTj_cS1M:
+  distance: 0.1476781967859912
   location:
-    lat: 36.0143416
-    lng: -78.9340478
-  name: Food Lion
-  vicinity: 2930 W Main St, Durham
-ChIJkcyVs0HkrIkRt21WWWrqfxo:
-  distance: 0.7387018053489582
+    lat: 35.994536
+    lng: -78.901181
+  name: Mangum St at Ramseur St
+  vicinity: United States
+ChIJP0aUWm7krIkRHqECeyLnwHg:
+  distance: 0.005037670427142644
   location:
-    lat: 35.9839613
-    lng: -78.9031157
-  name: los primos market alston
-  vicinity: 1006 South Roxboro Street, Durham
-ChIJl-s1Oz7krIkR1eI3n0YcyTA:
-  distance: 0.8784606390042606
+    lat: 35.993961
+    lng: -78.898635
+  name: E Main St at Roxboro St (WB)
+  vicinity: United States
+ChIJP3GWt3HkrIkR7AtMA2QkB00:
+  distance: 0.2375291687772677
   location:
-    lat: 35.9849888
-    lng: -78.9096619
-  name: Compare Foods
-  vicinity: 1233 University Drive, Durham
-ChIJlSGDZzPjrIkRsbtKDUnR3AY:
-  distance: 3.873963611222869
+    lat: 35.99747
+    lng: -78.89833
+  name: Morgan St at Mangum St
+  vicinity: United States
+ChIJP5Q7V27krIkRd4iYVqX44R8:
+  distance: 0.07191616410944661
   location:
-    lat: 36.02822999999999
-    lng: -78.843746
-  name: Walmart Supercenter
-  vicinity: 1525 Glenn School Road, Durham
-ChIJlVN_rZ7orIkRcMASaryZGV0:
-  distance: 5.9866978521455785
+    lat: 35.993266
+    lng: -78.89774899999999
+  name: E Main St at Roxboro St (EB)
+  vicinity: United States
+ChIJQdG5GXrkrIkR4957obBAio8:
+  distance: 0.517992721812172
   location:
-    lat: 35.920826
-    lng: -78.9560527
-  name: Food Lion
-  vicinity: 4711 Hope Valley Rd, Durham
-ChIJmQCuBpn6rIkRl8YkxCtI25k:
-  distance: 7.051710541804105
+    lat: 36.00038499999999
+    lng: -78.893682
+  name: Dowd St at Roxboro Rd (WB)
+  vicinity: United States
+ChIJRQmKGBPkrIkRn-hSt4FMHfE:
+  distance: 0.5079454971230358
   location:
-    lat: 35.9204785
-    lng: -78.811208
-  name: Food Lion
-  vicinity: 2121 TW Alexander Dr, Morrisville
-ChIJsZYSGBTirIkRlX0tLAVV8xM:
-  distance: 5.718612374360261
+    lat: 35.99439449999999
+    lng: -78.9076738
+  name: Willard St at Yancey St (Ramada Inn)
+  vicinity: United States
+ChIJSyWmnHLkrIkR6JbCIE1fZPs:
+  distance: 0.3653464771990177
   location:
-    lat: 36.0763167
-    lng: -78.91145829999999
-  name: Food Lion
-  vicinity: 5279 Roxboro Rd, Durham
-ChIJubjSc2bprIkRw1Hnz5qyhgA:
-  distance: 7.3080361833445435
+    lat: 35.996882
+    lng: -78.904117
+  name: E Chapel Hill St at Main St
+  vicinity: United States
+ChIJTbkSJWrkrIkREObzqrK_OG4:
+  distance: 0.4746195354185403
   location:
-    lat: 35.9005728
-    lng: -78.9601149
-  name: ALDI
-  vicinity: 7906 NC Hwy 751, Durham
-ChIJvbtfTr7nrIkR6W8Kw9QMPIc:
-  distance: 6.24558132901793
+    lat: 35.9874523
+    lng: -78.9011055
+  name: Lakewood Ave at Roxboro St (Southside Lofts)
+  vicinity: United States
+ChIJTbkSJWrkrIkRt7y0Y-oVtlY:
+  distance: 0.47427883939255927
   location:
-    lat: 35.954853
-    lng: -78.9990983
-  name: Walmart Supercenter
-  vicinity: 5450 New Hope Commons Dr, Durham
-ChIJy7Zt1JzjrIkRRvOra7cLZfw:
-  distance: 1.8142561171616112
+    lat: 35.987464
+    lng: -78.9011315
+  name: Lakewood Ave at Roxboro St (Southside Lofts)
+  vicinity: United States
+ChIJY24Bh2bkrIkR8KHubNFaqGU:
+  distance: 0.487613384945191
   location:
-    lat: 36.0183078
-    lng: -78.8861194
-  name: Compare Foods
-  vicinity: 2000 Avondale Drive A, Durham
+    lat: 35.989556
+    lng: -78.89188200000001
+  name: Angier Ave at E Main St
+  vicinity: United States
+ChIJZTkqf2_krIkRmo6z-tKqBcs:
+  distance: 0.20688523479773505
+  location:
+    lat: 35.99287999999999
+    lng: -78.89520999999999
+  name: N Dillard St at Main St
+  vicinity: United States
+ChIJZa3xm2bkrIkRpNwda3xiAMA:
+  distance: 0.5234950907771792
+  location:
+    lat: 35.989594
+    lng: -78.89103899999999
+  name: Main St at Golden Belt
+  vicinity: United States
+ChIJZeSCtnLkrIkRfvafAVrhlWI:
+  distance: 0.48250418749282115
+  location:
+    lat: 35.99786
+    lng: -78.905829
+  name: W Main St at West Village (Eastbound)
+  vicinity: United States
+ChIJb_pbcHLkrIkRiqYJQxmPuBE:
+  distance: 0.2975069743767121
+  location:
+    lat: 35.99694
+    lng: -78.902543
+  name: E Chapel Hill St at Post Office
+  vicinity: United States
+ChIJc_0zeHHkrIkRO45xMz5qAug:
+  distance: 0.34979043666731074
+  location:
+    lat: 35.999
+    lng: -78.89989
+  name: Rigsbee Ave at Seminary St
+  vicinity: United States
+ChIJd1NkvXLkrIkRBAuCNVmci8A:
+  distance: 0.4211575885297501
+  location:
+    lat: 35.9974464
+    lng: -78.90485269999999
+  name: Main St at Chapel Hill St (Westbound)
+  vicinity: United States
+ChIJfSCEuWTkrIkR7hvoxsgbqXk:
+  distance: 0.46713491719335837
+  location:
+    lat: 35.994457
+    lng: -78.890298
+  name: Holloway St at Elizabeth St
+  vicinity: United States
+ChIJg2dkrxLkrIkR_wrIroGpPgg:
+  distance: 0.48960676303128947
+  location:
+    lat: 35.996367
+    lng: -78.906872
+  name: Durham
+  vicinity: United States
+ChIJh7LjF3rkrIkRkP5GeFX0mug:
+  distance: 0.520369004194739
+  location:
+    lat: 36.00029200000001
+    lng: -78.893429
+  name: Dowd St at Roxboro Rd (EB)
+  vicinity: United States
+ChIJh8XEuHLkrIkRLGBvczo5K6U:
+  distance: 0.45589327686694514
+  location:
+    lat: 35.9979343
+    lng: -78.9051886
+  name: Great Jones St at Main St
+  vicinity: United States
+ChIJk1mGCG_krIkRBtBAJmsN-dA:
+  distance: 0.09100563076872738
+  location:
+    lat: 35.99320700000001
+    lng: -78.897352
+  name: E Main St at Queen St (WB)
+  vicinity: United States
+ChIJpfg2hW_krIkRzQ1JbV4OW9o:
+  distance: 0.17396918365871558
+  location:
+    lat: 35.99365
+    lng: -78.89555
+  name: Liberty St at Queen St
+  vicinity: United States
+ChIJq3Q_7W3krIkR5UdMRhEkwJY:
+  distance: 0.23423388265808395
+  location:
+    lat: 35.9959029
+    lng: -78.90210929999999
+  name: E Main St at Corcoran St (Westbound)
+  vicinity: United States
+ChIJrQD0b3rkrIkRoCX-ek2rVKU:
+  distance: 0.4262058541316023
+  location:
+    lat: 35.999005
+    lng: -78.894099
+  name: Roxboro St at Gray St
+  vicinity: United States
+ChIJs7xwiWnkrIkRVb4Ge-sRrAE:
+  distance: 0.46591781651567304
+  location:
+    lat: 35.9875447
+    lng: -78.9009437
+  name: Lakewood Ave at Heritage Square
+  vicinity: United States
+ChIJu4JwqmzkrIkReKieYUSwhmU:
+  distance: 0.45053603666310377
+  location:
+    lat: 35.99138610000001
+    lng: -78.90597079999999
+  name: Willard St at Blackwell St (Outbound)
+  vicinity: United States
+ChIJuXYqNQ3krIkR1ZYxZwu7GaY:
+  distance: 0.4967405275055663
+  location:
+    lat: 35.998085
+    lng: -78.9059498
+  name: Main St at West Village (Westbound)
+  vicinity: United States
+ChIJu_wQrnbkrIkR9Z_xzTwayzI:
+  distance: 0.549043478047577
+  location:
+    lat: 36.00193
+    lng: -78.89988
+  name: Rigsbee Ave at Corporation St
+  vicinity: United States
+ChIJuwvQ22XkrIkRJURLI-RNhiY:
+  distance: 0.3985484447969527
+  location:
+    lat: 35.99051799999999
+    lng: -78.892972
+  name: E Main St at Hood St
+  vicinity: United States
+ChIJwRcS6mnkrIkRLSzfM9Ts-CI:
+  distance: 0.5257154901708968
+  location:
+    lat: 35.986421
+    lng: -78.899168
+  name: Lakewood Ave at Fayetteville St
+  vicinity: United States
+ChIJwRi9uXDkrIkRsOKMF7DTW8g:
+  distance: 0.45939615096880626
+  location:
+    lat: 36.0003191
+    lng: -78.8959005
+  name: Dowd St at Mangum St
+  vicinity: United States
+ChIJwbUjS27krIkR6TX2Htc-mQg:
+  distance: 0.06577717471630408
+  location:
+    lat: 35.994534
+    lng: -78.89762
+  name: Roxboro Rd at Liberty St
+  vicinity: United States
+ChIJxQOe_nDkrIkRAHFiu_OUeSY:
+  distance: 0.34593612573710525
+  location:
+    lat: 35.99896099999999
+    lng: -78.897459
+  name: Mangum St at W Seminary Ave
+  vicinity: United States
+ChIJxbVGC27krIkRmx37QAPM9gg:
+  distance: 0.10989431761288285
+  location:
+    lat: 35.994917
+    lng: -78.900251
+  name: E Main St at Mangum St (WB)
+  vicinity: United States
+ChIJy2oMgHLkrIkR_sqGMudOXZs:
+  distance: 0.3166271023510466
+  location:
+    lat: 35.9964961
+    lng: -78.90338849999999
+  name: Main St at Chapel Hill St (Eastbound)
+  vicinity: United States

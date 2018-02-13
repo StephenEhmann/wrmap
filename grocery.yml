@@ -5,13 +5,6 @@ ChIJ2Uw3ynb6rIkRgzImXrkaJag:
     lng: -78.7777304
   name: Walmart Supercenter
   vicinity: 10050 Glenwood Ave, Raleigh
-ChIJ5c2LX97grIkRzDs-4bJurXA:
-  distance: 5.2155569518882485
-  location:
-    lat: 36.03188919999999
-    lng: -78.9792296
-  name: Food Lion
-  vicinity: 4621 Hillsborough Rd, Durham
 ChIJ8a5KYi7urIkRThcNTY2YZCQ:
   distance: 9.208258924445998
   location:
@@ -27,7 +20,7 @@ ChIJ95aUcKXjrIkRoREtz0kZnRE:
   name: Food Lion
   vicinity: 3500 N Roxboro St, Durham
 ChIJFSGrEj_irIkRwywpFNsTD0g:
-  distance: 5.202377702415964
+  distance: 5.202377702416621
   location:
     lat: 36.0692185
     lng: -78.9064566
@@ -48,7 +41,7 @@ ChIJLZolc9zlrIkRzsSVaJ5DB9Y:
   name: Kroger
   vicinity: 3825 S Roxboro St Ste 101, Durham
 ChIJMYDA6376rIkRTiCIWGUAmSg:
-  distance: 8.577897421235926
+  distance: 8.577897421235777
   location:
     lat: 35.909886
     lng: -78.78591
@@ -131,20 +124,6 @@ ChIJeRKpMEnhrIkRVVlYPEsDvYg:
     lng: -78.94855319999999
   name: Kroger
   vicinity: 3457 Hillsborough Rd, Durham
-ChIJf-r8enX7rIkRs17LnkJC258:
-  distance: 6.074367414054686
-  location:
-    lat: 35.9741143
-    lng: -78.7930253
-  name: Food Lion
-  vicinity: 121 Sherron Rd Ste 210, Durham
-ChIJg8D48SnirIkRvUsnOFpV2a8:
-  distance: 4.709623543790721
-  location:
-    lat: 36.0580981
-    lng: -78.9277929
-  name: Food Lion
-  vicinity: 3808 Guess Rd, Durham
 ChIJh-k-AGPkrIkRG0cH71eRRjo:
   distance: 0.6832697141767408
   location:
@@ -159,13 +138,6 @@ ChIJh119g2nkrIkRMPJko-IooJA:
     lng: -78.9004449
   name: Food World
   vicinity: 401 East Lakewood Avenue, Durham
-ChIJhQ3VMhPvrIkRWP6_6uKYu70:
-  distance: 6.563115995136486
-  location:
-    lat: 35.898841
-    lng: -78.8987607
-  name: Food Lion
-  vicinity: 4900 NC Hwy 55, Ste 300, Durham
 ChIJhfH-Eb3krIkRALYCJQTctWk:
   distance: 2.219320176745267
   location:
@@ -174,7 +146,7 @@ ChIJhfH-Eb3krIkRALYCJQTctWk:
   name: Food Lion
   vicinity: 2400 Holloway St, Durham
 ChIJjeBADFThrIkR1x8_uWmKF1s:
-  distance: 2.4289990187012234
+  distance: 2.4289990187009702
   location:
     lat: 36.0143416
     lng: -78.9340478
@@ -201,29 +173,8 @@ ChIJlSGDZzPjrIkRsbtKDUnR3AY:
     lng: -78.843746
   name: Walmart Supercenter
   vicinity: 1525 Glenn School Road, Durham
-ChIJlVN_rZ7orIkRcMASaryZGV0:
-  distance: 5.9866978521455785
-  location:
-    lat: 35.920826
-    lng: -78.9560527
-  name: Food Lion
-  vicinity: 4711 Hope Valley Rd, Durham
-ChIJmQCuBpn6rIkRl8YkxCtI25k:
-  distance: 7.051710541804105
-  location:
-    lat: 35.9204785
-    lng: -78.811208
-  name: Food Lion
-  vicinity: 2121 TW Alexander Dr, Morrisville
-ChIJsZYSGBTirIkRlX0tLAVV8xM:
-  distance: 5.718612374360261
-  location:
-    lat: 36.0763167
-    lng: -78.91145829999999
-  name: Food Lion
-  vicinity: 5279 Roxboro Rd, Durham
 ChIJubjSc2bprIkRw1Hnz5qyhgA:
-  distance: 7.3080361833445435
+  distance: 7.30803618334493
   location:
     lat: 35.9005728
     lng: -78.9601149
