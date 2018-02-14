@@ -88,17 +88,18 @@ if (__name__ == "__main__"):
     parser.add_argument('--help', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('-debug', action='store_true', help='print extra info')
     parser.add_argument('-find', action='store_true', help='find all DB items and write them to ' + criterionName + '.yml')
+    parser.add_argument('-kml', type=str, help='along with -find, optional output kmz name: <name>.kmz')
     parser.add_argument('-name', type=str, help='find only for this name')
     parser.add_argument('-location', type=str, help='location to evaluate (will default to the location given in the config.yml file)')
-    parser.add_argument('-evaluate', type=str, help='evaluate the ' + criterionName + ' score for a given coordinate pair (eg. -evaluate 35.936164,-79.040997)')
+    parser.add_argument('-eval', type=str, help='evaluate the ' + criterionName + ' score for a given coordinate pair (eg. -eval 35.936164,-79.040997)')
     args = parser.parse_args()
 
     if (args.h or args.help):
         parser.print_help()
         sys.exit(0)
 
-    if (args.find and args.evaluate or not args.find and not args.evaluate):
-        print('ERROR: exactly one action must be given, choose exactly one of -find or -evaluate')
+    if (args.find and args.eval or not args.find and not args.eval):
+        print('ERROR: exactly one action must be given, choose exactly one of -find or -eval')
         sys.exit(1)
 
     if (not args.find and args.name):
@@ -168,9 +169,17 @@ if (__name__ == "__main__"):
         with open(criterionName + '.' + modName + 'all.yml', 'w') as yaml_file:
             dump(allData, yaml_file, default_flow_style=False, Dumper=Dumper)
 
-    elif (args.evaluate):
+        if (args.kml):
+            # package the data so that kml understands it
+            kmlData = {criterionName: {'data': data} }
+            if (os.path.dirname(args.kml)):
+                os.makedirs(os.path.dirname(args.kml), exist_ok=True)
+            kml.write(args.kml, config, kmlData, None)
+            #kml.write(os.path.join(args.kml, 'doc.kml'), config, data, results)
+
+    elif (args.eval):
         data = init()
-        latlong = args.evaluate.split(',')
+        latlong = args.eval.split(',')
         e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['value'][criterionName])
         print(str(e))
 
