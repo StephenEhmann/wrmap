@@ -173,13 +173,14 @@ if (__name__ == "__main__"):
         print(str(e))
         raise Exception('ERROR: Failed to load yaml file ' + 'config.yml')
 
+    bounds = locations[config['location']] ['bounds']
     if (args.location):
         latlong = args.location.split(',')
         location = {'lat': latlong[0], 'lng': latlong[1]}
     else:
-        location = locations[config['location']] ['location']
-    bounds = locations[config['location']] ['bounds']
-
+        # location = locations[config['location']] ['location']
+        location = utils.centroid(bounds)
+    
     if (args.find):
         if (not config[criterionName].get('include')):
             config[criterionName]['include'] = {}
