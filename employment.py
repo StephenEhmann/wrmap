@@ -110,7 +110,7 @@ if (__name__ == "__main__"):
         deletions = []
         for k, v in iter(data.items()):
             if (config['find'][criterionName]['exclude'].get(v['name'])):
-                print('deleting ' + k)
+                print('excluding ' + v['name'])
                 deletions.append(k)
 
         for d in deletions:

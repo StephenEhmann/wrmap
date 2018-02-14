@@ -21,11 +21,49 @@ import googlemaps
 gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU')
 
 import utils
+import kml
 
 criterionName = 'resources'
 
-def find(location, bounds, data, name=None):
-    pass
+# TODO: update with Levi's alg
+def find(location, bounds, data, allData, name):
+    more = True
+    token = None
+    while (more):
+        #print('search...')
+        if (not token):
+            psn = gmaps.places_nearby(location=location, rank_by='distance', keyword=name)
+        else:
+            #print('token = ' + token)
+            psn = gmaps.places_nearby(location=location, page_token=token)
+        #print('psn:')
+        #print(dump(psn, default_flow_style=False, Dumper=Dumper))
+        #print('saving token')
+        for p in psn['results']:
+            if (not utils.isInside(p['geometry']['location'], bounds)):
+                # Not in the bounding box
+                #print('this one is not inside:')
+                #print(dump(p, default_flow_style=False, Dumper=Dumper))
+                more = False
+                break
+            if (data.get(p['place_id'])):
+                # Already found this one
+                continue
+
+            dist = utils.distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
+                                   (location['lat'], location['lng']))
+            gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': dist}
+            data[p['place_id']] = gRec
+
+            p['distance'] = dist
+            allData.append(p)
+
+        token = psn.get('next_page_token')
+        if (not token):
+            # finished
+            more = False
+            break
+        time.sleep(2) # next_page_token not immediately ready server-side
 
 def init():
     with open(criterionName + '.yml', 'r') as in_file:
@@ -33,20 +71,7 @@ def init():
     return data
 
 def evaluate(loc, data, value):
-    #print(str(value))
-    selection = value['selection']
-    if (selection != 'nearest'):
-        raise Exception('ERROR: can only evaluate for selection \'nearest\'')
-
-    minDist = 100
-    minK = ''
-    for k, v in iter(data.items()):
-        dist = utils.distance(loc, (v['location']['lat'], v['location']['lng']))
-        if (dist < minDist):
-            minDist = dist
-            minK = k
-    # distance to nearest grocery store is x
-    return utils.evaluate_function(value['function'], minDist)
+    return utils.evaluate_require_nearest(loc, data, value)
 
 
 if (__name__ == "__main__"):
@@ -64,6 +89,7 @@ if (__name__ == "__main__"):
     parser.add_argument('-debug', action='store_true', help='print extra info')
     parser.add_argument('-find', action='store_true', help='find all DB items and write them to ' + criterionName + '.yml')
     parser.add_argument('-name', type=str, help='find only for this name')
+    parser.add_argument('-location', type=str, help='location to evaluate (will default to the location given in the config.yml file)')
     parser.add_argument('-evaluate', type=str, help='evaluate the ' + criterionName + ' score for a given coordinate pair (eg. -evaluate 35.936164,-79.040997)')
     args = parser.parse_args()
 
@@ -97,20 +123,32 @@ if (__name__ == "__main__"):
         print(str(e))
         raise Exception('ERROR: Failed to load yaml file ' + 'config.yml')
 
-    location = locations[config['location']] ['location']
+    if (args.location):
+        latlong = args.location.split(',')
+        location = {'lat': latlong[0], 'lng': latlong[1]}
+    else:
+        location = locations[config['location']] ['location']
     bounds = locations[config['location']] ['bounds']
 
     if (args.find):
+        if (not config['find'][criterionName].get('include')):
+            config['find'][criterionName]['include'] = {}
+        if (not config['find'][criterionName].get('exclude')):
+            config['find'][criterionName]['exclude'] = {}
+
         data = {}
-        find(location, bounds, data, args.name)
+        allData = []
         if (args.name == None):
+            find(location, bounds, data, allData)
             for i in config['find'][criterionName]['include'].keys():
-                find(location, bounds, data, i)
+                find(location, bounds, data, allData, i)
+        else:
+            find(location, bounds, data, allData, args.name)
 
         deletions = []
         for k, v in iter(data.items()):
             if (config['find'][criterionName]['exclude'].get(v['name'])):
-                print('deleting ' + k)
+                print('excluding ' + v['name'])
                 deletions.append(k)
 
         for d in deletions:
@@ -121,8 +159,14 @@ if (__name__ == "__main__"):
         else:
             modName = re.sub(r'\s', r'_', args.name) + '.'
 
+        if (args.location):
+            modName = 'location.' + modName
+
         with open(criterionName + '.' + modName + 'yml', 'w') as yaml_file:
             dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
+
+        with open(criterionName + '.' + modName + 'all.yml', 'w') as yaml_file:
+            dump(allData, yaml_file, default_flow_style=False, Dumper=Dumper)
 
     elif (args.evaluate):
         data = init()

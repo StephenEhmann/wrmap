@@ -25,6 +25,7 @@ import kml
 
 criterionName = 'grocery'
 
+# TODO: update with Levi's alg
 def find(location, bounds, data, allData, name=None):
     more = True
     token = None
@@ -36,7 +37,7 @@ def find(location, bounds, data, allData, name=None):
             else:
                 psn = gmaps.places_nearby(location=location, rank_by='distance', type='supermarket')
         else:
-            #print('token = ' + token) 
+            #print('token = ' + token)
             psn = gmaps.places_nearby(location=location, page_token=token)
         #print('psn:')
         #print(dump(psn, default_flow_style=False, Dumper=Dumper))
@@ -73,20 +74,7 @@ def init():
     return data
 
 def evaluate(loc, data, value):
-    #print(str(value))
-    selection = value['selection']
-    if (selection != 'nearest'):
-        raise Exception('ERROR: can only evaluate for selection \'nearest\'')
-
-    minDist = 100
-    minK = ''
-    for k, v in iter(data.items()):
-        dist = utils.distance(loc, (v['location']['lat'], v['location']['lng']))
-        if (dist < minDist):
-            minDist = dist
-            minK = k
-    # distance to nearest grocery store is x
-    return utils.evaluate_function(value['function'], minDist)
+    return utils.evaluate_require_nearest(loc, data, value)
 
 
 if (__name__ == "__main__"):
@@ -149,12 +137,20 @@ if (__name__ == "__main__"):
         # Type - supermarket
         # https://developers.google.com/places/supported_types
         # example: https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
+
+        if (not config['find'][criterionName].get('include')):
+            config['find'][criterionName]['include'] = {}
+        if (not config['find'][criterionName].get('exclude')):
+            config['find'][criterionName]['exclude'] = {}
+
         data = {}
         allData = []
-        find(location, bounds, data, allData, args.name)
         if (args.name == None):
+            find(location, bounds, data, allData)
             for i in config['find'][criterionName]['include'].keys():
                 find(location, bounds, data, allData, i)
+        else:
+            find(location, bounds, data, allData, args.name)
 
         deletions = []
         for k, v in iter(data.items()):
@@ -193,5 +189,8 @@ if (__name__ == "__main__"):
 
 # test:
 # grocery.py -evaluate 35.936164,-79.040997
+#0.0038027166005736783
 # grocery.py -evaluate 35.96253900000001,-78.958224
+#0.9517840481226215
 # grocery.py -evaluate 35.916752,-78.963430
+#0.4059346506450308

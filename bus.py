@@ -181,10 +181,10 @@ if (__name__ == "__main__"):
     bounds = locations[config['location']] ['bounds']
 
     if (args.find):
-        if (not config[criterionName].get('include')):
-            config[criterionName]['include'] = {}
-        if (not config[criterionName].get('exclude')):
-            config[criterionName]['exclude'] = {}
+        if (not config['find'][criterionName].get('include')):
+            config['find'][criterionName]['include'] = {}
+        if (not config['find'][criterionName].get('exclude')):
+            config['find'][criterionName]['exclude'] = {}
 
         data = {}
         allData = []
