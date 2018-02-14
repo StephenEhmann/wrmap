@@ -31,13 +31,15 @@ def find(location, bounds, data, allData, name=None):
     cont_srch = True
     bound_list = [bounds] #initialize stack of subdivided bounding boxes
     split_count = 0
+    split_limit = 50 #terminate if split too many times
     while(cont_srch):
         # print(bound_list)
         box = bound_list.pop() #pop one subdivided bounding box
         center = utils.centroid(box)
-        split = True
+        split = False #default is don't split, change to True below if distance to results are less than radius
         radius = max( utils.distance( (box['northeast']['lat'], box['northeast']['lng']), (center['lat'], center['lng']) ),
                       utils.distance( (box['southwest']['lat'], box['southwest']['lng']), (center['lat'], center['lng']) ) )
+        more = True
         token = None
         while (more):
             #print('search...')
@@ -52,13 +54,19 @@ def find(location, bounds, data, allData, name=None):
             #print('psn:')
             #print(dump(psn, default_flow_style=False, Dumper=Dumper))
             #print('saving token')
+            psn_result_count = 0
             for p in psn['results']:
                 dist_center = utils.distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
                                               (center['lat'], center['lng']))
-                if (dist_center > radius):
+                if (dist_center < radius):
+                    if (psn_result_count == 0):  
+                        split = True
+                else:
                     more = False
                     split = False
                     break
+                psn_result_count = psn_result_count + 1
+
                 if (not utils.isInside(p['geometry']['location'], bounds)):
                     # Not in the original, outermost bounding box
                     #print('this one is not inside:')
@@ -132,7 +140,8 @@ def find(location, bounds, data, allData, name=None):
             bound_list.append(new_box1)
             bound_list.append(new_box2)
 
-        cont_srch = not not bound_list #continue search if there is a bounding box in bound_list
+        if (not bound_list or split_count > split_limit):
+            cont_srch = False #terminate search if excede split limit or there is no bounding box in bound_list
             
 def init():
     with open(criterionName + '.yml', 'r') as in_file:
