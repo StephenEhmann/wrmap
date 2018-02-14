@@ -12,6 +12,12 @@ def isInside(loc, bounds):
 def distance(loc, ref):
     return geopy.distance.vincenty(loc, ref).miles
 
+def centroid(bounds):
+    ## dict in from location.yml, dict out like location in location.yml
+    cnt_lat = (bounds['northeast']['lat'] + bounds['southwest']['lat'])/2
+    cnt_lng = (bounds['northeast']['lng'] + bounds['southwest']['lng'])/2
+    return {'lat':cnt_lat,'lng':cnt_lng}
+
 def ramp(x, mn, mx, pos):
     if (pos):
         return 0.0 if x <= mn else 1.0 if x >= mx else (x - mn) / (mx - mn)
