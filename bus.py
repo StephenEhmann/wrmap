@@ -190,13 +190,13 @@ if (__name__ == "__main__"):
         data = {}
         allData = []
         find(location, bounds, data, allData, args.name)
-        if (args.name == None and config[criterionName].get('include')):
-            for i in config[criterionName]['include'].keys():
+        if (args.name == None and config['find'][criterionName].get('include')):
+            for i in config['find'][criterionName]['include'].keys():
                 find(location, bounds, data, allData, i)
 
         deletions = []
         for k, v in iter(data.items()):
-            if (config[criterionName]['exclude'].get(v['name'])):
+            if (config['find'][criterionName]['exclude'].get(v['name'])):
                 print('excluding ' + v['name'])
                 deletions.append(k)
 

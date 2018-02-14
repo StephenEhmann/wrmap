@@ -104,12 +104,12 @@ if (__name__ == "__main__"):
         data = {}
         find(location, bounds, data, args.name)
         if (args.name == None):
-            for i in config[criterionName]['include'].keys():
+            for i in config['find'][criterionName]['include'].keys():
                 find(location, bounds, data, i)
 
         deletions = []
         for k, v in iter(data.items()):
-            if (config[criterionName]['exclude'].get(v['name'])):
+            if (config['find'][criterionName]['exclude'].get(v['name'])):
                 print('deleting ' + k)
                 deletions.append(k)
 

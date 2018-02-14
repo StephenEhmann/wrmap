@@ -21,10 +21,11 @@ import googlemaps
 gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU')
 
 import utils
+import kml
 
 criterionName = 'grocery'
 
-def find(location, bounds, data, allData, glist, name=None):
+def find(location, bounds, data, allData, name=None):
     more = True
     token = None
     while (more):
@@ -55,7 +56,6 @@ def find(location, bounds, data, allData, glist, name=None):
                                    (location['lat'], location['lng']))
             gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': dist}
             data[p['place_id']] = gRec
-            glist.append(gRec)
 
             p['distance'] = dist
             allData.append(p)
@@ -151,15 +151,14 @@ if (__name__ == "__main__"):
         # example: https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
         data = {}
         allData = []
-        glist = []
-        find(location, bounds, data, allData, glist, args.name)
+        find(location, bounds, data, allData, args.name)
         if (args.name == None):
-            for i in config[criterionName]['include'].keys():
-                find(location, bounds, data, allData, glist, i)
+            for i in config['find'][criterionName]['include'].keys():
+                find(location, bounds, data, allData, i)
 
         deletions = []
         for k, v in iter(data.items()):
-            if (config[criterionName]['exclude'].get(v['name'])):
+            if (config['find'][criterionName]['exclude'].get(v['name'])):
                 print('excluding ' + v['name'])
                 deletions.append(k)
 
@@ -169,9 +168,6 @@ if (__name__ == "__main__"):
         if (args.debug):
             print(criterionName + ':')
             print(dump(data, default_flow_style=False, Dumper=Dumper))
-
-            print('glist:')
-            print(dump(glist, default_flow_style=False, Dumper=Dumper))
 
         if (args.name == None):
             modName = ''
@@ -186,10 +182,6 @@ if (__name__ == "__main__"):
 
         with open(criterionName + '.' + modName + 'all.yml', 'w') as yaml_file:
             dump(allData, yaml_file, default_flow_style=False, Dumper=Dumper)
-
-        if (args.debug):
-            with open('glist.' + modName + 'yml', 'w') as yaml_file:
-                dump(glist, yaml_file, default_flow_style=False, Dumper=Dumper)
 
     elif (args.evaluate):
         data = init()
