@@ -28,78 +28,112 @@ import kml
 criterionName = 'bus'
 
 def find(location, bounds, data, allData, name=None):
-    more = True
-    token = None
-    while (more):
-        #print('search...')
-        if (not token):
-            if (name):
-                psn = gmaps.places_nearby(location=location, rank_by='distance', keyword=name)
+    cont_srch = True
+    bound_list = [bounds] #initialize stack of subdivided bounding boxes
+    split_count = 0
+    while(cont_srch):
+        # print(bound_list)
+        box = bound_list.pop() #pop one subdivided bounding box
+        center = utils.centroid(box)
+        split = True
+        radius = max( utils.distance( (box['northeast']['lat'], box['northeast']['lng']), (center['lat'], center['lng']) ),
+                      utils.distance( (box['southwest']['lat'], box['southwest']['lng']), (center['lat'], center['lng']) ) )
+        token = None
+        while (more):
+            #print('search...')
+            if (not token):
+                if (name):
+                    psn = gmaps.places_nearby(location=center, rank_by='distance', keyword=name)
+                else:
+                    psn = gmaps.places_nearby(location=center, rank_by='distance', type='bus_station')
             else:
-                psn = gmaps.places_nearby(location=location, rank_by='distance', type='bus_station')
-        else:
-            #print('token = ' + token)
-            psn = gmaps.places_nearby(location=location, page_token=token)
-        #print('psn:')
-        #print(dump(psn, default_flow_style=False, Dumper=Dumper))
-        #print('saving token')
-        for p in psn['results']:
-            if (not utils.isInside(p['geometry']['location'], bounds)):
-                # Not in the bounding box
-                #print('this one is not inside:')
-                #print(dump(p, default_flow_style=False, Dumper=Dumper))
+                #print('token = ' + token)
+                psn = gmaps.places_nearby(location=center, page_token=token)
+            #print('psn:')
+            #print(dump(psn, default_flow_style=False, Dumper=Dumper))
+            #print('saving token')
+            for p in psn['results']:
+                dist_center = utils.distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
+                                              (center['lat'], center['lng']))
+                if (dist_center > radius):
+                    more = False
+                    split = False
+                    break
+                if (not utils.isInside(p['geometry']['location'], bounds)):
+                    # Not in the original, outermost bounding box
+                    #print('this one is not inside:')
+                    #print(dump(p, default_flow_style=False, Dumper=Dumper))
+                    continue
+                if (data.get(p['place_id'])):
+                    # Already found this one
+                    continue
+
+                dist = utils.distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
+                                       (location['lat'], location['lng'])) #still calculate dist to original location for recording
+                gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': dist}
+                data[p['place_id']] = gRec
+
+                p['distance'] = dist
+
+                if (0):
+                    # https://github.com/MikimotoH/gisTools/blob/master/google_place.py
+                    details = gmaps.place(p['place_id'])
+                    url = details['result']['url']
+                    print('url = ' + url)
+                    buspage = utils.get_webpage(url)
+                    print('webpage = ' + buspage)
+                    # Scrape this from the cached results section:
+                    """
+                    [["Buses",[[3,"bus2.png",null,"Bus",[["https://maps.gstatic.com/mapfiles/transit/iw2/b/bus2.png",0,[15,15],null,0]]]],[[null,null,null,null,"0x89ace4dfacb0eac1:0x2afeb462d543b31c",[[5,["2",1,"#0033cc","#ffffff"]]]],[null,null,null,null,"0x89ace40fe82c61e9:0x4b96e38b28ffccd4",[[5,["BCC",1,"#0033cc","#ffffff"]]]]],null,1,"5",2]]
+                    """
+                    #tree = html.fromstring(buspage)
+                    #tree = html5lib.parse(buspage)
+                    #bus_elm = tree.find("./html/body/div[1]/div/div[4]/div[4]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/div/div[2]/div/table/tr/td")
+                    #bus_elm = tree.xpath("/html/body/div[1]/div/div[4]/div[4]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/div/div[2]/div/table/tr/td")
+                    if (not bus_elm):
+                        print('ERROR: xpath get bus failed for ' + p['place_id'])
+                    else:
+                        print('bus_elm: ' + str(bus_elm))
+                        bus_elm = bus_elm[0]
+                        buses = list(filter(lambda s: len(s.strip()) > 0,
+                                            bus_elm.text_content().strip().split()))
+                        details['buses'] = buses
+                        #yield (station, float(loc['lat']), float(loc['lng']), buses)
+
+                    p['details'] = details
+
+                allData.append(p)
+                #break
+
+            #break
+            token = psn.get('next_page_token')
+            if (not token):
+                # finished
                 more = False
                 break
-            if (data.get(p['place_id'])):
-                # Already found this one
-                continue
+            time.sleep(2) # next_page_token not immediately ready server-side
+                    
+        if (split):
+            #subdivide current bounding box in 2 and append to bound_list
+            split_count = split_count + 1
+            print('split #: ', split_count)
+            if ( abs(box['northeast']['lat'] - box['southwest']['lat']) > abs(box['northeast']['lng'] - box['southwest']['lng']) ):
+                lat_mid = (box['northeast']['lat'] + box['southwest']['lat']) / 2.0
+                new_box1 = { 'northeast': {'lat': box['northeast']['lat'], 'lng': box['northeast']['lng']},
+                             'southwest': {'lat': lat_mid, 'lng': box['southwest']['lng']} }
+                new_box2 = { 'northeast': {'lat': lat_mid, 'lng': box['northeast']['lng']},
+                             'southwest': {'lat': box['southwest']['lat'], 'lng': box['southwest']['lng']} }
+            else:
+                lng_mid = (box['northeast']['lng'] + box['southwest']['lng']) / 2.0
+                new_box1 = { 'northeast': {'lat': box['northeast']['lat'], 'lng': box['northeast']['lng']},
+                             'southwest': {'lat': box['southwest']['lat'], 'lng': lng_mid} }
+                new_box2 = { 'northeast': {'lat': box['northeast']['lat'], 'lng': lng_mid},
+                             'southwest': {'lat': box['southwest']['lat'], 'lng': box['southwest']['lng']} }
+            bound_list.append(new_box1)
+            bound_list.append(new_box2)
 
-            dist = utils.distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
-                                   (location['lat'], location['lng']))
-            gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': dist}
-            data[p['place_id']] = gRec
-
-            p['distance'] = dist
-
-            if (0):
-                # https://github.com/MikimotoH/gisTools/blob/master/google_place.py
-                details = gmaps.place(p['place_id'])
-                url = details['result']['url']
-                print('url = ' + url)
-                buspage = utils.get_webpage(url)
-                print('webpage = ' + buspage)
-                # Scrape this from the cached results section:
-                """
-                [["Buses",[[3,"bus2.png",null,"Bus",[["https://maps.gstatic.com/mapfiles/transit/iw2/b/bus2.png",0,[15,15],null,0]]]],[[null,null,null,null,"0x89ace4dfacb0eac1:0x2afeb462d543b31c",[[5,["2",1,"#0033cc","#ffffff"]]]],[null,null,null,null,"0x89ace40fe82c61e9:0x4b96e38b28ffccd4",[[5,["BCC",1,"#0033cc","#ffffff"]]]]],null,1,"5",2]]
-                """
-                #tree = html.fromstring(buspage)
-                #tree = html5lib.parse(buspage)
-                #bus_elm = tree.find("./html/body/div[1]/div/div[4]/div[4]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/div/div[2]/div/table/tr/td")
-                #bus_elm = tree.xpath("/html/body/div[1]/div/div[4]/div[4]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/div/div[2]/div/table/tr/td")
-                if (not bus_elm):
-                    print('ERROR: xpath get bus failed for ' + p['place_id'])
-                else:
-                    print('bus_elm: ' + str(bus_elm))
-                    bus_elm = bus_elm[0]
-                    buses = list(filter(lambda s: len(s.strip()) > 0,
-                                        bus_elm.text_content().strip().split()))
-                    details['buses'] = buses
-                    #yield (station, float(loc['lat']), float(loc['lng']), buses)
-
-                p['details'] = details
-
-            allData.append(p)
-            #break
-
-        #break
-        token = psn.get('next_page_token')
-        if (not token):
-            # finished
-            more = False
-            break
-        time.sleep(2) # next_page_token not immediately ready server-side
-
-
+        cont_srch = not not bound_list #continue search if there is a bounding box in bound_list
+            
 def init():
     with open(criterionName + '.yml', 'r') as in_file:
         data = load(in_file, Loader=Loader)
