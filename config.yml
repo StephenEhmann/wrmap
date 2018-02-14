@@ -88,7 +88,8 @@ grocery:
     icon: shopping cart
 
 resources:
-  include: {}
+  include:
+    Food Lion: 1
   exclude: {}
   style: {}
 
