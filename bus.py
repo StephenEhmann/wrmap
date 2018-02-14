@@ -177,7 +177,6 @@ if (__name__ == "__main__"):
         latlong = args.location.split(',')
         location = {'lat': latlong[0], 'lng': latlong[1]}
     else:
-        # location = locations[config['location']] ['location']
         location = utils.centroid(bounds)
     
     if (args.find):
