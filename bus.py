@@ -19,13 +19,19 @@ try:
 except ImportError:
     from yaml import Loader, Dumper
 
-import googlemaps
-gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU')
-
 import utils
 import kml
 
 criterionName = 'bus'
+
+if (0):
+    import googlemaps
+    gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU')
+else:
+    import fgm
+    gmaps = fgm.Client(key=criterionName)
+
+sys.exit(0)
 
 def find(location, bounds, data, allData, name=None):
     cont_srch = True
