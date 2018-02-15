@@ -22,10 +22,12 @@ gmaps = googlemaps.Client(key='AIzaSyAM8dMF61VMVlcCpDDRcOhhMoudiAixO00')
 #gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU')
 
 import utils
+import kml
 
 criterionName = 'grocery'
 
-def find(location, bounds, data, allData, glist, name=None):
+# TODO: update with Levi's alg
+def find(location, bounds, data, allData, name=None):
     more = True
     token = None
     while (more):
@@ -36,7 +38,7 @@ def find(location, bounds, data, allData, glist, name=None):
             else:
                 psn = gmaps.places_nearby(location=location, rank_by='distance', type='supermarket')
         else:
-            #print('token = ' + token) 
+            #print('token = ' + token)
             psn = gmaps.places_nearby(location=location, page_token=token)
         #print('psn:')
         #print(dump(psn, default_flow_style=False, Dumper=Dumper))
@@ -56,7 +58,6 @@ def find(location, bounds, data, allData, glist, name=None):
                                    (location['lat'], location['lng']))
             gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': dist}
             data[p['place_id']] = gRec
-            glist.append(gRec)
 
             p['distance'] = dist
             allData.append(p)
@@ -74,20 +75,7 @@ def init():
     return data
 
 def evaluate(loc, data, value):
-    #print(str(value))
-    selection = value['selection']
-    if (selection != 'nearest'):
-        raise Exception('ERROR: can only evaluate for selection \'nearest\'')
-
-    minDist = 100
-    minK = ''
-    for k, v in iter(data.items()):
-        dist = utils.distance(loc, (v['location']['lat'], v['location']['lng']))
-        if (dist < minDist):
-            minDist = dist
-            minK = k
-    # distance to nearest grocery store is x
-    return utils.evaluate_function(value['function'], minDist)
+    return utils.evaluate_require_nearest(loc, data, value)
 
 
 if (__name__ == "__main__"):
@@ -104,17 +92,18 @@ if (__name__ == "__main__"):
     parser.add_argument('--help', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('-debug', action='store_true', help='print extra info')
     parser.add_argument('-find', action='store_true', help='find all DB items and write them to ' + criterionName + '.yml')
+    parser.add_argument('-kml', type=str, help='along with -find, optional output kmz name: <name>.kmz')
     parser.add_argument('-name', type=str, help='find only for this name')
     parser.add_argument('-location', type=str, help='location to evaluate (will default to the location given in the config.yml file)')
-    parser.add_argument('-evaluate', type=str, help='evaluate the ' + criterionName + ' score for a given coordinate pair (eg. -evaluate 35.936164,-79.040997)')
+    parser.add_argument('-eval', type=str, help='evaluate the ' + criterionName + ' score for a given coordinate pair (eg. -eval 35.936164,-79.040997)')
     args = parser.parse_args()
 
     if (args.h or args.help):
         parser.print_help()
         sys.exit(0)
 
-    if (args.find and args.evaluate or not args.find and not args.evaluate):
-        print('ERROR: exactly one action must be given, choose exactly one of -find or -evaluate')
+    if (args.find and args.eval or not args.find and not args.eval):
+        print('ERROR: exactly one action must be given, choose exactly one of -find or -eval')
         sys.exit(1)
 
     if (not args.find and args.name):
@@ -150,17 +139,24 @@ if (__name__ == "__main__"):
         # Type - supermarket
         # https://developers.google.com/places/supported_types
         # example: https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
+
+        if (not config['find'][criterionName].get('include')):
+            config['find'][criterionName]['include'] = {}
+        if (not config['find'][criterionName].get('exclude')):
+            config['find'][criterionName]['exclude'] = {}
+
         data = {}
         allData = []
-        glist = []
-        find(location, bounds, data, allData, glist, args.name)
         if (args.name == None):
-            for i in config[criterionName]['include'].keys():
-                find(location, bounds, data, allData, glist, i)
+            find(location, bounds, data, allData)
+            for i in config['find'][criterionName]['include'].keys():
+                find(location, bounds, data, allData, i)
+        else:
+            find(location, bounds, data, allData, args.name)
 
         deletions = []
         for k, v in iter(data.items()):
-            if (config[criterionName]['exclude'].get(v['name'])):
+            if (config['find'][criterionName]['exclude'].get(v['name'])):
                 print('excluding ' + v['name'])
                 deletions.append(k)
 
@@ -170,9 +166,6 @@ if (__name__ == "__main__"):
         if (args.debug):
             print(criterionName + ':')
             print(dump(data, default_flow_style=False, Dumper=Dumper))
-
-            print('glist:')
-            print(dump(glist, default_flow_style=False, Dumper=Dumper))
 
         if (args.name == None):
             modName = ''
@@ -188,19 +181,26 @@ if (__name__ == "__main__"):
         with open(criterionName + '.' + modName + 'all.yml', 'w') as yaml_file:
             dump(allData, yaml_file, default_flow_style=False, Dumper=Dumper)
 
-        if (args.debug):
-            with open('glist.' + modName + 'yml', 'w') as yaml_file:
-                dump(glist, yaml_file, default_flow_style=False, Dumper=Dumper)
+        if (args.kml):
+            # package the data so that kml understands it
+            kmlData = {criterionName: {'data': data} }
+            if (os.path.dirname(args.kml)):
+                os.makedirs(os.path.dirname(args.kml), exist_ok=True)
+            kml.write(args.kml, config, kmlData, None)
+            #kml.write(os.path.join(args.kml, 'doc.kml'), config, data, results)
 
-    elif (args.evaluate):
+    elif (args.eval):
         data = init()
-        latlong = args.evaluate.split(',')
+        latlong = args.eval.split(',')
         e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['value'][criterionName])
         print(str(e))
 
     sys.exit(0)
 
 # test:
-# grocery.py -evaluate 35.936164,-79.040997
-# grocery.py -evaluate 35.96253900000001,-78.958224
-# grocery.py -evaluate 35.916752,-78.963430
+# grocery.py -eval 35.936164,-79.040997
+#0.0038027166005736783
+# grocery.py -eval 35.96253900000001,-78.958224
+#0.9517840481226215
+# grocery.py -eval 35.916752,-78.963430
+#0.4059346506450308
