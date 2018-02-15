@@ -117,13 +117,14 @@ def write(filename, config, data, results):
         print('color[' + str((255 + 255 - total) / (255 + 255)) + '] = ' + str(red) + ' '  + str(green) + '  ' + hexRed + hexGreen + '00')
         total -= stepSize
 
-    folder = addFolder(doc, 'values')
-    for l, v in iter(results.items()):
-        valueIndex = round(v['val'] * (steps-1))
-        addPoint(folder, valueStyles[valueIndex], v['name'], (l[1], l[0]))
+    if (results):
+        folder = addFolder(doc, 'values')
+        for l, v in iter(results.items()):
+            valueIndex = round(v['val'] * (steps-1))
+            addPoint(folder, valueStyles[valueIndex], v['name'], (l[1], l[0]))
 
     for k, c in iter(data.items()):
-        style = addStyle(doc, config[k]['style']['color'], config[k]['style']['icon'])
+        style = addStyle(doc, config['visualization'][k]['style']['color'], config['visualization'][k]['style']['icon'])
         folder = addFolder(doc, k)
         for i, v in iter(c['data'].items()):
             addPoint(folder, style, v['name'], (v['location']['lng'], v['location']['lat']))
