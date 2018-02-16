@@ -46,9 +46,8 @@ find:
         name: Durham Station
       2301 Erwin Rd, Durham, NC 27710:
         name: Duke University Hospital
-	3643 N Roxboro St, Durham, NC 27704:
+      3643 N Roxboro St, Durham, NC 27704:
         name: Duke Regional Hospital
-
     exclude: {}
 
   employment:
@@ -78,7 +77,7 @@ evaluation:
       - point: [0.25,0.8]
       - linear
       - point: [0.75,0.0]
-	- linear
+      - linear
       - point: [16.0,0.0]
     grocery:
       selection:
