@@ -50,10 +50,10 @@ class Client:
             #print(v['name'])
             #print('type=' + str(type(v['name'])))
             #print('dist for ' + name + ' is ' + str(v['distance']))
-            print('dist is ' + str(v['distance']) + ' for ' + name)
+            #print('dist is ' + str(v['distance']) + ' for ' + name)
         result = []
         for k in heapq.nsmallest(num, dataCopy, key=lambda x: (dataCopy[x]['distance'],x)):
-            print('k = ' + k)
+            #print('k = ' + k)
             v = dataCopy[k]
             result.append(
                 {

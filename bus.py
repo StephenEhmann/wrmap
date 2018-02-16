@@ -31,32 +31,37 @@ else:
     import fgm
     gmaps = fgm.Client(key=criterionName)
 
-sys.exit(0)
+#sys.exit(0)
+
+#server_queries = 0
 
 def find(location, bounds, data, allData, name=None):
+    #global server_queries
     cont_srch = True
     bound_list = [bounds] #initialize stack of subdivided bounding boxes
     split_count = 0
-    split_limit = 50 #terminate if split too many times
+    split_limit = 100 #terminate if split too many times
     while(cont_srch):
-        # print(bound_list)
         box = bound_list.pop() #pop one subdivided bounding box
         center = utils.centroid(box)
+        #print('start outer loop, current center is', center)
         split = False #default is don't split, change to True below if distance to results are less than radius
         radius = max( utils.distance( (box['northeast']['lat'], box['northeast']['lng']), (center['lat'], center['lng']) ),
                       utils.distance( (box['southwest']['lat'], box['southwest']['lng']), (center['lat'], center['lng']) ) )
         more = True
         token = None
         while (more):
-            #print('search...')
             if (not token):
                 if (name):
                     psn = gmaps.places_nearby(location=center, rank_by='distance', keyword=name)
+                    #server_queries += 1
                 else:
                     psn = gmaps.places_nearby(location=center, rank_by='distance', type='bus_station')
+                    #server_queries += 1
             else:
                 #print('token = ' + token)
                 psn = gmaps.places_nearby(location=center, page_token=token)
+                #server_queries += 1
             #print('psn:')
             #print(dump(psn, default_flow_style=False, Dumper=Dumper))
             #print('saving token')
@@ -68,6 +73,7 @@ def find(location, bounds, data, allData, name=None):
                     if (psn_result_count == 0):  
                         split = True
                 else:
+                    #print('        exceeded radius')
                     more = False
                     split = False
                     break
@@ -120,7 +126,8 @@ def find(location, bounds, data, allData, name=None):
                 #break
 
             #break
-            token = psn.get('next_page_token')
+            if (more == True):
+                token = psn.get('next_page_token')
             if (not token):
                 # finished
                 more = False
@@ -147,7 +154,9 @@ def find(location, bounds, data, allData, name=None):
             bound_list.append(new_box2)
 
         if (not bound_list or split_count > split_limit):
-            cont_srch = False #terminate search if excede split limit or there is no bounding box in bound_list
+            cont_srch = False #terminate search if there is no bounding box in bound_list or excede split limit 
+            if (split_count > split_limit):
+                print('split limit of', split_limit,'reached')
             
 def init():
     with open(criterionName + '.yml', 'r') as in_file:
@@ -281,6 +290,8 @@ if (__name__ == "__main__"):
         latlong = args.eval.split(',')
         e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['value'][criterionName])
         print(str(e))
+
+    #print('server queries:',server_queries)
 
     sys.exit(0)
 
