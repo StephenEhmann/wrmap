@@ -38,6 +38,17 @@ find:
     include:
       801 Gilbert St, Durham, NC 27701:
         name: World Relief Durham
+      414 E Main St, Durham, NC 27701:
+        name: NC Division of Social Services
+      112 S Duke St # 4B, Durham, NC 27701:
+        name: Church World Service
+      515 W Pettigrew St, Durham, NC 27701:
+        name: Durham Station
+      2301 Erwin Rd, Durham, NC 27710:
+        name: Duke University Hospital
+	3643 N Roxboro St, Durham, NC 27704:
+        name: Duke Regional Hospital
+
     exclude: {}
 
   employment:
@@ -86,7 +97,7 @@ evaluation:
     resources:
       selection:
         type: nearest
-        nearest: 1
+        nearest: 6
         final: average
       function:
       - exp2: [1.0,-0.02]
