@@ -75,6 +75,7 @@ class Client:
         result = {}
         result['results'] = []
         if (page_token == None):
+            self.dataIndex = 0
             self.token = 1
             result['next_page_token'] = self.token
             self.data = self.findData(location, self.dataPerPage * self.numPages)
@@ -96,10 +97,7 @@ class Client:
             #print('append ' + str(self.data[self.dataIndex + i]))
             result['results'].append(self.data[self.dataIndex + i])
 
-        if (self.token == 0):
-            self.dataIndex = 0
-        else:
-            self.dataIndex += self.dataPerPage
+        self.dataIndex += self.dataPerPage
 
         return result
 
