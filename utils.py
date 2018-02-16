@@ -45,6 +45,8 @@ def evaluate_single_func(funcType, func, x):
         return (x-x1) * (y2-y1) / (x2-x1) + y1
     elif (funcType == 'exp'):
         return func[0] * math.exp(func[1] * x)
+    elif (funcType == 'exp2'):
+        return func[0] * math.exp(func[1] * x * x)
     else:
         raise Exception('ERROR: unrecognized function type \'' + k + '\'')
 

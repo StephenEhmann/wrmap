@@ -25,8 +25,7 @@ import kml
 
 criterionName = 'resources'
 
-# TODO: update with Levi's alg
-def find(location, bounds, data, allData, name):
+def find(location, bounds, data, allData, name, dataName=None):
     more = True
     token = None
     while (more):
@@ -52,7 +51,7 @@ def find(location, bounds, data, allData, name):
 
             dist = utils.distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
                                    (location['lat'], location['lng']))
-            gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': dist}
+            gRec = {'name': p['name'] if dataName == None else dataName, 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': dist}
             data[p['place_id']] = gRec
 
             p['distance'] = dist
@@ -140,9 +139,11 @@ if (__name__ == "__main__"):
         data = {}
         allData = []
         if (args.name == None):
-            find(location, bounds, data, allData)
-            for i in config['find'][criterionName]['include'].keys():
-                find(location, bounds, data, allData, i)
+            for k, v in iter(config['find'][criterionName]['include'].items()):
+                if (isinstance(v, dict)):
+                    find(location, bounds, data, allData, k, dataName=v.get('name'))
+                else:
+                    find(location, bounds, data, allData, k)
         else:
             find(location, bounds, data, allData, args.name)
 

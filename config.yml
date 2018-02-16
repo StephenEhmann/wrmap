@@ -1,5 +1,52 @@
 location: durham
 
+### Parameters for finding things
+find:
+  bus: {}
+
+  grocery:
+    # Note that some of these are required to be in the include section because they do not have the proper google places tagging
+    # (eg. Kroger has 'grocery_or_supermarket' which is a deprecated tag and does not have the proper 'supermarket' tag)
+    include:
+      Food Lion: 1
+      Kroger: 1
+      Walmart: 1
+      Walmart Supercenter: 1
+      Walmart Neighborhood Market: 1
+      Supertarget: 1
+      ALDI: 1
+      Lidl: 1
+      Publix: 1
+      Lowes Foods: 1
+      Compare Foods: 1
+      Save-A-Lot: 1
+      Food World: 1
+    exclude:
+      Harris Teeter: 1
+      Whole Foods: 1
+      Harris Teeter: 1
+      Trader Joe's: 1
+      Sam's Club: 1
+      Durham Co-Op: 1
+      Whole Foods Market: 1
+      Family Dollar: 1
+      A&C SUPERMARKET EQUIPMENT: 1
+      tobacco & vape: 1
+      The Fresh Market: 1
+
+  resources:
+    include:
+      1905 Chapel Hill Rd, Durham, NC 27707:
+        name: Durham Literacy Center
+    exclude: {}
+
+  employment:
+    include: {}
+    exclude: {}
+
+  safety: {}
+
+### Parameters for evaluating things
 evaluation:
   enable:
     bus: 1
@@ -11,11 +58,17 @@ evaluation:
   value:
     bus:
       # TODO
-      selection: nearest
+      selection:
+        type: nearest
+        nearest: 1
+        final: average
       function:
       - const: 1.0
     grocery:
-      selection: nearest
+      selection:
+        type: nearest
+        nearest: 1
+        final: average
       function:
       - point: [0.0,1.0]
       - linear
@@ -26,17 +79,23 @@ evaluation:
       - point: [1.25,0.20]
       - exp: [6.4,-2.7726]
     resources:
-      # TODO
-      selection: nearest
+      selection:
+        type: nearest
+        nearest: 5
+        final: average
       function:
-      - const: 0.0
+      - exp2: [1.0,-0.02]
     employment:
       # TODO
-      selection: nearest
+      selection:
+        type: nearest
+        nearest: 1
+        final: average
       function:
       - const: 0.0
     safety:
-      selection: evaluated
+      selection:
+        type: evaluated
 
   final:
     mul:
@@ -47,57 +106,23 @@ evaluation:
           employment: 0.0
           safety: 0.0
 
-bus:
-  include: {}
-  exclude: {}
-  style:
-    color: '0000CC'
-    icon: bus
+### Parameters for visualizing things
+visualization:
+  bus:
+    style:
+      color: '0000CC'
+      icon: bus
 
-grocery:
-  # Note that some of these are required to be in the include section because they do not have the proper google places tagging
-  # (eg. Kroger has 'grocery_or_supermarket' which is a deprecated tag and does not have the proper 'supermarket' tag)
-  include:
-    Food Lion: 1
-    Kroger: 1
-    Walmart: 1
-    Walmart Supercenter: 1
-    Walmart Neighborhood Market: 1
-    Supertarget: 1
-    ALDI: 1
-    Lidl: 1
-    Publix: 1
-    Lowes Foods: 1
-    Compare Foods: 1
-    Save-A-Lot: 1
-    Food World: 1
-  exclude:
-    Harris Teeter: 1
-    Whole Foods: 1
-    Harris Teeter: 1
-    Trader Joe's: 1
-    Sam's Club: 1
-    Durham Co-Op: 1
-    Whole Foods Market: 1
-    Family Dollar: 1
-    A&C SUPERMARKET EQUIPMENT: 1
-    tobacco & vape: 1
-    The Fresh Market: 1
-  style:
-    color: '000000'
-    icon: shopping cart
+  grocery:
+    style:
+      color: '000000'
+      icon: shopping cart
 
-resources:
-  include: {}
-  exclude: {}
-  style: {}
+  resources:
+    style: {}
 
-employment:
-  include: {}
-  exclude: {}
-  style: {}
+  employment:
+    style: {}
 
-safety:
-  include: {}
-  exclude: {}
-  style: {}
+  safety:
+    style: {}
