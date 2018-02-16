@@ -86,7 +86,7 @@ evaluation:
     resources:
       selection:
         type: nearest
-        nearest: 6
+        nearest: 1
         final: average
       function:
       - exp2: [1.0,-0.02]
