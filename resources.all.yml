@@ -1,0 +1,126 @@
+- distance: 0.5403090069327668
+  geometry:
+    location:
+      lat: 35.9961482
+      lng: -78.88933349999999
+    viewport:
+      northeast:
+        lat: 35.99735527989272
+        lng: -78.88799562010726
+      southwest:
+        lat: 35.99465562010728
+        lng: -78.89069527989271
+  icon: https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png
+  id: 1e4d1184b29d16ced1772c9d5a56857821b81de7
+  name: 801 Gilbert St
+  place_id: ChIJ04HEWHvkrIkRffyJgCBR288
+  reference: CmRbAAAAN8jJ7zE0IOH7qYc3-WRUGyhyr_5DUHOfeHERn8kCK4cxZh4dSB5w3YAO-hlLdPZrZOdL-WTqTmiM7MhNj7d8Z7qYw7_d3xReGcondQOqJLh_-69pGvsu6oZtxcCGR8SrEhAQkgommwgHYhlv9fVKXwUCGhTfxukMlrHmPqETON0Tsv-TK-sZeA
+  scope: GOOGLE
+  types:
+  - premise
+  vicinity: Durham
+- distance: 0.1979997865067786
+  geometry:
+    location:
+      lat: 35.9918143
+      lng: -78.8963752
+    viewport:
+      northeast:
+        lat: 35.99340512989272
+        lng: -78.89497672010728
+      southwest:
+        lat: 35.99070547010728
+        lng: -78.89767637989273
+  icon: https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png
+  id: 9f125066b55536a11a71da8f3866a0a9da9f479e
+  name: 414 E Main St
+  place_id: ChIJ06gVFm_krIkRxu72WO7BwVk
+  reference: CmRbAAAAiqTTu_on7h6psR4WryNMcCKFuFoQ15h5C_DoLVd_0esaQSBHcCU0b2iwPq7qmKtD6DTEmVBhhJi1iqGzfpCwajrVRgNZkUZsohCh2yrSPjfm8a5wex4TkoR6cgErCOkaEhCFOozbq_vgJdq9tXJSsFLxGhRoMD7cvHC-cct0RSIBm-Cr9G06EQ
+  scope: GOOGLE
+  types:
+  - premise
+  vicinity: Durham
+- distance: 0.6696324241052463
+  geometry:
+    location:
+      lat: 35.9989402
+      lng: -78.90893299999999
+    viewport:
+      northeast:
+        lat: 36.00021812989272
+        lng: -78.90741562010727
+      southwest:
+        lat: 35.99751847010728
+        lng: -78.91011527989272
+  icon: https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png
+  id: 1af725b7f40b619f98bbee4cc37f4c22949edc55
+  name: '112 S Duke St #4b'
+  place_id: EigxMTIgUyBEdWtlIFN0ICM0YiwgRHVyaGFtLCBOQyAyNzcwMSwgVVNB
+  reference: CpQBhgAAAK9wevTEqxWGyrFy7g8Vr4IwG3hAjDBlttV8Xn6Bzz6njg7m8-epvnUP3q4H6HkhE-3cqxT6NHQ2KhnTs5Tb6xOrG1CpU6ZhOL4b3mpjq_9XrdZelPe902mE0eV0hfGyXYg5FOPWyrAx_ucdRPxGNcoSkAMlcNPCY69_WNZORuBHwl_feOTv8IgkE2fqvr4Z7hIQ7xZS105thSQCa7efrLE9VhoUUvb9EuTg_3_pVT7ElLQMYRGZrJ0
+  scope: GOOGLE
+  types:
+  - subpremise
+  vicinity: Durham
+- distance: 0.4991938707800806
+  geometry:
+    location:
+      lat: 35.9966131
+      lng: -78.9069437
+    viewport:
+      northeast:
+        lat: 35.99812587989271
+        lng: -78.90545177010728
+      southwest:
+        lat: 35.99542622010727
+        lng: -78.90815142989273
+  icon: https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png
+  id: 44da361fba7b10d0bb32285c8b8888288f6a952f
+  name: 515 W Pettigrew St
+  place_id: ChIJK0iAqBLkrIkRH02jkSevMxU
+  reference: CmRbAAAAFlig7BEgQ4aOrvIYY-atJJxq-SkHb9Gip-qkqMs9gffRWr6-4c2C9vwCLpFIqWj_gphVBZgKxEYi_R7JXxYl91Q7JvAlZKIp2HoF0mW433gHgMtL8Ot2Ol0gxLcFQIgCEhCpRO7cIT4uqW6LOHwP8G3yGhT1rYvVgUv5noENQgrEfAKrnrhIJQ
+  scope: GOOGLE
+  types:
+  - premise
+  vicinity: Durham
+- distance: 2.3377100021968795
+  geometry:
+    location:
+      lat: 36.0070978
+      lng: -78.9371233
+    viewport:
+      northeast:
+        lat: 36.00872397989272
+        lng: -78.93595977010727
+      southwest:
+        lat: 36.00602432010728
+        lng: -78.93865942989272
+  icon: https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png
+  id: 8c06b97cb85b2abe9a79b4613da493c539daecf3
+  name: 2301 Erwin Rd
+  place_id: ChIJ08E2_azmrIkRGdtgFH-J61M
+  reference: CmRbAAAAhZeHCP_R4gsbaCSlrz4w0YEIF0red9hyyTMCGVM4DP3EHoDDefQKJ0ocCJlnce-sMnPLYsScfJDCSloHhkqGXCHfWvE4OIaWFUJDJj9tJ9KdB76f9FJVJArliT3GPOPrEhCWcT246g6BwNLMlyf3Kw3YGhTqSnUoLBwXYjlcV-zfgbykUMt3Tg
+  scope: GOOGLE
+  types:
+  - street_address
+  vicinity: Durham
+- distance: 2.9069050312423586
+  geometry:
+    location:
+      lat: 36.0361504
+      lng: -78.9009894
+    viewport:
+      northeast:
+        lat: 36.0389971
+        lng: -78.8974629
+      southwest:
+        lat: 36.03520149999999
+        lng: -78.90216489999999
+  icon: https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png
+  id: e05313c8c36e76e83819c0f93ed0c4fafc4b4e96
+  name: 3643 N Roxboro St
+  place_id: ChIJ81bPe7njrIkRbUGx2-NCVBc
+  reference: CmRbAAAAVm09j3KnQ8S1RowcbTm2IHIHefvI9-nu5vmblWNLhQxh7HckxCQ6vLwpP3zf_HYRZJJDBlxlGvy4Up8QQV6g-55b1XKJFEMeNhx13Oj_mZXze4v6DY_m9PI5QTe6FPOPEhDzLymvbrgUDHTZRmxnlQzYGhSV4Y5Od--D5Nq0S_VVflqirB0Fog
+  scope: GOOGLE
+  types:
+  - premise
+  vicinity: Durham

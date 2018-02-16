@@ -1,7 +1,42 @@
-ChIJGZaoaB_krIkR17xSMyFqWJQ:
-  distance: 1.5226382597279056
+ChIJ04HEWHvkrIkRffyJgCBR288:
+  distance: 0.5403090069327668
   location:
-    lat: 35.988464
-    lng: -78.92491559999999
-  name: Durham Literacy Center
+    lat: 35.9961482
+    lng: -78.88933349999999
+  name: World Relief Durham
+  vicinity: Durham
+ChIJ06gVFm_krIkRxu72WO7BwVk:
+  distance: 0.1979997865067786
+  location:
+    lat: 35.9918143
+    lng: -78.8963752
+  name: NC Division of Social Services
+  vicinity: Durham
+ChIJ08E2_azmrIkRGdtgFH-J61M:
+  distance: 2.3377100021968795
+  location:
+    lat: 36.0070978
+    lng: -78.9371233
+  name: Duke University Hospital
+  vicinity: Durham
+ChIJ81bPe7njrIkRbUGx2-NCVBc:
+  distance: 2.9069050312423586
+  location:
+    lat: 36.0361504
+    lng: -78.9009894
+  name: Duke Regional Hospital
+  vicinity: Durham
+ChIJK0iAqBLkrIkRH02jkSevMxU:
+  distance: 0.4991938707800806
+  location:
+    lat: 35.9966131
+    lng: -78.9069437
+  name: Durham Station
+  vicinity: Durham
+EigxMTIgUyBEdWtlIFN0ICM0YiwgRHVyaGFtLCBOQyAyNzcwMSwgVVNB:
+  distance: 0.6696324241052463
+  location:
+    lat: 35.9989402
+    lng: -78.90893299999999
+  name: Church World Service
   vicinity: Durham
