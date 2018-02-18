@@ -24,140 +24,43 @@ import kml
 
 criterionName = 'bus'
 
-if (0):
+if (1):
     import googlemaps
-    gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU')
+    gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU') # Stephen's key
+    #gmaps = googlemaps.Client(key='AIzaSyAM8dMF61VMVlcCpDDRcOhhMoudiAixO00') # Eric's key
+    #gmaps = googlemaps.Client(key='AIzaSyDpKsGiSCE6MH_KlGTSW8eza6u6dVa8kIE') # Levi's key
 else:
     import fgm
     gmaps = fgm.Client(key=criterionName)
 
-#sys.exit(0)
-
 #server_queries = 0
 
-def find(location, bounds, data, allData, name=None):
-    #global server_queries
-    cont_srch = True
-    bound_list = [bounds] #initialize stack of subdivided bounding boxes
-    split_count = 0
-    split_limit = 100 #terminate if split too many times
-    while(cont_srch):
-        box = bound_list.pop() #pop one subdivided bounding box
-        center = utils.centroid(box)
-        #print('start outer loop, current center is', center)
-        split = False #default is don't split, change to True below if distance to results are less than radius
-        radius = max( utils.distance( (box['northeast']['lat'], box['northeast']['lng']), (center['lat'], center['lng']) ),
-                      utils.distance( (box['southwest']['lat'], box['southwest']['lng']), (center['lat'], center['lng']) ) )
-        more = True
-        token = None
-        while (more):
-            if (not token):
-                if (name):
-                    psn = gmaps.places_nearby(location=center, rank_by='distance', keyword=name)
-                    #server_queries += 1
-                else:
-                    psn = gmaps.places_nearby(location=center, rank_by='distance', type='bus_station')
-                    #server_queries += 1
-            else:
-                #print('token = ' + token)
-                psn = gmaps.places_nearby(location=center, page_token=token)
-                #server_queries += 1
-            #print('psn:')
-            #print(dump(psn, default_flow_style=False, Dumper=Dumper))
-            #print('saving token')
-            psn_result_count = 0
-            for p in psn['results']:
-                dist_center = utils.distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
-                                              (center['lat'], center['lng']))
-                if (dist_center < radius):
-                    if (psn_result_count == 0):  
-                        split = True
-                else:
-                    #print('        exceeded radius')
-                    more = False
-                    split = False
-                    break
-                psn_result_count = psn_result_count + 1
+def findDetails(location, bounds, data, allData, name=None):
+    if (0):
+        # https://github.com/MikimotoH/gisTools/blob/master/google_place.py
+        details = gmaps.place(p['place_id'])
+        url = details['result']['url']
+        print('url = ' + url)
+        buspage = utils.get_webpage(url)
+        print('webpage = ' + buspage)
+        # Scrape this from the cached results section:
+        """
+        [["Buses",[[3,"bus2.png",null,"Bus",[["https://maps.gstatic.com/mapfiles/transit/iw2/b/bus2.png",0,[15,15],null,0]]]],[[null,null,null,null,"0x89ace4dfacb0eac1:0x2afeb462d543b31c",[[5,["2",1,"#0033cc","#ffffff"]]]],[null,null,null,null,"0x89ace40fe82c61e9:0x4b96e38b28ffccd4",[[5,["BCC",1,"#0033cc","#ffffff"]]]]],null,1,"5",2]]
+        """
+        #tree = html.fromstring(buspage)
+        #tree = html5lib.parse(buspage)
+        #bus_elm = tree.find("./html/body/div[1]/div/div[4]/div[4]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/div/div[2]/div/table/tr/td")
+        #bus_elm = tree.xpath("/html/body/div[1]/div/div[4]/div[4]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/div/div[2]/div/table/tr/td")
+        if (not bus_elm):
+            print('ERROR: xpath get bus failed for ' + p['place_id'])
+        else:
+            print('bus_elm: ' + str(bus_elm))
+            bus_elm = bus_elm[0]
+            buses = list(filter(lambda s: len(s.strip()) > 0,
+                                bus_elm.text_content().strip().split()))
+            details['buses'] = buses
+            #yield (station, float(loc['lat']), float(loc['lng']), buses)
 
-                if (not utils.isInside(p['geometry']['location'], bounds)):
-                    # Not in the original, outermost bounding box
-                    #print('this one is not inside:')
-                    #print(dump(p, default_flow_style=False, Dumper=Dumper))
-                    continue
-                if (data.get(p['place_id'])):
-                    # Already found this one
-                    continue
-
-                dist = utils.distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
-                                       (location['lat'], location['lng'])) #still calculate dist to original location for recording
-                gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': dist}
-                data[p['place_id']] = gRec
-
-                p['distance'] = dist
-
-                if (0):
-                    # https://github.com/MikimotoH/gisTools/blob/master/google_place.py
-                    details = gmaps.place(p['place_id'])
-                    url = details['result']['url']
-                    print('url = ' + url)
-                    buspage = utils.get_webpage(url)
-                    print('webpage = ' + buspage)
-                    # Scrape this from the cached results section:
-                    """
-                    [["Buses",[[3,"bus2.png",null,"Bus",[["https://maps.gstatic.com/mapfiles/transit/iw2/b/bus2.png",0,[15,15],null,0]]]],[[null,null,null,null,"0x89ace4dfacb0eac1:0x2afeb462d543b31c",[[5,["2",1,"#0033cc","#ffffff"]]]],[null,null,null,null,"0x89ace40fe82c61e9:0x4b96e38b28ffccd4",[[5,["BCC",1,"#0033cc","#ffffff"]]]]],null,1,"5",2]]
-                    """
-                    #tree = html.fromstring(buspage)
-                    #tree = html5lib.parse(buspage)
-                    #bus_elm = tree.find("./html/body/div[1]/div/div[4]/div[4]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/div/div[2]/div/table/tr/td")
-                    #bus_elm = tree.xpath("/html/body/div[1]/div/div[4]/div[4]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/div/div[2]/div/table/tr/td")
-                    if (not bus_elm):
-                        print('ERROR: xpath get bus failed for ' + p['place_id'])
-                    else:
-                        print('bus_elm: ' + str(bus_elm))
-                        bus_elm = bus_elm[0]
-                        buses = list(filter(lambda s: len(s.strip()) > 0,
-                                            bus_elm.text_content().strip().split()))
-                        details['buses'] = buses
-                        #yield (station, float(loc['lat']), float(loc['lng']), buses)
-
-                    p['details'] = details
-
-                allData.append(p)
-                #break
-
-            #break
-            if (more == True):
-                token = psn.get('next_page_token')
-            if (not token):
-                # finished
-                more = False
-                break
-            time.sleep(2) # next_page_token not immediately ready server-side
-                    
-        if (split):
-            #subdivide current bounding box in 2 and append to bound_list
-            split_count = split_count + 1
-            print('split #: ', split_count)
-            if ( abs(box['northeast']['lat'] - box['southwest']['lat']) > abs(box['northeast']['lng'] - box['southwest']['lng']) ):
-                lat_mid = (box['northeast']['lat'] + box['southwest']['lat']) / 2.0
-                new_box1 = { 'northeast': {'lat': box['northeast']['lat'], 'lng': box['northeast']['lng']},
-                             'southwest': {'lat': lat_mid, 'lng': box['southwest']['lng']} }
-                new_box2 = { 'northeast': {'lat': lat_mid, 'lng': box['northeast']['lng']},
-                             'southwest': {'lat': box['southwest']['lat'], 'lng': box['southwest']['lng']} }
-            else:
-                lng_mid = (box['northeast']['lng'] + box['southwest']['lng']) / 2.0
-                new_box1 = { 'northeast': {'lat': box['northeast']['lat'], 'lng': box['northeast']['lng']},
-                             'southwest': {'lat': box['southwest']['lat'], 'lng': lng_mid} }
-                new_box2 = { 'northeast': {'lat': box['northeast']['lat'], 'lng': lng_mid},
-                             'southwest': {'lat': box['southwest']['lat'], 'lng': box['southwest']['lng']} }
-            bound_list.append(new_box1)
-            bound_list.append(new_box2)
-
-        if (not bound_list or split_count > split_limit):
-            cont_srch = False #terminate search if there is no bounding box in bound_list or excede split limit 
-            if (split_count > split_limit):
-                print('split limit of', split_limit,'reached')
-            
 def init():
     with open(criterionName + '.yml', 'r') as in_file:
         data = load(in_file, Loader=Loader)
@@ -245,10 +148,13 @@ if (__name__ == "__main__"):
 
         data = {}
         allData = []
-        find(location, bounds, data, allData, args.name)
-        if (args.name == None and config['find'][criterionName].get('include')):
-            for i in config['find'][criterionName]['include'].keys():
-                find(location, bounds, data, allData, i)
+        if (args.name):
+            utils.find(location, bounds, data, allData, name=args.name)
+        else:
+            utils.find(location, bounds, data, allData, placeType='bus_station')
+            if (args.name == None and config['find'][criterionName].get('include')):
+                for i in config['find'][criterionName]['include'].keys():
+                    utils.find(location, bounds, data, allData, name=i)
 
         deletions = []
         for k, v in iter(data.items()):
