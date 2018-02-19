@@ -188,6 +188,7 @@ if (__name__ == "__main__"):
                 print('ERROR: -resolution must be a value in the range [2..100]')
                 sys.exit(1)
 
+            # TODO: convert this code to use utils.grid
             if (1):
                 xstart = bounds['southwest']['lng']
                 xend = bounds['northeast']['lng']

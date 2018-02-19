@@ -33,6 +33,8 @@ find:
       A&C SUPERMARKET EQUIPMENT: 1
       tobacco & vape: 1
       The Fresh Market: 1
+      Family Fare Collaboration & Support Center: 1
+      True World Foods: 1
 
   resources:
     include:
@@ -96,7 +98,7 @@ evaluation:
     resources:
       selection:
         type: nearest
-        nearest: 6
+        nearest: all
         final: average
       function:
       - exp2: [1.0,-0.02]

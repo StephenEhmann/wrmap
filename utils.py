@@ -33,63 +33,84 @@ def ramp(x, mn, mx, pos):
     else:
         return 1.0 if x <= mn else 0.0 if x >= mx else (x - mx) / (mn - mx)
 
+def grid(location, bounds, resolution):
+    result = []
+    ystep = (bounds['northeast']['lat'] - bounds['southwest']['lat']) / float(resolution)
+    y = bounds['southwest']['lat']
+    xstep = (bounds['northeast']['lng'] - bounds['southwest']['lng']) / float(resolution)
+    x = bounds['southwest']['lng']
+    for yi in range(resolution):
+        x = bounds['southwest']['lng']
+        for xi in range(resolution):
+            oneLocation = {'lat': y + 0.5 * ystep, 'lng': x + 0.5 * xstep}
+            oneBounds = {'southwest': {'lat': y, 'lng': x}, 'northeast': {'lat': y + ystep, 'lng': x + xstep}}
+            result.append({'loc': oneLocation, 'bounds': oneBounds})
+            x += xstep
+        y += ystep
+    return result
+
 # Find
-def find(location, bounds, data, allData, placeType=None, name=None, doSplit=True):
+def find(location, bounds, data, allData, placeType=None, name=None, doSplit=True, resolution=None):
+    print('find ' + str(placeType) + ' ' + str(name))
     if (placeType == None and name == None or placeType != None and name != None):
         raise Exception('ERROR: exactly one of placeType and name must be given')
 
     #global server_queries
     cont_srch = True
-    bound_list = [bounds] #initialize stack of subdivided bounding boxes
+    if (resolution):
+        doSplit = False
+        g = grid(location, bounds, resolution)
+        bounds_list = []
+        for i in g:
+            print('bounds = ' + str(i['bounds']))
+            bounds_list.append(i['bounds'])
+        sys.exit(0)
+    else:
+        bound_list = [bounds] #initialize stack of subdivided bounding boxes
     split_count = 0
     split_limit = 100 #terminate if split too many times
-    while(cont_srch):
+    while (cont_srch):
         box = bound_list.pop() #pop one subdivided bounding box
         center = centroid(box)
         #print('start outer loop, current center is', center)
-        split = False #default is don't split, change to True below if distance to results are less than radius
         radius = max( distance( (box['northeast']['lat'], box['northeast']['lng']), (center['lat'], center['lng']) ),
                       distance( (box['southwest']['lat'], box['southwest']['lng']), (center['lat'], center['lng']) ) )
-        #print('box=' + str(box))
-        #print('center=' + str(center))
-        #print('radius=' + str(radius))
-        more = True
-        token = None
-        while (more):
-            if (not token):
-                if (name):
-                    psn = gmaps.places_nearby(location=center, rank_by='distance', keyword=name)
-                    #server_queries += 1
-                else:
-                    psn = gmaps.places_nearby(location=center, rank_by='distance', type=placeType)
-                    #server_queries += 1
-            else:
-                #print('token = ' + token)
-                psn = gmaps.places_nearby(location=center, page_token=token)
+        if (not name and radius <= 4.4):
+            #print('box=' + str(box))
+            #print('center=' + str(center))
+            #print('radius=' + str(radius))
+            if (name):
+                psn = gmaps.places_nearby(location=center, rank_by='distance', keyword=name)
                 #server_queries += 1
-            psn_result_count = 0
+            else:
+                psn = gmaps.places_nearby(location=center, rank_by='distance', type=placeType)
+                #server_queries += 1
+
+            #print('results count = ' + str(len(psn['results'])))
+            exceededRadius = False
+            newOne = False
             for p in psn['results']:
                 dist_center = distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
                                         (center['lat'], center['lng']))
-                if (dist_center < radius):
-                    if (psn_result_count == 0):
-                        #print('splitting')
-                        split = doSplit
-                else:
-                    #print('        exceeded radius')
-                    more = False
-                    split = False
+                #print('dist center = ' + str(dist_center))
+                if (dist_center >= radius):
+                    #print('exceeded radius')
+                    exceededRadius = True
                     break
-                psn_result_count = psn_result_count + 1
 
                 if (not isInside(p['geometry']['location'], bounds)):
                     # Not in the original, outermost bounding box
                     #print('this one is not inside:')
                     #print(dump(p, default_flow_style=False, Dumper=Dumper))
                     continue
+
                 if (data.get(p['place_id'])):
                     # Already found this one
                     continue
+                newOne = True
+                if (len(psn['results']) < 20):
+                    #print('  new one')
+                    pass
 
                 dist = distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
                                        (location['lat'], location['lng'])) #still calculate dist to original location for recording
@@ -107,22 +128,43 @@ def find(location, bounds, data, allData, placeType=None, name=None, doSplit=Tru
                 allData.append(p)
 
                 if (0):
-                    # Debug: just do one iteration
-                    more = False
-                    split = False
+                    # Debug: only iterate one result
                     cont_srch = False
                     break
 
-            if (more):
-                token = psn.get('next_page_token')
+        # Observed API behavior:
+        # - different lat/long even slightly can yield different numbers of results
+        # -- there appears to be some choice google is making about how many results to return for a specific location
+        # - splitting (which samples new center locations) can yield results not previously seen
+        # - searching by name and searching by type have different behaviors
+        # - there can be 0 results
+        # - the search seems to be capped to 4.4 miles
+        # Examples:
+        # - 1: 20 results, split into 1.1 and 1.2, 1.1: 12 results (1 new one), 1.2: 6 results (1 new one):
+        #   so we didn't get the original 20 results, some are not being given
 
-            if (not token):
-                # finished
-                more = False
-                break
-            time.sleep(2) # next_page_token not immediately ready server-side
+        # TODO: how do we decide to search at a finer granularity?
+        # Inputs available: newOne, exceededRadius, len(psn['results'])
+        split = False
+        if (radius > 4.4):
+            split = True
+        elif (exceededRadius):
+            # This does not mean that there aren't new results to be had (they pop into existence) as we split
+            split = False
+        else:
+            if (not name and len(psn['results']) == 0):
+                split = False
+            elif (name and len(psn['results']) == 1):
+                split = False
+            elif (len(psn['results']) == 20):
+                # results are full there are almost for sure more so always split
+                split = True
+            else:
+                # there could be more results at a finer resolution, how do we know?
+                split = True
 
-        if (split):
+        # split if splitting is enabled and there were results and none of the exceeded the radius
+        if (doSplit and split):
             #subdivide current bounding box in 2 and append to bound_list
             split_count = split_count + 1
             print('split #: ', split_count)
@@ -140,6 +182,10 @@ def find(location, bounds, data, allData, placeType=None, name=None, doSplit=Tru
                              'southwest': {'lat': box['southwest']['lat'], 'lng': box['southwest']['lng']} }
             bound_list.append(new_box1)
             bound_list.append(new_box2)
+
+        if (0):
+            # Debug: only iterate one box
+            cont_srch = False
 
         if (not bound_list or split_count > split_limit):
             cont_srch = False #terminate search if there is no bounding box in bound_list or excede split limit

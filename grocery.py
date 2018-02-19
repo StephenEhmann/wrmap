@@ -18,8 +18,8 @@ except ImportError:
     from yaml import Loader, Dumper
 
 import googlemaps
-gmaps = googlemaps.Client(key='AIzaSyAM8dMF61VMVlcCpDDRcOhhMoudiAixO00') # Eric's key
 #gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU') # Stephen's key
+gmaps = googlemaps.Client(key='AIzaSyAM8dMF61VMVlcCpDDRcOhhMoudiAixO00') # Eric's key
 #gmaps = googlemaps.Client(key='AIzaSyDpKsGiSCE6MH_KlGTSW8eza6u6dVa8kIE') # Levi's key
 
 import utils
@@ -41,6 +41,10 @@ def find(location, bounds, data, allData, name=None):
         else:
             #print('token = ' + token)
             psn = gmaps.places_nearby(location=location, page_token=token)
+
+        with open('psn.yml', 'w') as yaml_file:
+            dump(psn, yaml_file, default_flow_style=False, Dumper=Dumper)
+
         #print('psn:')
         #print(dump(psn, default_flow_style=False, Dumper=Dumper))
         #print('saving token')
@@ -64,6 +68,8 @@ def find(location, bounds, data, allData, name=None):
             allData.append(p)
 
         token = psn.get('next_page_token')
+        print('more = ' + str(more))
+        print('token = ' + str(token))
         if (not token):
             # finished
             more = False
@@ -129,12 +135,14 @@ if (__name__ == "__main__"):
         print(str(e))
         raise Exception('ERROR: Failed to load yaml file ' + 'config.yml')
 
+    bounds = locations[config['location']] ['bounds']
     if (args.location):
         latlong = args.location.split(',')
         location = {'lat': latlong[0], 'lng': latlong[1]}
     else:
+        # Weird: if we search with the centroid we only get 20 results (no next_page_token), however if we search with the center of Durham (from geocode) we get 3 pages of results
         location = locations[config['location']] ['location']
-    bounds = locations[config['location']] ['bounds']
+        location = utils.centroid(bounds)
 
     if (args.find):
         # Type - supermarket
@@ -148,21 +156,25 @@ if (__name__ == "__main__"):
 
         data = {}
         allData = []
-        if (args.name == None):
-            find(location, bounds, data, allData)
-            for i in config['find'][criterionName]['include'].keys():
-                find(location, bounds, data, allData, i)
+        if (args.name):
+            utils.find(location, bounds, data, allData, name=args.name)
         else:
-            find(location, bounds, data, allData, args.name)
+            utils.find(location, bounds, data, allData, placeType='supermarket', doSplit=True)
+            #utils.find(location, bounds, data, allData, placeType='supermarket', doSplit=True, resolution=10)
+            #find(location, bounds, data, allData)
+            if (1):
+                for i in config['find'][criterionName]['include'].keys():
+                    utils.find(location, bounds, data, allData, name=i)
 
-        deletions = []
-        for k, v in iter(data.items()):
-            if (config['find'][criterionName]['exclude'].get(v['name'])):
-                print('excluding ' + v['name'])
-                deletions.append(k)
+        if (1):
+            deletions = []
+            for k, v in iter(data.items()):
+                if (config['find'][criterionName]['exclude'].get(v['name'])):
+                    print('excluding ' + v['name'])
+                    deletions.append(k)
 
-        for d in deletions:
-            del data[d]
+            for d in deletions:
+                del data[d]
 
         if (args.debug):
             print(criterionName + ':')

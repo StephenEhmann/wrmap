@@ -149,6 +149,7 @@ def find(location, bounds, key, data, allData):
     if (key not in types):
         raise Exception('ERROR: find for ' + key + ' is not implemented, just add the entry into the types dict')
 
+    # convert this code to use utils.grid
     numDivisions = 10
     ystep = (bounds['northeast']['lat'] - bounds['southwest']['lat']) / float(numDivisions)
     y = bounds['southwest']['lat']
