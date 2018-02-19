@@ -17,54 +17,9 @@ try:
 except ImportError:
     from yaml import Loader, Dumper
 
-import googlemaps
-#gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU') # Stephen's key
-gmaps = googlemaps.Client(key='AIzaSyAM8dMF61VMVlcCpDDRcOhhMoudiAixO00') # Eric's key
-#gmaps = googlemaps.Client(key='AIzaSyDpKsGiSCE6MH_KlGTSW8eza6u6dVa8kIE') # Levi's key
-
 import utils
-import kml
 
 criterionName = 'resources'
-
-def find(location, bounds, data, allData, name, dataName=None):
-    more = True
-    token = None
-    while (more):
-        #print('search...')
-        if (not token):
-            psn = gmaps.places_nearby(location=location, rank_by='distance', keyword=name)
-        else:
-            #print('token = ' + token)
-            psn = gmaps.places_nearby(location=location, page_token=token)
-        #print('psn:')
-        #print(dump(psn, default_flow_style=False, Dumper=Dumper))
-        #print('saving token')
-        for p in psn['results']:
-            if (not utils.isInside(p['geometry']['location'], bounds)):
-                # Not in the bounding box
-                #print('this one is not inside:')
-                #print(dump(p, default_flow_style=False, Dumper=Dumper))
-                more = False
-                break
-            if (data.get(p['place_id'])):
-                # Already found this one
-                continue
-
-            dist = utils.distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
-                                   (location['lat'], location['lng']))
-            gRec = {'name': p['name'] if dataName == None else dataName, 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': dist}
-            data[p['place_id']] = gRec
-
-            p['distance'] = dist
-            allData.append(p)
-
-        token = psn.get('next_page_token')
-        if (not token):
-            # finished
-            more = False
-            break
-        time.sleep(2) # next_page_token not immediately ready server-side
 
 def init():
     with open(criterionName + '.yml', 'r') as in_file:
@@ -89,7 +44,6 @@ if (__name__ == "__main__"):
     parser.add_argument('--help', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('-debug', action='store_true', help='print extra info')
     parser.add_argument('-find', action='store_true', help='find all DB items and write them to ' + criterionName + '.yml')
-    parser.add_argument('-kml', type=str, help='along with -find, optional output kmz name: <name>.kmz')
     parser.add_argument('-name', type=str, help='find only for this name')
     parser.add_argument('-location', type=str, help='location to evaluate (will default to the location given in the config.yml file)')
     parser.add_argument('-eval', type=str, help='evaluate the ' + criterionName + ' score for a given coordinate pair (eg. -eval 35.936164,-79.040997)')
@@ -140,14 +94,14 @@ if (__name__ == "__main__"):
 
         data = {}
         allData = []
-        if (args.name == None):
+        if (args.name):
+            utils.find(location, bounds, data, allData, name=args.name)
+        else:
             for k, v in iter(config['find'][criterionName]['include'].items()):
                 if (isinstance(v, dict)):
-                    find(location, bounds, data, allData, k, dataName=v.get('name'))
+                    utils.find(location, bounds, data, allData, name=k, dataName=v.get('name'))
                 else:
-                    find(location, bounds, data, allData, k)
-        else:
-            find(location, bounds, data, allData, args.name)
+                    utils.find(location, bounds, data, allData, name=k)
 
         deletions = []
         for k, v in iter(data.items()):
@@ -171,14 +125,6 @@ if (__name__ == "__main__"):
 
         with open(criterionName + '.' + modName + 'all.yml', 'w') as yaml_file:
             dump(allData, yaml_file, default_flow_style=False, Dumper=Dumper)
-
-        if (args.kml):
-            # package the data so that kml understands it
-            kmlData = {criterionName: {'data': data} }
-            if (os.path.dirname(args.kml)):
-                os.makedirs(os.path.dirname(args.kml), exist_ok=True)
-            kml.write(args.kml, config, kmlData, None)
-            #kml.write(os.path.join(args.kml, 'doc.kml'), config, data, results)
 
     elif (args.eval):
         data = init()

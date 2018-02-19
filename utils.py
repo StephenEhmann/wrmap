@@ -7,9 +7,9 @@ import geopy.distance
 
 if (1):
     import googlemaps
-    gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU') # Stephen's key
+    #gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU') # Stephen's key
     #gmaps = googlemaps.Client(key='AIzaSyAM8dMF61VMVlcCpDDRcOhhMoudiAixO00') # Eric's key
-    #gmaps = googlemaps.Client(key='AIzaSyDpKsGiSCE6MH_KlGTSW8eza6u6dVa8kIE') # Levi's key
+    gmaps = googlemaps.Client(key='AIzaSyDpKsGiSCE6MH_KlGTSW8eza6u6dVa8kIE') # Levi's key
 else:
     import fgm
     gmaps = fgm.Client(key=criterionName)
@@ -50,7 +50,8 @@ def grid(location, bounds, resolution):
     return result
 
 # Find
-def find(location, bounds, data, allData, placeType=None, name=None, doSplit=True, resolution=None):
+def find(location, bounds, data, allData, placeType=None, name=None, dataName=None, doSplit=True, resolution=None):
+    debug = True
     print('find ' + str(placeType) + ' ' + str(name))
     if (placeType == None and name == None or placeType != None and name != None):
         raise Exception('ERROR: exactly one of placeType and name must be given')
@@ -68,17 +69,17 @@ def find(location, bounds, data, allData, placeType=None, name=None, doSplit=Tru
     else:
         bound_list = [bounds] #initialize stack of subdivided bounding boxes
     split_count = 0
-    split_limit = 100 #terminate if split too many times
+    split_limit = 200 #terminate if split too many times
     while (cont_srch):
         box = bound_list.pop() #pop one subdivided bounding box
         center = centroid(box)
-        #print('start outer loop, current center is', center)
+        if (debug): print('start outer loop, current center is', center)
         radius = max( distance( (box['northeast']['lat'], box['northeast']['lng']), (center['lat'], center['lng']) ),
                       distance( (box['southwest']['lat'], box['southwest']['lng']), (center['lat'], center['lng']) ) )
         if (not name and radius <= 4.4):
-            #print('box=' + str(box))
-            #print('center=' + str(center))
-            #print('radius=' + str(radius))
+            if (debug): print('box=' + str(box))
+            if (debug): print('center=' + str(center))
+            if (debug): print('radius=' + str(radius))
             if (name):
                 psn = gmaps.places_nearby(location=center, rank_by='distance', keyword=name)
                 #server_queries += 1
@@ -86,15 +87,15 @@ def find(location, bounds, data, allData, placeType=None, name=None, doSplit=Tru
                 psn = gmaps.places_nearby(location=center, rank_by='distance', type=placeType)
                 #server_queries += 1
 
-            #print('results count = ' + str(len(psn['results'])))
+            if (debug): print('results count = ' + str(len(psn['results'])))
             exceededRadius = False
             newOne = False
             for p in psn['results']:
                 dist_center = distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
                                         (center['lat'], center['lng']))
-                #print('dist center = ' + str(dist_center))
+                if (debug): print('dist center = ' + str(dist_center))
                 if (dist_center >= radius):
-                    #print('exceeded radius')
+                    if (debug): print('exceeded radius')
                     exceededRadius = True
                     break
 
@@ -109,12 +110,10 @@ def find(location, bounds, data, allData, placeType=None, name=None, doSplit=Tru
                     continue
                 newOne = True
                 if (len(psn['results']) < 20):
-                    #print('  new one')
+                    if (debug): print('  new one')
                     pass
 
-                dist = distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
-                                       (location['lat'], location['lng'])) #still calculate dist to original location for recording
-                gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location'], 'distance': dist}
+                gRec = {'name': p['name'] if dataName == None else dataName, 'vicinity': p['vicinity'], 'location': p['geometry']['location']}
 
                 if (0):
                     details = gmaps.place(p['place_id'])
@@ -122,9 +121,8 @@ def find(location, bounds, data, allData, placeType=None, name=None, doSplit=Tru
                     gRec['url'] = details['result']['url']
 
                 data[p['place_id']] = gRec
-
-                p['distance'] = dist
-
+                p['distance'] = distance( (p['geometry']['location']['lat'], p['geometry']['location']['lng']),
+                                          (location['lat'], location['lng'])) #still calculate dist to original location for recording
                 allData.append(p)
 
                 if (0):

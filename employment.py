@@ -17,15 +17,39 @@ try:
 except ImportError:
     from yaml import Loader, Dumper
 
-import googlemaps
-gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU')
-
 import utils
 
 criterionName = 'employment'
 
-def find(location, bounds, data, name=None):
-    pass
+def findType(location, bounds, data, allData, placeType, writeYmls=False, useCached=False):
+    print('findType ' + str(placeType) + ' cached=' + str(useCached))
+    typeData = {}
+    allTypeData = []
+    if (useCached):
+        try:
+            stream = open(criterionName + '.' + placeType + '.all.yml', 'r')
+            cachedData = load(stream, Loader=Loader)
+            stream.close()
+        except Exception as e:
+            print(str(e))
+            raise Exception('ERROR: Failed to load yaml file ' + placeType + '.all.yml')
+
+        allTypeData = cachedData
+        for p in cachedData:
+            gRec = {'name': p['name'], 'vicinity': p['vicinity'], 'location': p['geometry']['location']}
+            typeData[p['place_id']] = gRec
+    else:
+        utils.find(location, bounds, typeData, allTypeData, placeType=placeType, doSplit=True)
+    data.update(typeData)
+    allData += allTypeData
+
+    if (writeYmls):
+        with open(criterionName + '.' + placeType + '.yml', 'w') as yaml_file:
+            dump(typeData, yaml_file, default_flow_style=False, Dumper=Dumper)
+
+        if (not useCached):
+            with open(criterionName + '.' + placeType + '.all.yml', 'w') as yaml_file:
+                dump(allTypeData, yaml_file, default_flow_style=False, Dumper=Dumper)
 
 def init():
     with open(criterionName + '.yml', 'r') as in_file:
@@ -33,20 +57,7 @@ def init():
     return data
 
 def evaluate(loc, data, value):
-    #print(str(value))
-    selection = value['selection']
-    if (selection != 'nearest'):
-        raise Exception('ERROR: can only evaluate for selection \'nearest\'')
-
-    minDist = 100
-    minK = ''
-    for k, v in iter(data.items()):
-        dist = utils.distance(loc, (v['location']['lat'], v['location']['lng']))
-        if (dist < minDist):
-            minDist = dist
-            minK = k
-    # distance to nearest grocery store is x
-    return utils.evaluate_function(value['function'], minDist)
+    return utils.evaluate_require_nearest(loc, data, value)
 
 
 if (__name__ == "__main__"):
@@ -64,6 +75,9 @@ if (__name__ == "__main__"):
     parser.add_argument('-debug', action='store_true', help='print extra info')
     parser.add_argument('-find', action='store_true', help='find all DB items and write them to ' + criterionName + '.yml')
     parser.add_argument('-name', type=str, help='find only for this name')
+    parser.add_argument('-type', type=str, help='find only for this type')
+    parser.add_argument('-cached', action='store_true', help='use cached search results in <type>.all.yml')
+    parser.add_argument('-location', type=str, help='location to evaluate (will default to the location given in the config.yml file)')
     parser.add_argument('-eval', type=str, help='evaluate the ' + criterionName + ' score for a given coordinate pair (eg. -eval 35.936164,-79.040997)')
     args = parser.parse_args()
 
@@ -97,15 +111,37 @@ if (__name__ == "__main__"):
         print(str(e))
         raise Exception('ERROR: Failed to load yaml file ' + 'config.yml')
 
-    location = locations[config['location']] ['location']
     bounds = locations[config['location']] ['bounds']
+    if (args.location):
+        latlong = args.location.split(',')
+        location = {'lat': latlong[0], 'lng': latlong[1]}
+    else:
+        location = utils.centroid(bounds)
 
     if (args.find):
+        if (not config['find'][criterionName].get('include')):
+            config['find'][criterionName]['include'] = {}
+        if (not config['find'][criterionName].get('exclude')):
+            config['find'][criterionName]['exclude'] = {}
+
         data = {}
-        find(location, bounds, data, args.name)
-        if (args.name == None):
-            for i in config['find'][criterionName]['include'].keys():
-                find(location, bounds, data, i)
+        allData = []
+        if (args.name):
+            utils.find(location, bounds, data, allData, name=args.name)
+        else:
+            # What about these place types: bakery, bar, cafe, supermarket?
+            if (args.type):
+                findType(location, bounds, data, allData, args.type, writeYmls=True, useCached=args.cached)
+            else:
+                findType(location, bounds, data, allData, 'lodging', writeYmls=True, useCached=args.cached)
+                findType(location, bounds, data, allData, 'restaurant', writeYmls=True, useCached=args.cached)
+                findType(location, bounds, data, allData, 'bakery', writeYmls=True, useCached=args.cached)
+                findType(location, bounds, data, allData, 'cafe', writeYmls=True, useCached=args.cached)
+                findType(location, bounds, data, allData, 'bar', writeYmls=True, useCached=args.cached)
+                findType(location, bounds, data, allData, 'supermarket', writeYmls=True, useCached=args.cached)
+
+                for i in config['find'][criterionName]['include'].keys():
+                    utils.find(location, bounds, data, allData, name=i)
 
         deletions = []
         for k, v in iter(data.items()):
@@ -116,13 +152,23 @@ if (__name__ == "__main__"):
         for d in deletions:
             del data[d]
 
+        if (args.debug):
+            print(criterionName + ':')
+            print(dump(data, default_flow_style=False, Dumper=Dumper))
+
         if (args.name == None):
             modName = ''
         else:
             modName = re.sub(r'\s', r'_', args.name) + '.'
 
+        if (args.location):
+            modName = 'location.' + modName
+
         with open(criterionName + '.' + modName + 'yml', 'w') as yaml_file:
             dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
+
+        with open(criterionName + '.' + modName + 'all.yml', 'w') as yaml_file:
+            dump(allData, yaml_file, default_flow_style=False, Dumper=Dumper)
 
     elif (args.eval):
         data = init()

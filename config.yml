@@ -24,7 +24,6 @@ find:
     exclude:
       Harris Teeter: 1
       Whole Foods: 1
-      Harris Teeter: 1
       Trader Joe's: 1
       Sam's Club: 1
       Durham Co-Op: 1
@@ -54,7 +53,20 @@ find:
 
   employment:
     include: {}
-    exclude: {}
+    exclude:
+      # lodging exclusions
+      Eno Cottage: 1
+      Pet Spa: 1
+      segura: 1
+      Sterling Townhomes: 1
+
+      # supermarket exclusions
+      Sam's Club: 1
+      Durham Co-Op: 1
+      A&C SUPERMARKET EQUIPMENT: 1
+      tobacco & vape: 1
+      Family Fare Collaboration & Support Center: 1
+      True World Foods: 1
 
   safety: {}
 
