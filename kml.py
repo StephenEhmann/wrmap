@@ -132,3 +132,59 @@ def write(filename, config, data, results):
     with open(filename, 'w') as kml_file:
         kml_file.write(prettify(root))
 
+if (__name__ == "__main__"):
+    # main parser
+    class MainParser(argparse.ArgumentParser):
+        def error(self, message):
+            self.print_help()
+            sys.stderr.write('error: %s\n' % message)
+            sys.exit(2)
+    parser = MainParser(add_help=False, allow_abbrev=False)
+    parser.add_argument('-h', action='store_true', help=argparse.SUPPRESS)
+    parser.add_argument('--h', action='store_true', help=argparse.SUPPRESS)
+    parser.add_argument('-help', action='store_true', help=argparse.SUPPRESS)
+    parser.add_argument('--help', action='store_true', help=argparse.SUPPRESS)
+    parser.add_argument('-debug', action='store_true', help='print extra info')
+    parser.add_argument('-cr', type=str, help='criterion name (eg. bus)')
+    parser.add_argument('-input', type=str, help='input filename')
+    parser.add_argument('-out', type=str, help='optional output kmz name: <name>.kmz')
+    args = parser.parse_args()
+
+    if (args.h or args.help):
+        parser.print_help()
+        sys.exit(0)
+
+    # read config
+    try:
+        stream = open('config.yml', 'r')
+        config = load(stream, Loader=Loader)
+        stream.close()
+    except Exception as e:
+        print(str(e))
+        raise Exception('ERROR: Failed to load yaml file ' + 'config.yml')
+
+    if (not args.input):
+        raise Exception('ERROR: no -input file given')
+
+    if (not args.cr):
+        raise Exception('ERROR: no -cr criterion name given')
+
+    if (not args.out):
+        args.out = re.sub(r'\.yml$', r'.kmz', args.input)
+    else:
+        if (not re.search(r'\.kmz', args.out)):
+            args.out += '.kmz'
+
+    try:
+        stream = open(args.input, 'r')
+        data = load(stream, Loader=Loader)
+        stream.close()
+    except Exception as e:
+        print(str(e))
+        raise Exception('ERROR: Failed to load yaml file ' + args.input)
+
+    kmlData = {args.cr: {'data': data} }
+    if (os.path.dirname(args.out)):
+        os.makedirs(os.path.dirname(args.out), exist_ok=True)
+    write(args.out, config, kmlData, None)
+
