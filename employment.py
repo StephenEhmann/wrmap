@@ -137,7 +137,7 @@ if (__name__ == "__main__"):
                 findType(location, bounds, data, allData, 'restaurant', writeYmls=True, useCached=args.cached)
                 findType(location, bounds, data, allData, 'bakery', writeYmls=True, useCached=args.cached)
                 findType(location, bounds, data, allData, 'cafe', writeYmls=True, useCached=args.cached)
-                findType(location, bounds, data, allData, 'bar', writeYmls=True, useCached=args.cached)
+                #findType(location, bounds, data, allData, 'bar', writeYmls=True, useCached=args.cached)
                 findType(location, bounds, data, allData, 'supermarket', writeYmls=True, useCached=args.cached)
 
                 for i in config['find'][criterionName]['include'].keys():
