@@ -25,20 +25,44 @@ criterionName = 'bus'
 
 if (1):
     import googlemaps
-    gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU') # Stephen's key
+    #gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU') # Stephen's key
     #gmaps = googlemaps.Client(key='AIzaSyAM8dMF61VMVlcCpDDRcOhhMoudiAixO00') # Eric's key
-    #gmaps = googlemaps.Client(key='AIzaSyDpKsGiSCE6MH_KlGTSW8eza6u6dVa8kIE') # Levi's key
+    gmaps = googlemaps.Client(key='AIzaSyDpKsGiSCE6MH_KlGTSW8eza6u6dVa8kIE') # Levi's key
 else:
     import fgm
     gmaps = fgm.Client(key=criterionName)
 
 #server_queries = 0
 
-def findDetails(location, bounds, data, allData, name=None):
+def findDetails(origAllData):
+    debug = True
+    startAt = 0
+    limit = 0
+    if (0):
+        # the first 600
+        startAt = 0
+        limit = 600
+    if (0):
+        # the rest
+        startAt = 600
+        limit = 0
+    count = 0
+    allData = []
+    for d in origAllData:
+        if (count >= startAt):
+            if ('url' not in d)
+                if (debug):
+                    print('query: ' + d['place_id'])
+                details = gmaps.place(d['place_id'])
+                d['url'] = details['result']['url']
+            allData.append(d)
+        count += 1
+        if (limit > 0 and count >= limit):
+            break
+    return allData
+
     if (0):
         # https://github.com/MikimotoH/gisTools/blob/master/google_place.py
-        details = gmaps.place(p['place_id'])
-        url = details['result']['url']
         print('url = ' + url)
         buspage = utils.get_webpage(url)
         print('webpage = ' + buspage)
@@ -97,6 +121,7 @@ if (__name__ == "__main__"):
     parser.add_argument('-debug', action='store_true', help='print extra info')
     parser.add_argument('-find', action='store_true', help='find all DB items and write them to ' + criterionName + '.yml')
     parser.add_argument('-name', type=str, help='find only for this name')
+    parser.add_argument('-cached', action='store_true', help='use cached search results in <type>.all.yml')
     parser.add_argument('-location', type=str, help='location to evaluate (will default to the location given in the config.yml file)')
     parser.add_argument('-eval', type=str, help='evaluate the ' + criterionName + ' score for a given coordinate pair (eg. -eval 35.936164,-79.040997)')
     args = parser.parse_args()
@@ -146,13 +171,25 @@ if (__name__ == "__main__"):
 
         data = {}
         allData = []
-        if (args.name):
-            utils.find(location, bounds, data, allData, name=args.name)
+        if (args.cached):
+            try:
+                stream = open(criterionName + '.all.yml', 'r')
+                origAllData = load(stream, Loader=Loader)
+                stream.close()
+            except Exception as e:
+                print(str(e))
+                raise Exception('ERROR: Failed to load yaml file ' + placeType + '.all.yml')
+
+            allData = findDetails(origAllData)
+
         else:
-            utils.find(location, bounds, data, allData, placeType='bus_station')
-            if (args.name == None and config['find'][criterionName].get('include')):
-                for i in config['find'][criterionName]['include'].keys():
-                    utils.find(location, bounds, data, allData, name=i)
+            if (args.name):
+                utils.find(location, bounds, data, allData, name=args.name)
+            else:
+                utils.find(location, bounds, data, allData, placeType='bus_station')
+                if (args.name == None and config['find'][criterionName].get('include')):
+                    for i in config['find'][criterionName]['include'].keys():
+                        utils.find(location, bounds, data, allData, name=i)
 
         deletions = []
         for k, v in iter(data.items()):
@@ -178,7 +215,10 @@ if (__name__ == "__main__"):
         with open(criterionName + '.' + modName + 'yml', 'w') as yaml_file:
             dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
 
-        with open(criterionName + '.' + modName + 'all.yml', 'w') as yaml_file:
+        allFilename = criterionName + '.' + modName + 'all.yml'
+        if (args.cached):
+            allFilename = criterionName + '.' + modName + 'all.new.yml'
+        with open(allFilename, 'w') as yaml_file:
             dump(allData, yaml_file, default_flow_style=False, Dumper=Dumper)
 
     elif (args.eval):
