@@ -121,7 +121,12 @@ evaluation:
         nearest: 1
         final: average
       function:
-      - const: 0.0
+      - point: [0.0,1.0]
+      - linear
+      - point: [0.5,0.95]
+      - linear
+      - point: [3.0,0.2]
+      - exp: [12.8, -1.386] 
     safety:
       selection:
         type: evaluated
