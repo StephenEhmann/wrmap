@@ -115,10 +115,9 @@ evaluation:
       function:
       - exp2: [1.0,-0.02]
     employment:
-      # TODO
       selection:
         type: nearest
-        nearest: 1
+        nearest: 10
         final: average
       function:
       - point: [0.0,1.0]
