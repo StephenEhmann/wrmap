@@ -50,6 +50,7 @@ def findDetails(origAllData, keywords):
         limit = 0
     count = 0
     allData = []
+    failed = False
     for d in origAllData:
         if (count >= startAt):
             if ('url' not in d):
