@@ -2,7 +2,9 @@ location: durham
 
 ### Parameters for finding things
 find:
-  bus: {}
+  bus:
+    include:
+      godurhamtransit.org: 1
 
   grocery:
     # Note that some of these are required to be in the include section because they do not have the proper google places tagging

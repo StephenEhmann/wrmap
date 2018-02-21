@@ -1,8 +1,10 @@
 import sys
 import heapq
 import math
+import urllib
 from urllib.request import urlopen, Request
 import certifi
+import contextlib
 import geopy.distance
 
 if (1):
@@ -288,19 +290,33 @@ def evaluate_require_nearest(loc, data, value):
 
 
 # Web
+# o-xterm-34  216.228.112.21
+# sc-xterm-06 216.228.112.21
+# sc-xterm-01 216.228.112.22
+# sc-xterm-17 216.228.112.22
+# sc-xterm-02 216.228.112.21
 def get_webpage(url):
     """ Given a HTTP/HTTPS url and then returns string
     Returns:
         string of HTML source code
     """
 
-    req = Request(url=url)
-    with urlopen(req, cafile=certifi.where()) as f:
-        return f.read().decode('utf-8')
+    try:
+        req = Request(url=url)
+        #with urlopen(req, cafile=certifi.where()) as f:
+        result = ''
+        with contextlib.closing(urlopen(req, cafile=certifi.where())) as f:
+            result = f.read().decode('utf-8')
+        return result
+    except urllib.error.HTTPError as httperr:
+        #print(httperr.headers)  # Dump the headers to see if there's more information
+        #print(httperr.read())
+        raise
 
     #resp = urllib.request.urlopen('https://foo.com/bar/baz.html', cafile=certifi.where())
     req = Request(url, headers={'Accept-Charset': 'utf-8', 'Accept-Language': 'zh-tw,en-us;q=0.5'})
-    with urlopen(req, cafile=certifi.where()) as rsq:
+    #with urlopen(req, cafile=certifi.where()) as rsq:
+    with contextlib.closing(urlopen(req, cafile=certifi.where())) as rsq:
         _, _, charset = rsq.headers['Content-Type'].partition('charset=')
         if not charset:
             charset = 'utf-8'

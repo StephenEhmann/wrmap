@@ -11,8 +11,6 @@ import glob
 import re
 import time
 from datetime import datetime
-# TODO: add this to README and notify others
-#import html5lib
 from yaml import load, dump
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
@@ -34,10 +32,14 @@ else:
 
 #server_queries = 0
 
-def findDetails(origAllData):
+def findDetails(origAllData, keywords):
     debug = True
     startAt = 0
     limit = 0
+
+    startAt = 100
+    limit = 0
+
     if (0):
         # the first 600
         startAt = 0
@@ -50,39 +52,37 @@ def findDetails(origAllData):
     allData = []
     for d in origAllData:
         if (count >= startAt):
-            if ('url' not in d)
+            if ('url' not in d):
                 if (debug):
                     print('query: ' + d['place_id'])
                 details = gmaps.place(d['place_id'])
                 d['url'] = details['result']['url']
-            allData.append(d)
+            if (d.get('found_keyword') == None):
+                print('url = ' + d['url'])
+                try:
+                    buspage = utils.get_webpage(d['url'])
+                except Exception as e:
+                    failed = True
+                else:
+                    for k in keywords:
+                        if (re.search(k, buspage)):
+                            d['found_keyword'] = 1
+                    if (d.get('found_keyword') == None):
+                        d['found_keyword'] = 0
+
+            if (failed):
+                print('failed at ' + str(count))
+                allFilename = criterionName + '.all.' + str(startAt) + '_' + str(count-1) + '.new.yml'
+                with open(allFilename, 'w') as yaml_file:
+                    dump(allData, yaml_file, default_flow_style=False, Dumper=Dumper)
+                break
+            else:
+                allData.append(d)
+
         count += 1
         if (limit > 0 and count >= limit):
             break
     return allData
-
-    if (0):
-        # https://github.com/MikimotoH/gisTools/blob/master/google_place.py
-        print('url = ' + url)
-        buspage = utils.get_webpage(url)
-        print('webpage = ' + buspage)
-        # Scrape this from the cached results section:
-        """
-        [["Buses",[[3,"bus2.png",null,"Bus",[["https://maps.gstatic.com/mapfiles/transit/iw2/b/bus2.png",0,[15,15],null,0]]]],[[null,null,null,null,"0x89ace4dfacb0eac1:0x2afeb462d543b31c",[[5,["2",1,"#0033cc","#ffffff"]]]],[null,null,null,null,"0x89ace40fe82c61e9:0x4b96e38b28ffccd4",[[5,["BCC",1,"#0033cc","#ffffff"]]]]],null,1,"5",2]]
-        """
-        #tree = html.fromstring(buspage)
-        #tree = html5lib.parse(buspage)
-        #bus_elm = tree.find("./html/body/div[1]/div/div[4]/div[4]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/div/div[2]/div/table/tr/td")
-        #bus_elm = tree.xpath("/html/body/div[1]/div/div[4]/div[4]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/div/div[2]/div/table/tr/td")
-        if (not bus_elm):
-            print('ERROR: xpath get bus failed for ' + p['place_id'])
-        else:
-            print('bus_elm: ' + str(bus_elm))
-            bus_elm = bus_elm[0]
-            buses = list(filter(lambda s: len(s.strip()) > 0,
-                                bus_elm.text_content().strip().split()))
-            details['buses'] = buses
-            #yield (station, float(loc['lat']), float(loc['lng']), buses)
 
 def init():
     with open(criterionName + '.yml', 'r') as in_file:
@@ -180,7 +180,7 @@ if (__name__ == "__main__"):
                 print(str(e))
                 raise Exception('ERROR: Failed to load yaml file ' + placeType + '.all.yml')
 
-            allData = findDetails(origAllData)
+            allData = findDetails(origAllData, config['find'][criterionName]['include'].keys())
 
         else:
             if (args.name):
@@ -212,12 +212,15 @@ if (__name__ == "__main__"):
         if (args.location):
             modName = 'location.' + modName
 
-        with open(criterionName + '.' + modName + 'yml', 'w') as yaml_file:
-            dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
-
+        filename = criterionName + '.' + modName + 'yml'
         allFilename = criterionName + '.' + modName + 'all.yml'
         if (args.cached):
+            filename = criterionName + '.' + modName + 'new.yml'
             allFilename = criterionName + '.' + modName + 'all.new.yml'
+
+        with open(filename, 'w') as yaml_file:
+            dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
+
         with open(allFilename, 'w') as yaml_file:
             dump(allData, yaml_file, default_flow_style=False, Dumper=Dumper)
 
