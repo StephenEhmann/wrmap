@@ -32,12 +32,10 @@ else:
 
 #server_queries = 0
 
+# TODO: how to make bus webpage scraping robust?
 def findDetails(origAllData, keywords):
     debug = True
     startAt = 0
-    limit = 0
-
-    startAt = 100
     limit = 0
 
     if (0):
@@ -50,7 +48,6 @@ def findDetails(origAllData, keywords):
         limit = 0
     count = 0
     allData = []
-    failed = False
     for d in origAllData:
         if (count >= startAt):
             if ('url' not in d):
@@ -60,6 +57,7 @@ def findDetails(origAllData, keywords):
                 d['url'] = details['result']['url']
             if (d.get('found_keyword') == None):
                 print('url = ' + d['url'])
+                failed = False
                 try:
                     buspage = utils.get_webpage(d['url'])
                 except Exception as e:
@@ -71,19 +69,29 @@ def findDetails(origAllData, keywords):
                     if (d.get('found_keyword') == None):
                         d['found_keyword'] = 0
 
-            if (failed):
-                print('failed at ' + str(count))
-                allFilename = criterionName + '.all.' + str(startAt) + '_' + str(count-1) + '.new.yml'
-                with open(allFilename, 'w') as yaml_file:
-                    dump(allData, yaml_file, default_flow_style=False, Dumper=Dumper)
-                break
-            else:
-                allData.append(d)
+                if (failed):
+                    print('failed at ' + str(count))
+                    allFilename = criterionName + '.all.' + str(startAt) + '_' + str(count-1) + '.new.yml'
+                    with open(allFilename, 'w') as yaml_file:
+                        dump(allData, yaml_file, default_flow_style=False, Dumper=Dumper)
+                    break
+
+            allData.append(d)
 
         count += 1
         if (limit > 0 and count >= limit):
             break
+
     return allData
+
+def filterData(data, allData):
+    for d in allData:
+        if ('found_keyword' not in d):
+            print('ERROR: cannot finish filtering because there is missing found_keyword data in the ' + d['name'] + ' record')
+            break
+        if (d['found_keyword']):
+            gRec = {'name': d['name'], 'vicinity': d['vicinity'], 'location': d['geometry']['location']}
+            data[d['place_id']] = gRec
 
 def init():
     with open(criterionName + '.yml', 'r') as in_file:
@@ -182,6 +190,7 @@ if (__name__ == "__main__"):
                 raise Exception('ERROR: Failed to load yaml file ' + placeType + '.all.yml')
 
             allData = findDetails(origAllData, config['find'][criterionName]['include'].keys())
+            filterData(data, allData)
 
         else:
             if (args.name):

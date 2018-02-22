@@ -22,12 +22,6 @@ ChIJ-42FhhrjrIkRQLS1beFQamM:
     lng: -78.869716
   name: Dearborn Dr at Apollo St
   vicinity: United States
-ChIJ-4IdOqforIkRTFl1WN-E2As:
-  location:
-    lat: 35.92338699999999
-    lng: -78.945229
-  name: Woodcroft Pkwy at Old Fox Trail
-  vicinity: United States
 ChIJ-4oOhzjkrIkRv-Zf5QjM7to:
   location:
     lat: 35.978418
@@ -70,12 +64,6 @@ ChIJ-QK_CKLjrIkRi9zksy_nOjo:
     lng: -78.89
   name: Roxboro Rd at Edgewood Dr
   vicinity: United States
-ChIJ-SEua7LmrIkRlQqMfD6_z5I:
-  location:
-    lat: 36.0067694
-    lng: -78.9413328
-  name: Research Dr at GSRB 2 (Northbound)
-  vicinity: United States
 ChIJ-SRJ7W3krIkRh2yCfFzSN-4:
   location:
     lat: 35.99561599999999
@@ -93,12 +81,6 @@ ChIJ-y36ORDvrIkRXY1PGSbbWvI:
     lat: 35.89021
     lng: -78.89596
   name: NC 55 at Sedwick Dr (NB)
-  vicinity: United States
-ChIJ-ypRG9XvrIkRT4VpOOaRJDM:
-  location:
-    lat: 35.874285
-    lng: -78.84071899999999
-  name: Emperor Blvd at LC Industries
   vicinity: United States
 ChIJ-zqi7a_krIkRMdOPHvrHIKE:
   location:
@@ -118,18 +100,6 @@ ChIJ03tFlurorIkRQj3BKWUTvT8:
     lng: -78.952381
   name: Renaissance Pkwy at The Lodge Apts (EB)
   vicinity: United States
-ChIJ0QlfU7fmrIkRnu19YHmzw_E:
-  location:
-    lat: 36.00084769999999
-    lng: -78.9459667
-  name: Towerview Rd at the School of Law
-  vicinity: United States
-ChIJ0Re68bPmrIkRrnmjAVssJUM:
-  location:
-    lat: 36.00664580000001
-    lng: -78.94520159999999
-  name: LaSalle St at Circuit Lot
-  vicinity: United States
 ChIJ0ShLgwvjrIkRn1U2YxryqmU:
   location:
     lat: 36.02936999999999
@@ -141,12 +111,6 @@ ChIJ0SkIrUvirIkRbmXdi1CFpyg:
     lat: 36.053445
     lng: -78.90318599999999
   name: Roxboro Rd at Ryan St (NB)
-  vicinity: United States
-ChIJ0UhDlq_mrIkR88gG4tqrCNw:
-  location:
-    lat: 36.0009589
-    lng: -78.9382643
-  name: West Campus Chapel
   vicinity: United States
 ChIJ0XvGut7grIkRyhBHLfxXJHk:
   location:
@@ -220,12 +184,6 @@ ChIJ16EecwHlrIkRnr1rsfRaZ3g:
     lng: -78.8792
   name: Briggs Ave at Riddle Rd
   vicinity: United States
-ChIJ16H3GEnmrIkReBMrAlbNSa4:
-  location:
-    lat: 35.952465
-    lng: -78.96611
-  name: University Dr at American Red Cross
-  vicinity: United States
 ChIJ171CwmrkrIkROHxLIXViD9M:
   location:
     lat: 35.98774
@@ -274,12 +232,6 @@ ChIJ1VGqPiDkrIkRdpPiMTm6gtg:
     lng: -78.92711899999999
   name: Chapel Hill Rd at Jersey Ave (WB)
   vicinity: United States
-ChIJ1VVHd_jwrIkRsvWJJGil56k:
-  location:
-    lat: 35.876036
-    lng: -78.79305599999999
-  name: RDU Airport at Terminal 2 (Zone 14)
-  vicinity: United States
 ChIJ1Wk6yk7hrIkRSu5nysjXRgU:
   location:
     lat: 36.0179747
@@ -309,12 +261,6 @@ ChIJ1bEqiJDkrIkRng4HtIt4ZdU:
     lat: 35.992479
     lng: -78.869401
   name: Gary St at N Miami Blvd
-  vicinity: United States
-ChIJ1byEZrHmrIkR33QirZniu-Q:
-  location:
-    lat: 36.0051856
-    lng: -78.9440521
-  name: Circuit Dr at Circuit Lot (Westbound)
   vicinity: United States
 ChIJ1d8lW_LjrIkRTZKo_Dj1Sbs:
   location:
@@ -400,12 +346,6 @@ ChIJ2TCcE8nlrIkRiqr7FRB8OUQ:
     lng: -78.909877
   name: Fayetteville St at White Rock Church (Inbound)
   vicinity: United States
-ChIJ2Tn2YK7mrIkRMahPLIxG2pw:
-  location:
-    lat: 36.0038113
-    lng: -78.93749129999999
-  name: Research Dr at Duke Clinic
-  vicinity: United States
 ChIJ2WfQCV37rIkRXMBNSl4d9u4:
   location:
     lat: 35.991105
@@ -442,12 +382,6 @@ ChIJ2bGJRQXjrIkRLh6aZsSc-2Y:
     lng: -78.87295
   name: Dearborn Dr at Thelma St (north)
   vicinity: United States
-ChIJ2csF3cjnrIkRCf9sV90nG1k:
-  location:
-    lat: 35.945956
-    lng: -78.983111
-  name: SW Durham Dr at Rose Garden Ln
-  vicinity: United States
 ChIJ2dR4F7LorIkR56UZtlQrneU:
   location:
     lat: 35.912101
@@ -459,12 +393,6 @@ ChIJ2dVw8JvjrIkR6cwEQqhIzwM:
     lat: 36.0214
     lng: -78.88980000000001
   name: Roxboro Rd at Ellerbee St
-  vicinity: United States
-ChIJ2elxoqvmrIkRtfENWQq71Aw:
-  location:
-    lat: 36.0068683
-    lng: -78.93302659999999
-  name: Flowers Dr at Trent Hall (Southbound)
   vicinity: United States
 ChIJ2x2Fe6b6rIkR68RIOJvi_oA:
   location:
@@ -501,12 +429,6 @@ ChIJ35yDIJrlrIkRM8oDWWFNo8g:
     lat: 35.93638
     lng: -78.89325
   name: Cornwallis Rd at Yorktown Ave
-  vicinity: United States
-ChIJ380Bw9TvrIkR7ZVLWlL8vr0:
-  location:
-    lat: 35.8735423
-    lng: -78.8420739
-  name: Emperor Blvd at Yorkshire Place
   vicinity: United States
 ChIJ38TSil3hrIkRsOsldZT3VGk:
   location:
@@ -682,12 +604,6 @@ ChIJ4Rk8zRHkrIkR9w5o2m5a4fg:
     lng: -78.914609
   name: Chapel Hill St at Arnette Ave
   vicinity: United States
-ChIJ4Shyb6vmrIkRkAbNrzTtDPw:
-  location:
-    lat: 36.008251
-    lng: -78.933707
-  name: Trent St at Erwin Rd
-  vicinity: United States
 ChIJ4V-byZvlrIkR0jG2ijvEnRs:
   location:
     lat: 35.93505
@@ -759,12 +675,6 @@ ChIJ55-KkhnkrIkRdKrKVnG9F_E:
     lat: 35.99180999999999
     lng: -78.91910899999999
   name: Morehead Ave at Cornell St
-  vicinity: United States
-ChIJ55QhWarorIkRcz0pZEzK4UI:
-  location:
-    lat: 35.922093
-    lng: -78.93184699999999
-  name: Woodcroft Pkwy at Parsons Chase
   vicinity: United States
 ChIJ56ksUTPlrIkRnZa8Afmaqeo:
   location:
@@ -838,12 +748,6 @@ ChIJ5Yvg3ivirIkRzuON8AMvbmI:
     lng: -78.924842
   name: Horton Rd at Delbert Ave
   vicinity: United States
-ChIJ5_OPp9bvrIkRvK9M3W7Ylwo:
-  location:
-    lat: 35.87794
-    lng: -78.843088
-  name: Slater Rd at Emperor Blvd (Chelsea Place)
-  vicinity: United States
 ChIJ5bSqB5vorIkRhYrYg73ae6U:
   location:
     lat: 35.91904299999999
@@ -898,41 +802,17 @@ ChIJ6-Y1orDjrIkRMW14_UDQdtU:
     lng: -78.899275
   name: N Roxboro Rd at Crutchfield St
   vicinity: United States
-ChIJ60pKztLvrIkRXh7jWPjxUQw:
-  location:
-    lat: 35.8734278
-    lng: -78.8475648
-  name: Emperor Blvd at S Miami Blvd (Royal Center)
-  vicinity: United States
 ChIJ64OWd57mrIkRqrrciD4guCc:
   location:
     lat: 35.98303
     lng: -78.93087000000001
   name: Chapel Hill Rd at Vesson Ave
   vicinity: United States
-ChIJ68JV-AXkrIkRMO_eoAxu6fw:
-  location:
-    lat: 36.0026878
-    lng: -78.9176667
-  name: Campus Dr at Maxwell St (Westbound)
-  vicinity: United States
-ChIJ68kZQK7vrIkRLj88iF0TOj0:
-  location:
-    lat: 35.88215
-    lng: -78.873725
-  name: United States EPA (RTP Campus)
-  vicinity: United States
 ChIJ69madDjlrIkRzcDvg_BEcgo:
   location:
     lat: 35.938172
     lng: -78.85094
   name: Ellis Rd at Research Triangle Academy (EB)
-  vicinity: United States
-ChIJ6QQXa6bmrIkRSAIo37aQADM:
-  location:
-    lat: 35.99806739999999
-    lng: -78.93344139999999
-  name: Chapel Dr at Duke University Rd (Duke News)
   vicinity: United States
 ChIJ6U88J7nnrIkRrHZU7KwO13I:
   location:
@@ -1011,12 +891,6 @@ ChIJ6z-aeAnkrIkRvWC6yHO3VFE:
     lat: 36.00535
     lng: -78.91232
   name: Buchanan Blvd at Trinity Ave
-  vicinity: United States
-ChIJ6zXAS-nnrIkRFEqVQNbJgzQ:
-  location:
-    lat: 35.945346
-    lng: -79.001969
-  name: E Lakeview Dr at Old Durham Rd (NB)
   vicinity: United States
 ChIJ702frfHjrIkRdQIU9TD7hqI:
   location:
@@ -1180,18 +1054,6 @@ ChIJ8XrelTLkrIkRGxyo7_k7kQY:
     lng: -78.916428
   name: Roxboro St at Charles St
   vicinity: United States
-ChIJ8YyYKLrmrIkR-e_RUhP5GGc:
-  location:
-    lat: 35.9983692
-    lng: -78.9455346
-  name: Fuqua School/Southbound
-  vicinity: United States
-ChIJ8YyYKLrmrIkRkjgj3nWHiS0:
-  location:
-    lat: 35.99812530000001
-    lng: -78.9455109
-  name: Science Dr at Fuqua School of Business (Northbound)
-  vicinity: United States
 ChIJ8_rwU2DkrIkRtqwJoJtEi6U:
   location:
     lat: 35.98651999999999
@@ -1203,12 +1065,6 @@ ChIJ8cqqB2XkrIkRRbs_wWTV-LM:
     lat: 35.992963
     lng: -78.89258099999999
   name: Liberty St at Elizabeth St
-  vicinity: United States
-ChIJ8cqtZgHkrIkRC-55O6F-Qjg:
-  location:
-    lat: 36.004223
-    lng: -78.92490099999999
-  name: Oregon St at Pace St
   vicinity: United States
 ChIJ8dN-NpblrIkRGqlvB1ZM-Oc:
   location:
@@ -1227,12 +1083,6 @@ ChIJ9-LsJ43jrIkRZmMypjBz6bQ:
     lat: 36.015543
     lng: -78.90540399999999
   name: Duke St at Englewood Ave
-  vicinity: United States
-ChIJ9-Y50gDkrIkRRtGwQdmoA3s:
-  location:
-    lat: 36.00697090000001
-    lng: -78.9234494
-  name: Shops at Erwin Mill
   vicinity: United States
 ChIJ9-mxAyjkrIkRiw_ciikt9HU:
   location:
@@ -1257,12 +1107,6 @@ ChIJ92g2_QrkrIkRjto4ds6WpLw:
     lat: 36.005107
     lng: -78.908341
   name: Gregson St at Trinity Ave
-  vicinity: United States
-ChIJ94S0i8bvrIkRHqw_9Ikr7nM:
-  location:
-    lat: 35.8874
-    lng: -78.856421
-  name: NC 54 at New Millennium Way (EB)
   vicinity: United States
 ChIJ95NMukfirIkRwJkvqimwOh4:
   location:
@@ -1323,12 +1167,6 @@ ChIJ9TpMhLXjrIkRCdVv0EZZX-k:
     lat: 36.04726999999999
     lng: -78.90572
   name: Duke St at Fairfield St
-  vicinity: United States
-ChIJ9Ugu2LTmrIkRzdLDHrbk5Qc:
-  location:
-    lat: 36.01073
-    lng: -78.948477
-  name: LaSalle St at Belmont Apartments (NB)
   vicinity: United States
 ChIJ9Uq8w5rorIkRmf8nCfV2dck:
   location:
@@ -1444,12 +1282,6 @@ ChIJAWuCjf7krIkRKJyLSRcwpmA:
     lng: -78.879128
   name: Briggs Ave at East Coast Metal
   vicinity: United States
-ChIJAbwx0u_nrIkR0F3r6JegI1Q:
-  location:
-    lat: 35.944017
-    lng: -79.007436
-  name: Standish Dr at Old Durham Rd
-  vicinity: United States
 ChIJAc9mCnfkrIkR6F5a4647Dpc:
   location:
     lat: 36.00384
@@ -1486,18 +1318,6 @@ ChIJAwpOp6zjrIkRrMR1yc_q7CI:
     lng: -78.889263
   name: Ben Franklin Blvd at Danube Ln
   vicinity: United States
-ChIJAxyY6ALkrIkRsjSVZPclbPI:
-  location:
-    lat: 36.0002594
-    lng: -78.92674559999999
-  name: Campus Dr at Nasher (Westbound)
-  vicinity: United States
-ChIJB0PXF6rmrIkR0vDh-xeM610:
-  location:
-    lat: 36.0051671
-    lng: -78.9302211
-  name: Yearby Ave at Anderson St
-  vicinity: United States
 ChIJB15VJD7krIkRvYgq8f8jOIM:
   location:
     lat: 35.98584599999999
@@ -1528,12 +1348,6 @@ ChIJB6uNJGHkrIkR1_Bc5zKGj2o:
     lng: -78.888283
   name: E Main St at Alston Ave (EB)
   vicinity: United States
-ChIJB7kDYwPkrIkRU9afvMiBDvc:
-  location:
-    lat: 36.0001092
-    lng: -78.92337789999999
-  name: Swift Ave at Campus Dr
-  vicinity: United States
 ChIJBSdG7fbjrIkR-7Sw8pxmH_0:
   location:
     lat: 36.011548
@@ -1551,12 +1365,6 @@ ChIJBTPH8L3lrIkR5SSCjB7yO0E:
     lat: 35.94278
     lng: -78.89972999999999
   name: Cornwallis Rd at Industry Ln
-  vicinity: United States
-ChIJBUTEqsnmrIkRuq8Jhv4JaWI:
-  location:
-    lat: 36.0039597
-    lng: -78.9541615
-  name: Duke Dialysis Center
   vicinity: United States
 ChIJBUjTvEzmrIkR1qwWf0iQfc4:
   location:
@@ -1672,18 +1480,6 @@ ChIJCS5eoRrkrIkRy0iH1O8ore0:
     lng: -78.91785
   name: Chapel Hill St at Kent St (WB)
   vicinity: United States
-ChIJCTZOk8fmrIkRICF-rDw3BJE:
-  location:
-    lat: 35.99968399999999
-    lng: -78.952462
-  name: Erwin Rd at Cameron Blvd
-  vicinity: United States
-ChIJCTZRGrXmrIkR_XJLlSJ6tUs:
-  location:
-    lat: 36.0096781
-    lng: -78.94918109999999
-  name: Campus Walk Ave at LaSalle St
-  vicinity: United States
 ChIJCVYNYW_krIkR0z17IF5nJF0:
   location:
     lat: 35.991937
@@ -1731,12 +1527,6 @@ ChIJD7atzm3krIkRY1aHI6c_Avc:
     lat: 35.994004
     lng: -78.901578
   name: Pettigrew St at Mangum St
-  vicinity: United States
-ChIJD9qO8MrmrIkRqFPsuUV6ZE0:
-  location:
-    lat: 36.0097918
-    lng: -78.95356249999999
-  name: Millenium Hotel at Campus Walk Ave (EB)
   vicinity: United States
 ChIJDVYbDMjorIkRuUjS3NaHvKw:
   location:
@@ -1822,12 +1612,6 @@ ChIJEWWWSVnmrIkRE5v14-XeARc:
     lng: -78.95754
   name: University Dr at BB&T
   vicinity: United States
-ChIJEXJPQYLwrIkR3oDspaHB0ac:
-  location:
-    lat: 35.90838609999999
-    lng: -78.785656
-  name: Brier Creek Pkwy at Brier Leaf Ln
-  vicinity: United States
 ChIJE_of-enjrIkRJEUG-AZzzpU:
   location:
     lat: 36.02912
@@ -1845,12 +1629,6 @@ ChIJEbY5QG_krIkR82r2mcqte20:
     lat: 35.99171400000001
     lng: -78.89616199999999
   name: S Dillard St at County Public Health
-  vicinity: United States
-ChIJEc7Gp-bnrIkRNqnPINNOPII:
-  location:
-    lat: 35.936497
-    lng: -79.00223
-  name: Fountian Ridge Rd at Colony Woods Dr
   vicinity: United States
 ChIJEdZmDFXhrIkRCoa4jEDlL3w:
   location:
@@ -1900,12 +1678,6 @@ ChIJF5dnot_grIkRNODSadLtu-s:
     lng: -78.975641
   name: Hillsborough Rd at Neal Rd (EB)
   vicinity: United States
-ChIJF5xKEyrwrIkR4YsePnwbN78:
-  location:
-    lat: 35.87602
-    lng: -78.83729000000001
-  name: Slater Rd at Sheraton Hotel
-  vicinity: United States
 ChIJF8_vKrDjrIkRuJQUPxZ-xjc:
   location:
     lat: 36.041261
@@ -1954,12 +1726,6 @@ ChIJFeERoPfkrIkRqnGj8ob97fI:
     lng: -78.88077
   name: Lawson St at Durham Tech
   vicinity: United States
-ChIJFeWGoRLkrIkR6gUcBYKlBVs:
-  location:
-    lat: 35.9966263
-    lng: -78.90749319999999
-  name: Willard St. outside of Durham Station Transportation Center, Durham, NC
-  vicinity: United States
 ChIJFemwJ1PhrIkRD0IwqpRljD4:
   location:
     lat: 36.01117
@@ -1972,23 +1738,11 @@ ChIJFx5IBabmrIkRkcn3NfiMlgM:
     lng: -78.93344139999999
   name: Chapel Dr at Duke University Rd (Duke News)
   vicinity: United States
-ChIJG-zr_QjkrIkR8pPTeP6Vs0Y:
-  location:
-    lat: 36.00521
-    lng: -78.91475
-  name: East Campus (Washington Duke Statue)
-  vicinity: United States
 ChIJG1NqxUvkrIkR_6w9isCcjXc:
   location:
     lat: 35.96877
     lng: -78.90258
   name: Fayetteville St at Burlington Ave
-  vicinity: United States
-ChIJG2Sg0sjnrIkRH3od3A1Sg1k:
-  location:
-    lat: 35.944835
-    lng: -78.983257
-  name: SW Durham Dr at Rose Garden Ln
   vicinity: United States
 ChIJG4c7SJnjrIkRs9hfKKU8wAU:
   location:
@@ -2008,18 +1762,6 @@ ChIJG6RsKbTkrIkRIansvrAggn0:
     lng: -78.843685
   name: Wedgedale Ave at Manson Pl
   vicinity: United States
-ChIJG71JMrHmrIkRyLOld_GVrKw:
-  location:
-    lat: 36.0042611
-    lng: -78.9451639
-  name: Circuit Dr at Circuit Lot Ext (Westbound)
-  vicinity: United States
-ChIJG8Em-e_nrIkRZ5XC7esXrxc:
-  location:
-    lat: 35.941811
-    lng: -79.00757999999999
-  name: Standish Dr at Sir Richard Ln
-  vicinity: United States
 ChIJGSHT47zkrIkRXTnQlR7k1Bk:
   location:
     lat: 35.99053000000001
@@ -2031,12 +1773,6 @@ ChIJGTfB1RTkrIkRKg2xYvCOU3Q:
     lat: 35.988819
     lng: -78.90647299999999
   name: Blackwell St at Forest Hills Apts (NB)
-  vicinity: United States
-ChIJGUgS9anmrIkRnW3LY7fgQqo:
-  location:
-    lat: 36.0042565
-    lng: -78.9301145
-  name: Anderson St at Lewis St
   vicinity: United States
 ChIJGVFWTUDkrIkRbY-8gdNk87o:
   location:
@@ -2079,18 +1815,6 @@ ChIJGffdmqrmrIkRzqJ-qxmf89A:
     lat: 36.00766179999999
     lng: -78.92937839999999
   name: Anderson St at Main St
-  vicinity: United States
-ChIJGftnBaXmrIkR3laPH2pu0e0:
-  location:
-    lat: 35.99766049999999
-    lng: -78.93826250000001
-  name: Towerview Rd at Edens B & C Lots (roundabout)
-  vicinity: United States
-ChIJGx-vi6rorIkRdZdTNKdLUNk:
-  location:
-    lat: 35.92266499999999
-    lng: -78.93144199999999
-  name: Woodcroft Pkwy at Homeplace II
   vicinity: United States
 ChIJGz3QKRXkrIkRPqOMyj4CNIU:
   location:
@@ -2152,12 +1876,6 @@ ChIJHWLKNk7mrIkRpqiffAwz95w:
     lng: -78.966036
   name: University Dr at Springfield Apts
   vicinity: United States
-ChIJHWcgi-LnrIkRPuP3Unj_HTU:
-  location:
-    lat: 35.93193100000001
-    lng: -79.00534999999999
-  name: Ephesus Church Rd at Sharon Rd
-  vicinity: United States
 ChIJHY-21CHkrIkRdalgTWVgJHU:
   location:
     lat: 35.987596
@@ -2194,12 +1912,6 @@ ChIJHyGYaBvkrIkRNC4lbLhugKQ:
     lng: -78.922429
   name: Duke University Rd at Underwood Ave (EB)
   vicinity: United States
-ChIJHzNybrXmrIkR9zhwT6YuEM0:
-  location:
-    lat: 36.0097326
-    lng: -78.95049340000001
-  name: Campus Walk Ave at Campus Walk Apts (EB)
-  vicinity: United States
 ChIJI3Obq7forIkRyA5BDZXUedE:
   location:
     lat: 35.90526000000001
@@ -2217,12 +1929,6 @@ ChIJI6qjF0XkrIkRp3pQEDBdE9g:
     lat: 35.97626
     lng: -78.896433
   name: Lawson Ave at NCCU Track (WB)
-  vicinity: United States
-ChIJI7k8-LjnrIkRQUUYT1CGHFw:
-  location:
-    lat: 35.95267
-    lng: -78.98831400000002
-  name: SW Durham Dr at Witherspoon Blvd
   vicinity: United States
 ChIJI8FeM8T6rIkRvKCjiwtMWzg:
   location:
@@ -2242,12 +1948,6 @@ ChIJISh7TELkrIkRjUaLxK4_v4Q:
     lng: -78.89872299999999
   name: Fayetteville St at Umsted St
   vicinity: United States
-ChIJIT19a6jmrIkRvhsjnKLk3g0:
-  location:
-    lat: 36.0000208
-    lng: -78.930376
-  name: Campus Dr at Anderson St (Eastbound)
-  vicinity: United States
 ChIJITGXlKPjrIkRPLuocx4-RCU:
   location:
     lat: 36.031871
@@ -2259,12 +1959,6 @@ ChIJITZXUlThrIkRUs14mCQ0pkg:
     lat: 36.01312
     lng: -78.93185
   name: Hillsborough Rd at Hicks St
-  vicinity: United States
-ChIJIV4WgSrwrIkRNtRi24x9B1w:
-  location:
-    lat: 35.874676
-    lng: -78.83828500000001
-  name: Regional Transit Center (RTC)
   vicinity: United States
 ChIJIVM-tWbkrIkRMz6Layw2hhM:
   location:
@@ -2314,12 +2008,6 @@ ChIJIfCS1AvjrIkRACWIu7V1Qms:
     lng: -78.8806
   name: Waring St at Davinci St
   vicinity: United States
-ChIJIfFniZvorIkR3tvR8w0mRsg:
-  location:
-    lat: 35.9207398
-    lng: -78.9589147
-  name: Hope Valley Rd at Bank of America
-  vicinity: United States
 ChIJIw9i0TDkrIkRiMDiRKdzCNc:
   location:
     lat: 35.973566
@@ -2349,12 +2037,6 @@ ChIJIznkX4XkrIkRo59MrikDmxk:
     lat: 35.99377
     lng: -78.87362
   name: Holloway St at Briggs Ave
-  vicinity: United States
-ChIJJ4R76ALkrIkRznVwd67YVTM:
-  location:
-    lat: 36.0002806
-    lng: -78.9262944
-  name: Campus Dr at Central Campus (Eastbound)
   vicinity: United States
 ChIJJ6OZqBLkrIkRt2wNTTQ3kPM:
   location:
@@ -2440,12 +2122,6 @@ ChIJJxCloqzjrIkR3KYyvRZDJbg:
     lng: -78.88987
   name: Ben Franklin Blvd at Danube Ln
   vicinity: United States
-ChIJJxPbPQTkrIkRVVlUapzFE1s:
-  location:
-    lat: 36.00259399999999
-    lng: -78.92163599999999
-  name: Swift Ave at 300 Swift Apts
-  vicinity: United States
 ChIJJycY6vfkrIkRB1nfeSRWkfM:
   location:
     lat: 35.974301
@@ -2463,12 +2139,6 @@ ChIJK1cOZb3krIkRdLybG-fU92I:
     lat: 35.990587
     lng: -78.86032399999999
   name: Holloway St at Southerland St
-  vicinity: United States
-ChIJK1fXpKnorIkRgvdrjrQxSWA:
-  location:
-    lat: 35.922218
-    lng: -78.93640599999999
-  name: Woodcroft Pkwy at Highgate Dr (EB)
   vicinity: United States
 ChIJK1l3DlDkrIkR9C9-jnJl_tw:
   location:
@@ -2505,12 +2175,6 @@ ChIJKQeZhAnkrIkRKglDZN3VoV8:
     lat: 36.00576599999999
     lng: -78.912457
   name: Buchanan Blvd at Trinity Ave (SB)
-  vicinity: United States
-ChIJKRECPMjnrIkR4MJc7tKxhic:
-  location:
-    lat: 35.94917
-    lng: -78.98364000000001
-  name: SW Durham Dr at Realm Homes (IB)
   vicinity: United States
 ChIJKT41SBDvrIkRgL5RZoqB7sk:
   location:
@@ -2584,12 +2248,6 @@ ChIJL4qVO0firIkRMd46fPN4XAg:
     lng: -78.90432
   name: Old Farm Rd at JFK Towers
   vicinity: United States
-ChIJL5J3NKXmrIkRFLIIBxIBQHc:
-  location:
-    lat: 35.9981514
-    lng: -78.9397941
-  name: Towerview Rd at Wannamaker Dorm (Outbound)
-  vicinity: United States
 ChIJL8eUE_bmrIkRpaEiAfquu4c:
   location:
     lat: 35.970418
@@ -2644,12 +2302,6 @@ ChIJLZq4z57krIkRnMVBNio2-r4:
     lng: -78.864541
   name: Hardee St at Fiske St
   vicinity: United States
-ChIJL_cOcuTnrIkRRckEChEQJFI:
-  location:
-    lat: 35.936564
-    lng: -79.00404999999999
-  name: Fountain Ridge Rd at Highview Dr
-  vicinity: United States
 ChIJLajcz_vkrIkRywAvn2m8lH4:
   location:
     lat: 35.969283
@@ -2686,12 +2338,6 @@ ChIJLxPRKJ7mrIkRWKFlThDCjb8:
     lng: -78.929065
   name: Chapel Hill Rd at Crosswind Ave (Lakewood YMCA)
   vicinity: United States
-ChIJLypyHw_krIkRKv67Mo5Rv7I:
-  location:
-    lat: 36.00153150000001
-    lng: -78.914891
-  name: Maxwell St at Smith Warehouse (Eastbound)
-  vicinity: United States
 ChIJLzHMSo3jrIkRXHArhvf7TTI:
   location:
     lat: 36.017019
@@ -2721,12 +2367,6 @@ ChIJM6ecilrkrIkRPgEFB-gygZU:
     lat: 35.9750129
     lng: -78.89194359999999
   name: Lawson St at Rosewood St
-  vicinity: United States
-ChIJM7EJg77vrIkRgxcpi3B7xnQ:
-  location:
-    lat: 35.893049
-    lng: -78.86640489999999
-  name: NC 54 at Park Dr (First Citizens Bank)
   vicinity: United States
 ChIJM81tWbTmrIkRT_qHYCYtLGM:
   location:
@@ -2775,12 +2415,6 @@ ChIJMd68uhLjrIkRYHwyF6ki3OM:
     lat: 36.02646999999999
     lng: -78.87145
   name: E Club Blvd at Miriam Cir
-  vicinity: United States
-ChIJMfwFFLrmrIkRGUnYD3eFUXI:
-  location:
-    lat: 35.9993067
-    lng: -78.94469169999999
-  name: Science Dr at Sanford School of Public Policy
   vicinity: United States
 ChIJMz_ZblrkrIkRmOPYMJlWPRw:
   location:
@@ -2860,12 +2494,6 @@ ChIJNc1Iz_MdrYkRgFkrtJa_aqM:
     lng: -78.910826
   name: Madden Ave at Roxboro Rd
   vicinity: United States
-ChIJNcDtnmjorIkRQTEVAhtpeOo:
-  location:
-    lat: 35.911112
-    lng: -78.985608
-  name: NC 54 at Falconbridge Rd (WB)
-  vicinity: United States
 ChIJNdZvVYnkrIkReoA8JpsluLU:
   location:
     lat: 35.988799
@@ -2937,12 +2565,6 @@ ChIJO7iOmqzorIkRZoCw-oMzyQM:
     lat: 35.9179133
     lng: -78.93062359999999
   name: Fayetteville Rd at Torrey Pine
-  vicinity: United States
-ChIJO9MvPgfvrIkRfA91a3EYVfA:
-  location:
-    lat: 35.8830312
-    lng: -78.8854174
-  name: TW Alexander Dr at S Alston Ave (NIEHS)
   vicinity: United States
 ChIJORTGGmLhrIkRjdH7npXM3CM:
   location:
@@ -3016,12 +2638,6 @@ ChIJOxeKLqvlrIkRxV1nv3dvc6E:
     lng: -78.886911
   name: Capps St at S Alston Ave
   vicinity: United States
-ChIJOxxd5qvmrIkRPBiG9QNy_hM:
-  location:
-    lat: 36.0051936
-    lng: -78.93332219999999
-  name: Yearby Ave at Flowers Dr (GC/DN Eastbound)
-  vicinity: United States
 ChIJOyEx_8rlrIkRrP1xuC_K9rc:
   location:
     lat: 35.96215000000001
@@ -3069,12 +2685,6 @@ ChIJP5QkBBLkrIkRE746mtUGnXs:
     lat: 35.99686500000001
     lng: -78.911382
   name: Chapel Hill St at GTI Auto Service
-  vicinity: United States
-ChIJP6lwt1nmrIkRyD7Z8HKXVqU:
-  location:
-    lat: 35.9662639
-    lng: -78.9611463
-  name: Westgate Dr at South Square (SB)
   vicinity: United States
 ChIJP711pZflrIkRv9VcHbq0_Go:
   location:
@@ -3154,12 +2764,6 @@ ChIJQ064LurlrIkRt5dN4Eq4iPI:
     lng: -78.911445
   name: MLK Pkwy at Stratford Lakes Dr (WB)
   vicinity: United States
-ChIJQ2595_jwrIkRtjZUtMkbiuc:
-  location:
-    lat: 35.87432499999999
-    lng: -78.790615
-  name: RDU Airport at Terminal 1
-  vicinity: United States
 ChIJQ9BeFLLmrIkRk9asbexqCXw:
   location:
     lat: 36.00656
@@ -3171,12 +2775,6 @@ ChIJQY_pDRDkrIkRy1bwMmyEsAg:
     lat: 35.9966706
     lng: -78.9169569
   name: Chapel Hill St at Kent St (EB)
-  vicinity: United States
-ChIJQZL6OsjnrIkRjt81nNeIKRw:
-  location:
-    lat: 35.9493464
-    lng: -78.98339810000002
-  name: SW Durham Dr at Realm Homes (OB)
   vicinity: United States
 ChIJQa-FhDHkrIkRPDtwo0dFndY:
   location:
@@ -3232,23 +2830,11 @@ ChIJQyv7N7_orIkR_QuO6dChgzk:
     lng: -78.9464071
   name: The Streets at Southpoint
   vicinity: United States
-ChIJQz-ohQHkrIkRc0R4j0eOH8Y:
-  location:
-    lat: 36.00452449999999
-    lng: -78.9265635
-  name: Alexander Ave at Pace St (EB)
-  vicinity: United States
 ChIJR1t2xfDkrIkRXsUl0vM1VCk:
   location:
     lat: 35.974393
     lng: -78.877128
   name: Lawson St at Briggs Ave
-  vicinity: United States
-ChIJR4tMNaXmrIkRJ4uVS_SrLKc:
-  location:
-    lat: 35.99850919999999
-    lng: -78.9401662
-  name: Towerview Rd at Wilson Gym (across)
   vicinity: United States
 ChIJR5yMEb3krIkRlYnJdUZY8f4:
   location:
@@ -3285,12 +2871,6 @@ ChIJRRVlEKLjrIkRzXctNmATPEs:
     lat: 36.028286
     lng: -78.88997200000001
   name: Roxboro Rd at Bon Air Ave
-  vicinity: United States
-ChIJRSSRj7DmrIkRFqAyNoML59c:
-  location:
-    lat: 36.0017152
-    lng: -78.94288159999999
-  name: Bioscience (Southbound)
   vicinity: United States
 ChIJRUdbnOflrIkR40C_Ag35_SI:
   location:
@@ -3346,23 +2926,11 @@ ChIJRwgWC0nirIkRswKVWYPJ-F0:
     lng: -78.90312
   name: N Roxboro St at Autozone
   vicinity: United States
-ChIJRy7E_ajvrIkR-vAn3DIi60I:
-  location:
-    lat: 35.884187
-    lng: -78.88030700000002
-  name: Lakeview Dr at Nobel Ln (NIEHS across)
-  vicinity: United States
 ChIJRzOtX_PkrIkRFL03JauFYa0:
   location:
     lat: 35.9821
     lng: -78.87796999999999
   name: Angier Ave at Driver St (EB)
-  vicinity: United States
-ChIJS--7GoXorIkRi_aTSWJgGbQ:
-  location:
-    lat: 35.918229
-    lng: -78.964821
-  name: NC 54 at Dresden Dr
   vicinity: United States
 ChIJS2rFWhTirIkRA46nz-2JaNM:
   location:
@@ -3375,12 +2943,6 @@ ChIJS38EqMnlrIkRc4S6PdSPb9Y:
     lat: 35.957333
     lng: -78.908999
   name: Fayetteville Rd at WG Pearson
-  vicinity: United States
-ChIJS45QMdDvrIkR8uR__jSJdc8:
-  location:
-    lat: 35.881472
-    lng: -78.848568
-  name: Slater Rd at Creekstone Dr (Duke Medicine)
   vicinity: United States
 ChIJSV3H_4_krIkRHHVsZkGMf54:
   location:
@@ -3430,12 +2992,6 @@ ChIJSyWmnHLkrIkR6JbCIE1fZPs:
     lng: -78.904117
   name: E Chapel Hill St at Main St
   vicinity: United States
-ChIJSz9_hwTkrIkRU3ynG3Wao20:
-  location:
-    lat: 36.0009562
-    lng: -78.92264209999999
-  name: Swift Ave at Faber St
-  vicinity: United States
 ChIJT0fqLX7hrIkRbiCH_PBcR_U:
   location:
     lat: 36.0497
@@ -3465,12 +3021,6 @@ ChIJT5dtLPXkrIkR8HpwJX1-U44:
     lat: 35.983446
     lng: -78.88123999999999
   name: Angier Ave at Vine St (WB)
-  vicinity: United States
-ChIJT9O2mLfmrIkRbsujC-GRgOE:
-  location:
-    lat: 36.002018
-    lng: -78.94900799999999
-  name: Towerview at Circuit Dr
   vicinity: United States
 ChIJT9dm9ErkrIkR0DCRJxlUL38:
   location:
@@ -3514,12 +3064,6 @@ ChIJTZZL5-rorIkRfN7TGQ1X0yA:
     lng: -78.95391099999999
   name: Renaissance Pkwy at Holly Hill Dr (WB)
   vicinity: United States
-ChIJT_FbaQfvrIkRpEIZ9W4-RKA:
-  location:
-    lat: 35.88329329999999
-    lng: -78.8848636
-  name: TW Alexander Dr at Environmental Pkwy (NIEHS)
-  vicinity: United States
 ChIJTbW-10rirIkRJxQxHEPEZb0:
   location:
     lat: 36.050798
@@ -3531,18 +3075,6 @@ ChIJTbkSJWrkrIkREObzqrK_OG4:
     lat: 35.9874523
     lng: -78.9011055
   name: Lakewood Ave at Roxboro St (Southside Lofts)
-  vicinity: United States
-ChIJTbkSJWrkrIkRt7y0Y-oVtlY:
-  location:
-    lat: 35.987464
-    lng: -78.9011315
-  name: Lakewood Ave at Roxboro St (Southside Lofts)
-  vicinity: United States
-ChIJTcSKAS7urIkRN2ifZr2dgos:
-  location:
-    lat: 35.8673497
-    lng: -78.84948550000001
-  name: NC 54 at Shiloh Glenn Dr (Walmart)
   vicinity: United States
 ChIJTchtgDLhrIkRAPmRw52JV44:
   location:
@@ -3616,12 +3148,6 @@ ChIJU7e-Xz_irIkRNFL7r5Vsmx0:
     lng: -78.9063
   name: Seven Oaks Rd at Riverview Shopping Center
   vicinity: United States
-ChIJUTYqv5_vrIkRSPMGo-iVOZg:
-  location:
-    lat: 35.89934899999999
-    lng: -78.88197199999999
-  name: NC 54 at TW Alexander Dr (EB)
-  vicinity: United States
 ChIJUWNahfbmrIkRWPWMYslw3hY:
   location:
     lat: 35.972609
@@ -3687,18 +3213,6 @@ ChIJV5BpYIXkrIkRgz4RHU_X6tw:
     lat: 35.99383
     lng: -78.87373
   name: Holloway St at Bunn Terrace
-  vicinity: United States
-ChIJV6GrQKjmrIkRgjXKjblKWhM:
-  location:
-    lat: 36.0009607
-    lng: -78.9302191
-  name: Anderson St at Campus Dr Lot (Southbound)
-  vicinity: United States
-ChIJV6k98eHnrIkRr9U9GiUPEjY:
-  location:
-    lat: 35.931238
-    lng: -79.00191
-  name: Colony Woods Dr at White Plains Rd
   vicinity: United States
 ChIJV76eHUjhrIkRNkCQjxCDbdE:
   location:
@@ -3820,23 +3334,11 @@ ChIJW9ECE_bmrIkR_qYWuIcdOzo:
     lng: -78.958
   name: Tower Blvd at McDonalds
   vicinity: United States
-ChIJWRRFIA_krIkRxAk9Y4tulzg:
-  location:
-    lat: 36.001707
-    lng: -78.9148062
-  name: Maxwell St at Smith Warehouse (Westbound)
-  vicinity: United States
 ChIJWV9Jd5zmrIkRQo-VHts_XYY:
   location:
     lat: 35.981294
     lng: -78.93407599999999
   name: Chapel Hill Rd at McGehee St (NB)
-  vicinity: United States
-ChIJWWsMK7rmrIkRvjxY1gqa5lI:
-  location:
-    lat: 35.9981272
-    lng: -78.94552569999999
-  name: Science Dr Circle
   vicinity: United States
 ChIJWYClEVThrIkR8wI2IY30fNA:
   location:
@@ -3856,12 +3358,6 @@ ChIJWZrz_YXkrIkRt_gSePk1R6g:
     lng: -78.87786899999999
   name: Holloway St at N Driver St
   vicinity: United States
-ChIJW__nFgDkrIkRmm6m8zCoAwo:
-  location:
-    lat: 36.0084326
-    lng: -78.92789719999999
-  name: Rutherford St at Main St
-  vicinity: United States
 ChIJWcQXZqrlrIkRna1qVvzSwE4:
   location:
     lat: 35.959272
@@ -3873,12 +3369,6 @@ ChIJWfboqrvkrIkRPaTjLMTSrH8:
     lat: 35.98893
     lng: -78.85252
   name: Holloway St at Adams St
-  vicinity: United States
-ChIJWwu1GLLmrIkRTkxtzQyt5Y8:
-  location:
-    lat: 36.0055964
-    lng: -78.9418374
-  name: Circuit Dr at North Building
   vicinity: United States
 ChIJWywA8KTjrIkRFRx1mwCsuuQ:
   location:
@@ -3922,12 +3412,6 @@ ChIJX8X7PFjkrIkRNT9etwxXgTg:
     lng: -78.885177
   name: Lawson St at Bacon St (EB)
   vicinity: United States
-ChIJXQlO7QjkrIkRlGI7lQxy4FU:
-  location:
-    lat: 36.0050184
-    lng: -78.9160711
-  name: Gilbert-Addoms Westbound
-  vicinity: United States
 ChIJXTzjVAvkrIkR4EGqDDNyW5Q:
   location:
     lat: 36.0023187
@@ -3945,18 +3429,6 @@ ChIJXVn0Jx_krIkR5I8hW_tWOOY:
     lat: 35.99033
     lng: -78.92394999999999
   name: Chapel Hill Rd at House St
-  vicinity: United States
-ChIJXWASenXvrIkRloLt7Dcv4mw:
-  location:
-    lat: 35.9001741
-    lng: -78.8842129
-  name: NC 54 at Triangle Dr (Outbound)
-  vicinity: United States
-ChIJXWF1-e_nrIkR6wKPEBrqQHk:
-  location:
-    lat: 35.94187600000001
-    lng: -79.007466
-  name: Standish Dr at Sir Richards Ln
   vicinity: United States
 ChIJXZgGElzmrIkReZNDs6pSQBs:
   location:
@@ -4012,12 +3484,6 @@ ChIJY4IutYTmrIkRCU1KElrKBKQ:
     lng: -78.93575
   name: Chapel Hill Rd at Vineyard St
   vicinity: United States
-ChIJY5YS3O7nrIkRY1YBJDeINNo:
-  location:
-    lat: 35.944351
-    lng: -79.00345
-  name: Old Durham Rd at Bluefield St
-  vicinity: United States
 ChIJY9FQB4LhrIkRRGXGOeYN5UA:
   location:
     lat: 36.05318
@@ -4035,12 +3501,6 @@ ChIJYYxdy-bjrIkRxV6moT0VpcQ:
     lat: 36.02684999999999
     lng: -78.92308
   name: Guess Rd at Lamar St
-  vicinity: United States
-ChIJYZEal3b6rIkRL4_8divZh5w:
-  location:
-    lat: 35.913158
-    lng: -78.77680099999999
-  name: Alexander Promonade at WalMart
   vicinity: United States
 ChIJY_6-eEbkrIkR_T4IJwmyvYo:
   location:
@@ -4072,18 +3532,6 @@ ChIJYdlb7LDkrIkRjrG2mi63IDM:
     lng: -78.847973
   name: Holloway St at Rummel St
   vicinity: United States
-ChIJYegKztLvrIkRbBfGQncjxLU:
-  location:
-    lat: 35.873279
-    lng: -78.84761879999999
-  name: Emperor Blvd at S Miami Blvd (Venture Center)
-  vicinity: United States
-ChIJYxYOu6LvrIkRnWG4Zsq0WMU:
-  location:
-    lat: 35.89601439999999
-    lng: -78.8732136
-  name: NC 54 at Sigma Xi
-  vicinity: United States
 ChIJYyLZqgDlrIkR7Mf6q93vaZE:
   location:
     lat: 35.957518
@@ -4096,23 +3544,11 @@ ChIJZ1QEUcDnrIkRbLqbmLwWZmk:
     lng: -78.9943947
   name: Mt. Moriah Rd at Danziger Dr
   vicinity: United States
-ChIJZ22fDKzmrIkRIi5uWUfbKaA:
-  location:
-    lat: 36.0060514
-    lng: -78.93484889999999
-  name: Trent Dr at School of Nursing (Southbound)
-  vicinity: United States
 ChIJZ2fJeAvvrIkRW4A9VGllRx8:
   location:
     lat: 35.89573300000001
     lng: -78.888837
   name: S Alston Ave at Triangle Dr
-  vicinity: United States
-ChIJZ3iLAbLmrIkR_76GY3XoJ3o:
-  location:
-    lat: 36.0054135
-    lng: -78.9404719
-  name: Research Dr at LSRC Building (Southbound)
   vicinity: United States
 ChIJZ40DMrbmrIkRqlHHQ-3MYGE:
   location:
@@ -4126,18 +3562,6 @@ ChIJZ4tM8fLjrIkR3vw3YQhRLvk:
     lng: -78.9086416
   name: W Club Blvd at Gregson St
   vicinity: Durham
-ChIJZ79rJKzmrIkRFg_cSZ3ILWw:
-  location:
-    lat: 36.005369
-    lng: -78.93632199999999
-  name: Duke Medical Pavilion/Cancer Ctr
-  vicinity: United States
-ChIJZ8oGKNDvrIkRz-xxPd-deM8:
-  location:
-    lat: 35.881857
-    lng: -78.849566
-  name: Slater Rd at S Miami Blvd (Zaxby's)
-  vicinity: United States
 ChIJZQUEOknkrIkRj6ySLDRG7vk:
   location:
     lat: 35.971117
@@ -4161,12 +3585,6 @@ ChIJZWHcgIPlrIkRq2JofKrmsbk:
     lat: 35.92767000000001
     lng: -78.88906999999999
   name: NC 55 at Odyssey Dr (inbound)
-  vicinity: United States
-ChIJZXJgF3j6rIkRN9yGJLhZzms:
-  location:
-    lat: 35.9109774
-    lng: -78.7823353
-  name: Arco Corporate Dr at Brier Creek Pkwy
   vicinity: United States
 ChIJZXpEp-fjrIkR5gSir3Z4UHw:
   location:
@@ -4228,18 +3646,6 @@ ChIJZye6kPbmrIkRxGwtgJJLQF4:
     lng: -78.95797499999999
   name: Tower Blvd at Pickett Rd (Social Security Office)
   vicinity: United States
-ChIJ_0HFI8znrIkRORIwnPid_Cg:
-  location:
-    lat: 35.942837
-    lng: -78.97932399999999
-  name: Old Chapel Hill Rd at Sherwood Githens Middle School
-  vicinity: United States
-ChIJ_1PdZLHmrIkReOCKG0iZjqc:
-  location:
-    lat: 36.0051618
-    lng: -78.94376059999999
-  name: Circuit Dr at LaSalle (Circuit Lot Eastbound)
-  vicinity: United States
 ChIJ_1e9x0fkrIkRncy1MW6kk5s:
   location:
     lat: 35.9763185
@@ -4269,12 +3675,6 @@ ChIJ_8HMdlvmrIkRxJwe5QLtlI8:
     lat: 35.96095999999999
     lng: -78.95806999999999
   name: MLK Pkwy at Shannon Rd
-  vicinity: United States
-ChIJ_9WI9qnmrIkRM_jgeR1vyQ4:
-  location:
-    lat: 36.0041419
-    lng: -78.9298298
-  name: Anderson St at Mill Village
   vicinity: United States
 ChIJ_9rx5ofmrIkRX4AX3Q7U2UU:
   location:
@@ -4335,18 +3735,6 @@ ChIJ__qGZILwrIkRkm3q8vSa86w:
     lat: 35.90927
     lng: -78.78484
   name: Brier Creek Pkwy at Little Brier Creeky Ln
-  vicinity: United States
-ChIJ_bC7HqbmrIkRHs2LUk1gzmg:
-  location:
-    lat: 35.9990017
-    lng: -78.9333619
-  name: Campus Drive At Chapel Circle Eastbound
-  vicinity: United States
-ChIJ_d03ptbvrIkRQGe7nTG4YEE:
-  location:
-    lat: 35.878111
-    lng: -78.843132
-  name: Slater Rd at Emperor Blvd (Bright Horizons)
   vicinity: United States
 ChIJ_dcEqeDjrIkRfxLy_KEObDE:
   location:
@@ -4432,12 +3820,6 @@ ChIJawRLgXvvrIkRMLUYFr2QAVM:
     lng: -78.8917
   name: NC 55 at Carpenter Fletcher Rd
   vicinity: United States
-ChIJaxD1MKrmrIkRk8Dfgf-D7fE:
-  location:
-    lat: 36.0052898
-    lng: -78.93104199999999
-  name: Yearby Ave at H Lot (Westbound)
-  vicinity: United States
 ChIJazBOW4DjrIkRHcv_v2JPCZw:
   location:
     lat: 36.007315
@@ -4461,12 +3843,6 @@ ChIJb2_IiJrkrIkRxZjNdErsqx0:
     lat: 35.99411
     lng: -78.869717
   name: Raynor St at The Village (EB)
-  vicinity: United States
-ChIJb6KFWwLkrIkRqWeqBD-Q_dw:
-  location:
-    lat: 36.00184849999999
-    lng: -78.927025
-  name: Alexander Ave at Vance St (Episcopal Center)
   vicinity: United States
 ChIJb6S1LTrhrIkRfDOPdO4MtKM:
   location:
@@ -4534,12 +3910,6 @@ ChIJb_pbcHLkrIkRiqYJQxmPuBE:
     lng: -78.902543
   name: E Chapel Hill St at Post Office
   vicinity: United States
-ChIJba2cOwTkrIkRcoKA5wwHGbc:
-  location:
-    lat: 36.00268219999999
-    lng: -78.9213539
-  name: Swift Avenue at Caswell Pl (Eastbound)
-  vicinity: United States
 ChIJbaMPTXPjrIkRhATOcfvDMGg:
   location:
     lat: 36.02608740000001
@@ -4552,23 +3922,11 @@ ChIJbbOgNlrmrIkRr1B65Nhnth4:
     lng: -78.960292
   name: University Dr at Lyckan Pkwy
   vicinity: United States
-ChIJbxZz4__jrIkRWm3ngg9MGoA:
-  location:
-    lat: 36.0103975
-    lng: -78.928553
-  name: R1 DUHS parking lot- H2 hospital bus loop
-  vicinity: 786-, 798 15th Street, Durham
 ChIJc0thSprhrIkR4hPP3CmQyNE:
   location:
     lat: 36.06228100000001
     lng: -78.94431
   name: Rose of Sharon at Riverside High School
-  vicinity: United States
-ChIJc7UuxAHkrIkRHKH3__imMnc:
-  location:
-    lat: 36.00584370000001
-    lng: -78.927345
-  name: 1901 Erwin Rd (Eastbound)
   vicinity: United States
 ChIJc9bFGmLjrIkREDGQfkGqYp4:
   location:
@@ -4588,23 +3946,11 @@ ChIJcTNcWzPlrIkRyi5q7Il5Hyo:
     lng: -78.8396003
   name: Ellis Rd at Miami Blvd (WB)
   vicinity: United States
-ChIJcTRETE_hrIkRfIPZ0YSCHG0:
-  location:
-    lat: 36.02102199999999
-    lng: -78.945556
-  name: LaSalle St at Best Products Lot
-  vicinity: United States
 ChIJcWEo9ofjrIkRc4XJ1XwHZJw:
   location:
     lat: 36.00637
     lng: -78.89394999999999
   name: Mangum St at Seeman St
-  vicinity: United States
-ChIJcXIci2jorIkRocvgvgP2ffw:
-  location:
-    lat: 35.91028799999999
-    lng: -78.986678
-  name: NC 54 at Falconbridge Rd (EB)
   vicinity: United States
 ChIJcXplQfLjrIkRkB7rd8FTeQ0:
   location:
@@ -4623,12 +3969,6 @@ ChIJc_eWOaz6rIkRMXkYaD1A0kQ:
     lat: 35.921978
     lng: -78.83374
   name: TW Alexander Dr at Center Point (EB)
-  vicinity: United States
-ChIJcdvhVQ_krIkRtlNp2aEW-ds:
-  location:
-    lat: 36.00284190000001
-    lng: -78.9174354
-  name: Campus Dr at Maxwell Ave Eastbound
   vicinity: United States
 ChIJcevKzoPjrIkRT6-R4P9pThA:
   location:
@@ -4732,23 +4072,11 @@ ChIJdylnVrLmrIkRWVMdTaEo530:
     lng: -78.942488
   name: 'Research Dr at Erwin Rd #6675'
   vicinity: United States
-ChIJdzFsWpzwrIkR4HRnR0rVCPY:
-  location:
-    lat: 35.9060719
-    lng: -78.7783579
-  name: Arco Corporate Dr at Macaw St
-  vicinity: United States
 ChIJe-5kAXzkrIkRI1SiLappzN4:
   location:
     lat: 36.000336
     lng: -78.88890599999999
   name: Dowd St at Hazel St (EB)
-  vicinity: United States
-ChIJe3O3X7DmrIkRXH8Ww-FCh5k:
-  location:
-    lat: 36.001603
-    lng: -78.942829
-  name: Science Dr at Bryan Center Garage
   vicinity: United States
 ChIJe49x3FnkrIkRxCFE00zcWt8:
   location:
@@ -4804,12 +4132,6 @@ ChIJeZ5-Fe7lrIkRYTO7QBgI224:
     lng: -78.91324999999999
   name: Fayetteville Rd at Pearson Dr
   vicinity: United States
-ChIJeZRCXALkrIkRrgmuYmg_TM8:
-  location:
-    lat: 36.0018481
-    lng: -78.92714939999999
-  name: Alexander Ave at Ronald McDonald House (Eastbound)
-  vicinity: United States
 ChIJeb2WFlnkrIkRahx0kb4vMns:
   location:
     lat: 35.977291
@@ -4822,23 +4144,11 @@ ChIJez2BPJnkrIkRRMyfGFYVTCI:
     lng: -78.86461299999999
   name: Hardee St at Delano St
   vicinity: United States
-ChIJf19QUwjkrIkReKb_L7AQnl8:
-  location:
-    lat: 36.0059773
-    lng: -78.9147177
-  name: East Campus Quad
-  vicinity: United States
 ChIJf1Ae3EjhrIkRUsV3S3t6fb0:
   location:
     lat: 36.01969999999999
     lng: -78.94693
   name: Hillsborough Rd at Auto Zone
-  vicinity: United States
-ChIJf1FCs6LvrIkR4jmMeh7H4pU:
-  location:
-    lat: 35.895827
-    lng: -78.87231299999999
-  name: NC 54 at Park Office Dr (The Frontier)
   vicinity: United States
 ChIJf2C1ruDjrIkRgWZWsUtGo_4:
   location:
@@ -4875,12 +4185,6 @@ ChIJf7AXKIbkrIkRGVgT9h1Ef9A:
     lat: 35.994367
     lng: -78.88009799999999
   name: Holloway St at Spruce St
-  vicinity: United States
-ChIJfRI3boPwrIkRBRdVzT0QQ0s:
-  location:
-    lat: 35.90553149999999
-    lng: -78.7838021
-  name: Macaw at Brasa Restaurant
   vicinity: United States
 ChIJfRZtQP_krIkRfdVEddvLDG4:
   location:
@@ -4984,12 +4288,6 @@ ChIJg0244bTjrIkRuHAIIyc4gK4:
     lng: -78.903264
   name: Roxboro Rd at North Duke Crossing
   vicinity: United States
-ChIJg0Y60e_nrIkRCQVlQi3DPvc:
-  location:
-    lat: 35.943871
-    lng: -79.00759
-  name: Standish Dr at Old Durham Rd
-  vicinity: United States
 ChIJg1VisBrjrIkRuVos68oDcGQ:
   location:
     lat: 36.037338
@@ -5002,23 +4300,11 @@ ChIJg1nrPunjrIkRToORmVylU1k:
     lng: -78.913527
   name: Leon St at Haverford St
   vicinity: United States
-ChIJg2dkrxLkrIkR_wrIroGpPgg:
-  location:
-    lat: 35.996367
-    lng: -78.906872
-  name: Durham
-  vicinity: United States
 ChIJg3IG80rkrIkRmCFdLrcuYtU:
   location:
     lat: 35.96657
     lng: -78.90462000000001
   name: Fayetteville St at Red Oak Ave
-  vicinity: United States
-ChIJg5qto6vmrIkRur5cZlKeQEU:
-  location:
-    lat: 36.0068354
-    lng: -78.9328766
-  name: Flowers Dr at Trent Hall (Northbound)
   vicinity: United States
 ChIJg5tYDPfjrIkR1-LIy3LqduE:
   location:
@@ -5049,12 +4335,6 @@ ChIJgRBnv-flrIkR0OTjqtKZlEQ:
     lat: 35.942583
     lng: -78.91895300000002
   name: MLK Pkwy at Lake Camp Rd
-  vicinity: United States
-ChIJgUrRZ6vmrIkRujBUzAEqf4Q:
-  location:
-    lat: 36.008594
-    lng: -78.933797
-  name: Trent Dr at Erwin Rd
   vicinity: United States
 ChIJgZiaxkXkrIkRMqBdH9b8x4M:
   location:
@@ -5218,12 +4498,6 @@ ChIJi2qNi4bjrIkRW-Se_AeovzI:
     lng: -78.89173
   name: Roxboro Rd at Markham Ave
   vicinity: United States
-ChIJi5IHAbLmrIkRZn1MZuOtkYo:
-  location:
-    lat: 36.0054791
-    lng: -78.940353
-  name: Research Dr at Nanaline Duke Bldg (Northbound)
-  vicinity: United States
 ChIJi5iXZrrkrIkR3AtJZRsFu3U:
   location:
     lat: 35.98845000000001
@@ -5236,23 +4510,11 @@ ChIJi9nWWnjkrIkRLSi0RUxJRkw:
     lng: -78.89272
   name: Roxboro Rd at Edwards St
   vicinity: United States
-ChIJiR_-n87nrIkRctfVu3eDb5o:
-  location:
-    lat: 35.94307260000001
-    lng: -78.97972759999999
-  name: Old Chapel Hill Rd at Githens Middle School
-  vicinity: United States
 ChIJiUhtYZflrIkRZxppNz4Ms7c:
   location:
     lat: 35.93816999999999
     lng: -78.8951
   name: Cornwallis Rd at Spring Ridge Apt
-  vicinity: United States
-ChIJiW-cZuHnrIkRM8OBafJpwjU:
-  location:
-    lat: 35.93405699999999
-    lng: -79.00187
-  name: Colony Woods Dr at Overland Dr
   vicinity: United States
 ChIJiWBJE_DlrIkR6DtKgYOcwWY:
   location:
@@ -5272,12 +4534,6 @@ ChIJia8PaabjrIkRTuYw58DtlZQ:
     lng: -78.888012
   name: Old Oxford Rd at Danube Ln
   vicinity: United States
-ChIJicEXnwXkrIkRxmhv4T9UsI4:
-  location:
-    lat: 36.0008631
-    lng: -78.9187967
-  name: Campus Dr at Arts Annex (Eastbound)
-  vicinity: United States
 ChIJifHi1hbkrIkRmqKk5ylQxk4:
   location:
     lat: 35.99165
@@ -5290,12 +4546,6 @@ ChIJiwy6U2DkrIkR9d-UDpd_-gM:
     lng: -78.88589999999999
   name: E Main St at Blacknall St
   vicinity: United States
-ChIJiyRPbSrwrIkR1yO1NoMTqUU:
-  location:
-    lat: 35.8759988
-    lng: -78.83749399999999
-  name: Slater Rd at GoTriangle Admin Office
-  vicinity: United States
 ChIJizi8lJ7krIkRNd2P4QnC_R0:
   location:
     lat: 35.99992299999999
@@ -5307,12 +4557,6 @@ ChIJizzXdkrlrIkRZfKxGr9oMbc:
     lat: 35.93641220000001
     lng: -78.8421525
   name: Miami Blvd at Methodist St
-  vicinity: United States
-ChIJj0bpGa7mrIkRBx2lDvns52o:
-  location:
-    lat: 36.00415410000001
-    lng: -78.93949309999999
-  name: Research Dr at Hudson Hall
   vicinity: United States
 ChIJj0oTj4XkrIkRUMBdIMb6p30:
   location:
@@ -5373,12 +4617,6 @@ ChIJja_bzfnjrIkRil29tYWWjRE:
     lat: 36.011655
     lng: -78.918536
   name: Green St at Clarendon St (EB)
-  vicinity: United States
-ChIJjdKR8v_jrIkRHxjbXzuoUHk:
-  location:
-    lat: 36.0101776
-    lng: -78.9274737
-  name: Rutherford St at Hillsborough Rd
   vicinity: United States
 ChIJjeMhEEbkrIkRXpMR2KhqXDw:
   location:
@@ -5470,23 +4708,11 @@ ChIJk7PNtTTirIkRG2Lf_CfIu0o:
     lng: -78.9105979
   name: Chalk Level Rd at Horton Rd (Eastbound)
   vicinity: United States
-ChIJk8EtVrjnrIkRmiLEc3AvlUA:
-  location:
-    lat: 35.952796
-    lng: -78.98817
-  name: SW Durham Dr at Witherspoon Blvd
-  vicinity: United States
 ChIJk9yOQYDjrIkR2CY2-a7bxEI:
   location:
     lat: 36.007009
     lng: -78.885297
   name: Avondale Dr at Trinity Ave
-  vicinity: United States
-ChIJkTG2ZgPkrIkRf1NIuaP5-7k:
-  location:
-    lat: 35.9999691
-    lng: -78.9235518
-  name: Campus Dr at Swift Avenue (Eastbound)
   vicinity: United States
 ChIJkTRIg7rlrIkRiRSeaYIEDFc:
   location:
@@ -5614,12 +4840,6 @@ ChIJlZNhQlXvrIkRKoMsQ3inC2Q:
     lng: -78.9276883
   name: Fayetteville Rd at Woodcroft Pkwy
   vicinity: United States
-ChIJlZpYgwHkrIkR7kDVbcLKbIU:
-  location:
-    lat: 36.0046218
-    lng: -78.9263466
-  name: Alexander Ave at Pace St (WB)
-  vicinity: United States
 ChIJlZzeXq_jrIkRyBhYz3xx2fk:
   location:
     lat: 36.03845099999999
@@ -5638,24 +4858,6 @@ ChIJlwOkBkvhrIkRUZIA6FmAGI8:
     lng: -78.94824919999999
   name: LaSalle St at Blue Crest Ln (Blue Crest Apts)
   vicinity: United States
-ChIJlxK-T7nmrIkRIz5nfLnj5QI:
-  location:
-    lat: 35.995722
-    lng: -78.94660929999999
-  name: Science Dr at Cameron Blvd (David Thomas Center)
-  vicinity: United States
-ChIJm-p-nsjmrIkREzTJl7DEzTc:
-  location:
-    lat: 36.00147889999999
-    lng: -78.9553555
-  name: Duke Center For Living Campus
-  vicinity: United States
-ChIJm0aMEIXorIkRQ65IipSLmt0:
-  location:
-    lat: 35.918086
-    lng: -78.964677
-  name: NC 54 at Copper Ridge Dr
-  vicinity: United States
 ChIJm4rtVF7mrIkRcEnCQJJ3XmU:
   location:
     lat: 35.96613
@@ -5673,12 +4875,6 @@ ChIJm7bKpC3irIkR4OhnZIjGQic:
     lat: 36.05507
     lng: -78.91937
   name: Stadium Dr at Horton Rd
-  vicinity: United States
-ChIJm8sRfsbvrIkRvOkmWP-pDUs:
-  location:
-    lat: 35.887089
-    lng: -78.85555599999999
-  name: NC 54 at New Millennium Way (WB)
   vicinity: United States
 ChIJmQAutUfkrIkRpSaLx1sab6s:
   location:
@@ -5722,12 +4918,6 @@ ChIJmTBPN8jlrIkRBdrZC7MS3LI:
     lng: -78.90729
   name: Fayetteville Rd at Mt Zion Church
   vicinity: United States
-ChIJmVD6OKjmrIkRmirCPcK-bF8:
-  location:
-    lat: 36.0007973
-    lng: -78.9300975
-  name: Anderson St at Campus Dr (Northbound)
-  vicinity: United States
 ChIJmXyQTujjrIkRdlqen-CN7ks:
   location:
     lat: 36.02803
@@ -5757,12 +4947,6 @@ ChIJm_aJE1jkrIkRuia6_ssU0Mw:
     lat: 35.97435
     lng: -78.88461199999999
   name: Lawson St at Bacon St (WB)
-  vicinity: United States
-ChIJmakXnmPorIkRmC5nZDxPqAA:
-  location:
-    lat: 35.914684
-    lng: -78.978589
-  name: NC 54 at Quadrangle Dr
   vicinity: United States
 ChIJmbzNKrDjrIkR6_mEB1JbaF0:
   location:
@@ -5794,12 +4978,6 @@ ChIJn-rcpCzlrIkRBa0dyM-UlOA:
     lng: -78.83918779999999
   name: US 70 at Peyton Ave (Family Dollar)
   vicinity: United States
-ChIJn1vsvhzkrIkRl72OIOKQ6Cc:
-  location:
-    lat: 35.9973229
-    lng: -78.92432889999999
-  name: Swift Ave at Duke University Rd
-  vicinity: United States
 ChIJn4XMMGDkrIkRhEfbNr0y1iM:
   location:
     lat: 35.986111
@@ -5830,23 +5008,11 @@ ChIJnRjUUkDkrIkR81_7k2NFuDA:
     lng: -78.903452
   name: Enterprise St at Roxboro St (EB)
   vicinity: United States
-ChIJnSu7nwfkrIkRgthWBAxsHIU:
-  location:
-    lat: 36.0076471
-    lng: -78.9206671
-  name: Perry St at 705 Broad Street Bldg
-  vicinity: United States
 ChIJnTJ_9rDjrIkRNm6anaAorr0:
   location:
     lat: 36.040651
     lng: -78.897859
   name: E Carver St at Patrick Henry Dr
-  vicinity: United States
-ChIJnUNuXFPhrIkRA0p4c3OzVNA:
-  location:
-    lat: 36.0112377
-    lng: -78.93495209999999
-  name: Parking Garage 3 at Duke North Pavilion
   vicinity: United States
 ChIJnUaVMfrlrIkRZAVwGoltPYI:
   location:
@@ -5866,12 +5032,6 @@ ChIJnVD_SiDhrIkRECSAl-epNYI:
     lng: -78.97142
   name: Hillsborough Rd at Self Storage
   vicinity: United States
-ChIJnWKy9gDkrIkRL6BnFb53ccw:
-  location:
-    lat: 36.007591
-    lng: -78.925653
-  name: Erwin Square
-  vicinity: United States
 ChIJnWlLvbLnrIkRJfxkstqsJog:
   location:
     lat: 35.95949299999999
@@ -5883,12 +5043,6 @@ ChIJnX5RcBnkrIkRPtHfzLp_h88:
     lat: 35.99193
     lng: -78.92090000000002
   name: Morehead Ave at Moreland Ave
-  vicinity: United States
-ChIJnXW9bKbmrIkRFo7fAwfBGFg:
-  location:
-    lat: 35.9979269
-    lng: -78.93352929999999
-  name: Chapel Dr at Duke University Rd (Alumni House)
   vicinity: United States
 ChIJn_gMNLnmrIkRNLqYohB9O04:
   location:
@@ -5913,12 +5067,6 @@ ChIJnej9tFn7rIkR2dXhhteWXOs:
     lat: 35.99710399999999
     lng: -78.825341
   name: Freeman Rd at Southern High Fields
-  vicinity: United States
-ChIJnfL0Y7zmrIkRYPwOvaKu0tA:
-  location:
-    lat: 35.994104
-    lng: -78.943168
-  name: West Campus Grounds Lot
   vicinity: United States
 ChIJnxJl_UDkrIkRpGhLsFhXOH8:
   location:
@@ -5979,12 +5127,6 @@ ChIJo9j04FnkrIkRZJgn1SEwQ44:
     lat: 35.973726
     lng: -78.887892
   name: Lawson St at Ridgeway Ave
-  vicinity: United States
-ChIJoQ5_GbPvrIkRWroz1TsPFAU:
-  location:
-    lat: 35.8762926
-    lng: -78.869205
-  name: Hopson Rd at US EPA Campus (WB)
   vicinity: United States
 ChIJoR39rgnirIkRmZHk7pNNCjA:
   location:
@@ -6148,12 +5290,6 @@ ChIJq0tD8vbjrIkRgZEq_mNs0-Y:
     lng: -78.913544
   name: Green St at Lancaster St (EB)
   vicinity: United States
-ChIJq2J-C9HvrIkRvOpTD1Kq3wA:
-  location:
-    lat: 35.879709
-    lng: -78.846415
-  name: Slater Rd at Page Rd (Coastal Credit Union)
-  vicinity: United States
 ChIJq3Q_7W3krIkR5UdMRhEkwJY:
   location:
     lat: 35.9959029
@@ -6165,12 +5301,6 @@ ChIJq4m9wK3krIkRdbM7bZMwjwo:
     lat: 35.9924
     lng: -78.84257
   name: Ross Rd at Fernando St
-  vicinity: United States
-ChIJq8CaiOvnrIkRujlQXR8ouKw:
-  location:
-    lat: 35.948484
-    lng: -79.002117
-  name: E Lakeview Dr at W Lakeview (Red Roof Inn)
   vicinity: United States
 ChIJqSN86e3krIkRnBRJicyjPo8:
   location:
@@ -6202,12 +5332,6 @@ ChIJq_-Dc_bjrIkRNic2PtQqkWk:
     lng: -78.9123468
   name: Buchanan Blvd at Markham Ave (NB)
   vicinity: United States
-ChIJq_Z1vLXvrIkRnSK2HK8N63o:
-  location:
-    lat: 35.878122
-    lng: -78.86274
-  name: Davis Dr at Hopson Rd (NB)
-  vicinity: United States
 ChIJq_fI8q3nrIkRU1ExrBo8hg8:
   location:
     lat: 35.96101999999999
@@ -6225,18 +5349,6 @@ ChIJqwrOBQfvrIkR18RfBvypxFA:
     lat: 35.8842178
     lng: -78.8858856
   name: S Alston Ave at Falls Pointe Apts (SB)
-  vicinity: United States
-ChIJqy2spgLkrIkRIWxUurwiAf8:
-  location:
-    lat: 35.99982
-    lng: -78.92850299999999
-  name: Campus Dr at Nasher (Eastbound)
-  vicinity: United States
-ChIJqyPb_P_jrIkRfdkk1au7r34:
-  location:
-    lat: 36.010208
-    lng: -78.928608
-  name: 15th St at Hillsborough Rd
   vicinity: United States
 ChIJqyqisDLlrIkREAI_lNQ-8A8:
   location:
@@ -6292,12 +5404,6 @@ ChIJr4y_Q6vorIkRzsGQgrnzSrQ:
     lng: -78.929979
   name: Fayetteville Rd at Sutton Square
   vicinity: United States
-ChIJr5RYP7HmrIkRp4Vh7E_oSWg:
-  location:
-    lat: 36.004361
-    lng: -78.9446747
-  name: Circuit Dr at F.E.L. Labs (Eastbound)
-  vicinity: United States
 ChIJr60eB3vvrIkRIW4T-rlFCgI:
   location:
     lat: 35.9121716
@@ -6321,12 +5427,6 @@ ChIJr8zZOlXkrIkR9ceYy1sM0aA:
     lat: 35.963407
     lng: -78.885629
   name: Capps St at Athens St (WB)
-  vicinity: United States
-ChIJr9gsddHvrIkRPE6HMpqX6-M:
-  location:
-    lat: 35.87957400000001
-    lng: -78.846614
-  name: Slater Rd at Page Rd (Imperial Point)
   vicinity: United States
 ChIJrQD0b3rkrIkRoCX-ek2rVKU:
   location:
@@ -6358,12 +5458,6 @@ ChIJrZp5UJfkrIkRQOhAIG4HkkI:
     lng: -78.86588499999999
   name: Hardee St at Holloway St
   vicinity: United States
-ChIJrZzrHKbmrIkRIpYclCxYdY4:
-  location:
-    lat: 35.9990712
-    lng: -78.9336666
-  name: Campus Dr at Admissions (Westbound)
-  vicinity: United States
 ChIJrbaocbrjrIkR-lAJh48joEo:
   location:
     lat: 36.038513
@@ -6393,12 +5487,6 @@ ChIJs1f0MkHvrIkRVrjCeNyy0no:
     lat: 35.903912
     lng: -78.911687
   name: NC 54 at Revere Rd (WB)
-  vicinity: United States
-ChIJs1n5v7LmrIkRVkg4jlYzdx8:
-  location:
-    lat: 36.0094729
-    lng: -78.94153109999999
-  name: Hock Plaza (2424 Erwin Rd)
   vicinity: United States
 ChIJs7xwiWnkrIkRVb4Ge-sRrAE:
   location:
@@ -6430,12 +5518,6 @@ ChIJsU4vcTjkrIkR3WyJtA1AEbs:
     lng: -78.906669
   name: Roxboro St at Lawson St (NB)
   vicinity: United States
-ChIJsU_hdrrmrIkRol6B8DMa9JY:
-  location:
-    lat: 36.0000273
-    lng: -78.9439129
-  name: Towerview Rd at Sanford PPS (Public Policy)
-  vicinity: United States
 ChIJsXo7gIzkrIkR2KppvrL8-qo:
   location:
     lat: 35.98590300000001
@@ -6459,12 +5541,6 @@ ChIJsarNqNTjrIkRPBDwlUZPtfg:
     lat: 36.051544
     lng: -78.923509
   name: New Castle Rd at Wyldewood Rd
-  vicinity: United States
-ChIJscdj6KvmrIkRvUdW5_x4zvE:
-  location:
-    lat: 36.005376
-    lng: -78.93322959999999
-  name: Yearby Ave at Flowers Dr (GC/DN Westbound)
   vicinity: United States
 ChIJsfSl4aTjrIkRf_SDSse78fo:
   location:
@@ -6490,12 +5566,6 @@ ChIJszl-BvbjrIkRn-wXi8_17-s:
     lng: -78.91227769999999
   name: Buchanan Blvd at Urban Ave (NB)
   vicinity: United States
-ChIJt0UXpKHorIkRORfwj1_QC5M:
-  location:
-    lat: 35.9218206
-    lng: -78.9489785
-  name: Woodcroft Pkwy at Sandstone Ridge Dr (Westbound)
-  vicinity: Durham
 ChIJt2zo94TmrIkRYbJ01jdnbr4:
   location:
     lat: 35.97543
@@ -6604,23 +5674,11 @@ ChIJtxigbm3vrIkRk53je8uaiLI:
     lng: -78.89592999999999
   name: NC 55 at Meredith Dr (NB)
   vicinity: United States
-ChIJtycFeGPorIkR2VgwCAGws8Q:
-  location:
-    lat: 35.914817
-    lng: -78.979054
-  name: NC 54 at Leigh Farm Rd
-  vicinity: United States
 ChIJu-R6V7LmrIkRJjRK4a226Sw:
   location:
     lat: 36.00797379999999
     lng: -78.94229419999999
   name: Research Drive at Genome Ct (Eye Center)
-  vicinity: United States
-ChIJu1s5KK3mrIkR5fcPGmwDhXU:
-  location:
-    lat: 36.009843
-    lng: -78.937378
-  name: Fulton St at Elder St
   vicinity: United States
 ChIJu35xtkjkrIkRhVXlD8yO61o:
   location:
@@ -6736,12 +5794,6 @@ ChIJvTfjiBTkrIkR0nZ-4zchyb8:
     lng: -78.90879799999999
   name: Duke St at Henderson Towers
   vicinity: United States
-ChIJvW73YQPkrIkRknexmOUiEDs:
-  location:
-    lat: 36.0000045
-    lng: -78.9232148
-  name: Campus Dr at Swift Avenue (Westbound)
-  vicinity: United States
 ChIJvYUa6hLjrIkRsFM-uWOWyYY:
   location:
     lat: 36.027057
@@ -6760,12 +5812,6 @@ ChIJvzIFomD7rIkRoHoWEnGygQE:
     lng: -78.815221
   name: Freeman Rd at Mineral Springs Rd
   vicinity: United States
-ChIJw-Nfs7HmrIkRFrisks6HpDo:
-  location:
-    lat: 36.0028484
-    lng: -78.9419099
-  name: Science Drive Circle
-  vicinity: United States
 ChIJw0crx93krIkR1vOan2KT5q8:
   location:
     lat: 35.96698
@@ -6783,12 +5829,6 @@ ChIJw6JxiO3krIkRl2LTWd7MKc0:
     lat: 35.9794268
     lng: -78.8721176
   name: Angier Ave at Bingham St (WB)
-  vicinity: United States
-ChIJw6f34qjvrIkRfiFVd_ta-JQ:
-  location:
-    lat: 35.88414899999999
-    lng: -78.879851
-  name: Lakeview Dr at Nobel Ln (NIEHS Research Unit)
   vicinity: United States
 ChIJw7CytU7hrIkR9xfr-UxN1ow:
   location:
@@ -6922,29 +5962,11 @@ ChIJxWvM0nvkrIkRPYTYbbQc3WU:
     lng: -78.891527
   name: Dowd St at Gurley St (EB)
   vicinity: United States
-ChIJxZJAFKjmrIkRFgYC7E19SsU:
-  location:
-    lat: 36.000144
-    lng: -78.93083899999999
-  name: Campus Dr at Anderson St (Westbound)
-  vicinity: United States
 ChIJxbVGC27krIkRmx37QAPM9gg:
   location:
     lat: 35.994917
     lng: -78.900251
   name: E Main St at Mangum St (WB)
-  vicinity: United States
-ChIJxcO_osfmrIkR6DWpLK8jVFQ:
-  location:
-    lat: 35.999007
-    lng: -78.952947
-  name: Erwin Rd at Cameron Blvd
-  vicinity: United States
-ChIJxdYLogXkrIkR9s8gbx9WjTY:
-  location:
-    lat: 36.0010281
-    lng: -78.91893619999999
-  name: Campus Dr at Arts Annex (Westbound)
   vicinity: United States
 ChIJxwDuuM_krIkROnzDRixzlNs:
   location:
@@ -6970,23 +5992,11 @@ ChIJxyvML0bkrIkRvXsK5Ev01sA:
     lng: -78.902811
   name: Concord St at Otis St
   vicinity: United States
-ChIJy0WCOP_jrIkR98y6CV6S4Sg:
-  location:
-    lat: 36.01052
-    lng: -78.92407999999999
-  name: Hillsborough Rd at 9th St
-  vicinity: United States
 ChIJy14uhofhrIkRBk_xx9TN20o:
   location:
     lat: 36.06131
     lng: -78.92903
   name: Guess Rd at Victory Blvd
-  vicinity: United States
-ChIJy1tAQLfmrIkRvelLodxz9Ps:
-  location:
-    lat: 36.0018122
-    lng: -78.9471129
-  name: Circuit Dr at Towerview Rd
   vicinity: United States
 ChIJy2oMgHLkrIkR_sqGMudOXZs:
   location:
@@ -7060,12 +6070,6 @@ ChIJybXh65zjrIkRffwYTf9WrnM:
     lng: -78.887452
   name: Service Rd at Davidson Ave
   vicinity: United States
-ChIJycPcqLDmrIkR6ylKtckqFFs:
-  location:
-    lat: 36.000652
-    lng: -78.945225
-  name: Towerview Rd at Gross Hall Labs
-  vicinity: United States
 ChIJyef7EeDjrIkRfisXjHe4IAE:
   location:
     lat: 36.030312
@@ -7119,12 +6123,6 @@ ChIJz09bPQzkrIkRAZl1hIpnu5w:
     lat: 36.0016
     lng: -78.9117
   name: Main St at Morgan St (Westbound)
-  vicinity: United States
-ChIJz14DKLzvrIkR-uDqGNJOei8:
-  location:
-    lat: 35.8929044
-    lng: -78.86659329999999
-  name: NC 54 at Park Dr (Inbound)
   vicinity: United States
 ChIJz17aCefjrIkRyZKa8LSAWII:
   location:
@@ -7192,21 +6190,9 @@ ChIJz_tHnz_krIkRmLxzObNiLgs:
     lng: -78.90751999999999
   name: W Enterprise St at Fargo St
   vicinity: United States
-ChIJzf1IEbrmrIkRp0C6-0SqGto:
-  location:
-    lat: 35.9993715
-    lng: -78.94480999999999
-  name: Science Dr at Duke Law School
-  vicinity: United States
 ChIJzxzR24DhrIkRmASNqWwAg5U:
   location:
     lat: 36.057324
     lng: -78.931269
   name: Horton Rd at Guess Rd
-  vicinity: United States
-ChIJzyIYULnmrIkRlZAq2WORH-o:
-  location:
-    lat: 35.99571879999999
-    lng: -78.9464603
-  name: Science Dr at Bassett Dr (Northbound)
   vicinity: United States
