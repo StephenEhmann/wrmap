@@ -70,7 +70,8 @@ find:
       Family Fare Collaboration & Support Center: 1
       True World Foods: 1
 
-  safety: {}
+  safety:
+    - https://www.neighborhoodscout.com/nc/durham/crime
 
 ### Parameters for evaluating things
 evaluation:

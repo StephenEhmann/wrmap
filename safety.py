@@ -10,6 +10,7 @@ import argparse
 import glob
 import re
 import time
+import json
 from datetime import datetime
 from yaml import load, dump
 try:
@@ -24,8 +25,33 @@ import utils
 
 criterionName = 'safety'
 
-def find(location, bounds, data, name=None):
-    pass
+def find(location, bounds, data, safetyMaps):
+    for sm in safetyMaps:
+        page = utils.get_webpage(sm)
+
+        # host
+        m = re.search(r'var assetHost = "(\S+)"', page)
+        if (m):
+            host = m.group(1)
+        else:
+            raise Exception('ERROR: Failed to find "var assetHost" in ' + sm)
+
+        # city id
+        m = re.search(r'data-id=\'(\d+)\'', page)
+        if (m):
+            cityId = m.group(1)
+        else:
+            raise Exception('ERROR: Failed to find "data-id=" in ' + sm)
+
+        # polygon ids
+        polyIdsJson = utils.get_webpage('https:' + host + '/polygons/features/cities/' + str(cityId) + '.json')
+        polyIds = json.loads(polyIdsJson)
+        #print('polys = ' + str(polys))
+
+        for polyId in polyIds:
+            neighborhoodPoly = json.loads(utils.get_webpage('https:' + host + '/polygons/polygon/neighborhoods/' + str(polyId) + '.json'))
+            #print('neighborhoodPoly for ' + str(polyId) + ' = ' + str(neighborhoodPoly))
+            data[polyId] = neighborhoodPoly
 
 def init():
     with open(criterionName + '.yml', 'r') as in_file:
@@ -33,6 +59,8 @@ def init():
     return data
 
 def evaluate(loc, data, threshold):
+    # polygons are data[id][geometry]<some list nesting><list of x,y pairs (given as a list)>
+    # crime data value (higher is more safe) is given by data[id][properties][c]
     pass
 
 
@@ -50,7 +78,6 @@ if (__name__ == "__main__"):
     parser.add_argument('--help', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('-debug', action='store_true', help='print extra info')
     parser.add_argument('-find', action='store_true', help='find all DB items and write them to ' + criterionName + '.yml')
-    parser.add_argument('-name', type=str, help='find only for this name')
     parser.add_argument('-eval', type=str, help='evaluate the ' + criterionName + ' score for a given coordinate pair (eg. -eval 35.936164,-79.040997)')
     args = parser.parse_args()
 
@@ -60,10 +87,6 @@ if (__name__ == "__main__"):
 
     if (args.find and args.eval or not args.find and not args.eval):
         print('ERROR: exactly one action must be given, choose exactly one of -find or -eval')
-        sys.exit(1)
-
-    if (not args.find and args.name):
-        print('ERROR: -name can only be used with -find')
         sys.exit(1)
 
     # read locations
@@ -84,31 +107,14 @@ if (__name__ == "__main__"):
         print(str(e))
         raise Exception('ERROR: Failed to load yaml file ' + 'config.yml')
 
-    location = locations[config['location']] ['location']
     bounds = locations[config['location']] ['bounds']
+    location = utils.centroid(bounds)
 
     if (args.find):
         data = {}
-        find(location, bounds, data, args.name)
-        if (args.name == None):
-            for i in config['find'][criterionName]['include'].keys():
-                find(location, bounds, data, i)
+        find(location, bounds, data, config['find'][criterionName])
 
-        deletions = []
-        for k, v in iter(data.items()):
-            if (config['find'][criterionName]['exclude'].get(v['name'])):
-                print('excluding ' + v['name'])
-                deletions.append(k)
-
-        for d in deletions:
-            del data[d]
-
-        if (args.name == None):
-            modName = ''
-        else:
-            modName = re.sub(r'\s', r'_', args.name) + '.'
-
-        with open(criterionName + '.' + modName + 'yml', 'w') as yaml_file:
+        with open(criterionName + '.yml', 'w') as yaml_file:
             dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
 
     elif (args.eval):
