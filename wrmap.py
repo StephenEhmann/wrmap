@@ -173,6 +173,7 @@ if (__name__ == "__main__"):
         data[args.geocode] = {}
         data[args.geocode]['location'] = geocode[0]['geometry']['location']
         data[args.geocode]['bounds'] = geocode[0]['geometry']['bounds']
+        data[args.geocode]['centroid'] = utils.centroid(data[args.geocode]['bounds'])
         print('data:')
         print(dump(data, default_flow_style=False, Dumper=Dumper))
 
@@ -188,46 +189,22 @@ if (__name__ == "__main__"):
                 print('ERROR: -resolution must be a value in the range [2..100]')
                 sys.exit(1)
 
-            # TODO: convert this code to use utils.grid
-            if (1):
-                xstart = bounds['southwest']['lng']
-                xend = bounds['northeast']['lng']
-                ystart = bounds['southwest']['lat']
-                yend = bounds['northeast']['lat']
-
-                xdist = utils.distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
-                                        (bounds['southwest']['lat'], bounds['southwest']['lng'] + 0.1))
-                ydist = utils.distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
-                                        (bounds['southwest']['lat'] + 0.1, bounds['southwest']['lng']))
-                xstep = (xend - xstart) / args.resolution
-                ystep = xstep * xdist / ydist
-                #print('xstep = ' + str(xstep))
-                #print('ystep = ' + str(ystep))
-
-                if (0):
-                    # test the two distances
-                    xdist = utils.distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
-                                            (bounds['southwest']['lat'], bounds['southwest']['lng'] + xstep))
-                    ydist = utils.distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
-                                            (bounds['southwest']['lat'] + ystep, bounds['southwest']['lng']))
-                    print('xdist = ' + str(xdist))
-                    print('ydist = ' + str(ydist))
-
-                xi = 0
-                x = xstart
-                while (x < xend):
-                    yi = 0
-                    y = ystart
-                    while (y < yend):
-                        results[(y, x)] = {}
-                        results[(y, x)]['val'] = evaluate((y, x), data, config['evaluation']['final'])
-                        results[(y, x)]['name'] = str(xi) + ',' + str(yi)
-                        print('x,y = ' + str(x) + ' , ' + str(y) + ' = ' + str(results[(y, x)]['val']))
-                        yi += 1
-                        y += ystep
-
-                    xi += 1
-                    x += xstep
+            lng_steps = args.resolution
+            lat_steps = utils.latStepsFromLngSteps(bounds, lng_steps)
+            i = 0
+            for loc in utils.grid(bounds, lat_steps, lng_steps):
+                yi = i / lng_steps
+                xi = i % lng_steps
+                y = loc['loc']['lat']
+                x = loc['loc']['lng']
+                results[(y, x)] = {}
+                if (1):
+                    results[(y, x)]['val'] = evaluate((y, x), data, config['evaluation']['final'])
+                else:
+                    # for testing with something like "wrmap.py -resolution 5 -eval"
+                    results[(y, x)]['val'] = 'not eval'
+                results[(y, x)]['name'] = str(xi) + ',' + str(yi)
+                print('x,y = ' + str(x) + ' , ' + str(y) + ' = ' + str(results[(y, x)]['val']))
 
             if (args.out):
                 os.makedirs(args.out, exist_ok=True)

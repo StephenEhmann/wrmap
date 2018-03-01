@@ -35,24 +35,44 @@ def ramp(x, mn, mx, pos):
     else:
         return 1.0 if x <= mn else 0.0 if x >= mx else (x - mx) / (mn - mx)
 
-def grid(location, bounds, resolution):
-    result = []
-    ystep = (bounds['northeast']['lat'] - bounds['southwest']['lat']) / float(resolution)
-    y = bounds['southwest']['lat']
-    xstep = (bounds['northeast']['lng'] - bounds['southwest']['lng']) / float(resolution)
-    x = bounds['southwest']['lng']
-    for yi in range(resolution):
-        x = bounds['southwest']['lng']
-        for xi in range(resolution):
-            oneLocation = {'lat': y + 0.5 * ystep, 'lng': x + 0.5 * xstep}
-            oneBounds = {'southwest': {'lat': y, 'lng': x}, 'northeast': {'lat': y + ystep, 'lng': x + xstep}}
-            result.append({'loc': oneLocation, 'bounds': oneBounds})
-            x += xstep
-        y += ystep
-    return result
+# calculate lng steps based on lat steps so that x-step-distance = y-step-distance
+def latStepsFromLngSteps(bounds, lng_steps):
+    xstart = bounds['southwest']['lng']
+    xend = bounds['northeast']['lng']
+    ystart = bounds['southwest']['lat']
+    yend = bounds['northeast']['lat']
+
+    xdist = distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
+                      (bounds['southwest']['lat'], bounds['southwest']['lng'] + 0.1))
+    ydist = distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
+                      (bounds['southwest']['lat'] + 0.1, bounds['southwest']['lng']))
+    if (0):
+        # test the two distances
+        xdist = utils.distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
+                                (bounds['southwest']['lat'], bounds['southwest']['lng'] + xstep))
+        ydist = utils.distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
+                                (bounds['southwest']['lat'] + ystep, bounds['southwest']['lng']))
+        print('xdist = ' + str(xdist))
+        print('ydist = ' + str(ydist))
+
+    #xstep = (xend - xstart) / lng_steps
+    #ystep = xstep * xdist / ydist
+    return int((ydist / xdist) * lng_steps)
+
+# produces points at the centers of "pixels"
+def grid(bounds, lat_steps, lng_steps):
+    ystep = (bounds['northeast']['lat'] - bounds['southwest']['lat']) / float(lat_steps)
+    xstep = (bounds['northeast']['lng'] - bounds['southwest']['lng']) / float(lng_steps)
+    for yi in range(lat_steps):
+        for xi in range(lng_steps):
+            y = bounds['southwest']['lat'] + (float(yi) + 0.5) * ystep
+            x = bounds['southwest']['lng'] + (float(xi) + 0.5) * xstep
+            oneLocation = {'lat': y, 'lng': x}
+            oneBounds = {'southwest': {'lat': y-0.5*ystep, 'lng': x-0.5*xstep}, 'northeast': {'lat': y+0.5*ystep, 'lng': x+0.5*xstep}}
+            yield {'loc': oneLocation, 'bounds': oneBounds}
 
 # Find
-def find(location, bounds, data, allData, placeType=None, name=None, dataName=None, doSplit=True, resolution=None):
+def find(location, bounds, data, allData, placeType=None, name=None, dataName=None, doSplit=True, lat_steps=None, lng_steps=None):
     debug = True
     print('find ' + str(placeType) + ' ' + str(name))
     if (placeType == None and name == None or placeType != None and name != None):
@@ -60,9 +80,10 @@ def find(location, bounds, data, allData, placeType=None, name=None, dataName=No
 
     #global server_queries
     cont_srch = True
-    if (resolution):
+    if (lat_steps and lng_steps):
+        raise Exception('This code needs to be updated now that grid is a generator')
         doSplit = False
-        g = grid(location, bounds, resolution)
+        g = grid(bounds, lat_steps, lng_steps)
         bounds_list = []
         for i in g:
             print('bounds = ' + str(i['bounds']))
