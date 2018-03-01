@@ -42,22 +42,19 @@ def latStepsFromLngSteps(bounds, lng_steps):
     ystart = bounds['southwest']['lat']
     yend = bounds['northeast']['lat']
 
-    xdist = distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
-                      (bounds['southwest']['lat'], bounds['southwest']['lng'] + 0.1))
-    ydist = distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
-                      (bounds['southwest']['lat'] + 0.1, bounds['southwest']['lng']))
-    if (0):
-        # test the two distances
-        xdist = utils.distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
-                                (bounds['southwest']['lat'], bounds['southwest']['lng'] + xstep))
-        ydist = utils.distance( (bounds['southwest']['lat'], bounds['southwest']['lng']),
-                                (bounds['southwest']['lat'] + ystep, bounds['southwest']['lng']))
-        print('xdist = ' + str(xdist))
-        print('ydist = ' + str(ydist))
+    xdist = distance((ystart, xstart), (ystart, xend))
+    ydist = distance((ystart, xstart), (yend, xstart))
+    lat_steps = int((ydist / xdist) * lng_steps)
 
+    #print('aspect ratio = ' + str(ydist / xdist))
+    #print('xdist = ' + str(xdist))
+    #print('xincr = ' + str(xdist / lng_steps))
+    #print('ydist = ' + str(ydist))
+    #print('yincr = ' + str(ydist / lat_steps))
     #xstep = (xend - xstart) / lng_steps
     #ystep = xstep * xdist / ydist
-    return int((ydist / xdist) * lng_steps)
+
+    return lat_steps
 
 # produces points at the centers of "pixels"
 def grid(bounds, lat_steps, lng_steps):
