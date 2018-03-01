@@ -188,7 +188,7 @@ if (__name__ == "__main__"):
 
     #read safety polygons
     try:
-        stream = open(criterionName + '.yml', 'r')
+        stream = open(criterionName + '_polys.yml', 'r')
         safe_poly = load(stream, Loader=Loader)
         stream.close()
     except Exception as e:
@@ -210,7 +210,7 @@ if (__name__ == "__main__"):
 
     data = poly_to_grid(safe_poly, bounds, resolution)
     #print(data)
-    with open(criterionName + '_grid.yml', 'w') as yaml_file:
+    with open(criterionName + '.yml', 'w') as yaml_file:
         dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
         
 # test:

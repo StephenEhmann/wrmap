@@ -114,7 +114,7 @@ if (__name__ == "__main__"):
         data = {}
         find(location, bounds, data, config['find'][criterionName])
 
-        with open(criterionName + '.yml', 'w') as yaml_file:
+        with open(criterionName + '_polys.yml', 'w') as yaml_file:
             dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
 
     elif (args.eval):
