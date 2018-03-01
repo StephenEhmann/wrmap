@@ -25,6 +25,7 @@ import utils
 
 criterionName = 'safety'
 resolution = 100
+safety_default = 9 # for points outside all polygons, default score to most safe
 
 tol = 10**-16 ## tolerance for testing lat/lng differences
 
@@ -106,16 +107,18 @@ def is_even(x):
     
 def poly_to_grid(safe_poly, bounds, resolution):
     result = []
-    ystep = (bounds['northeast']['lat'] - bounds['southwest']['lat']) / float(resolution)
+    lng_steps = resolution
+    lat_steps = utils.latStepsFromLngSteps(bounds, lng_steps)
+    ystep = (bounds['northeast']['lat'] - bounds['southwest']['lat']) / float(lat_steps)
     y = bounds['southwest']['lat']
-    xstep = (bounds['northeast']['lng'] - bounds['southwest']['lng']) / float(resolution)
+    xstep = (bounds['northeast']['lng'] - bounds['southwest']['lng']) / float(lng_steps)
     x = bounds['southwest']['lng']
     #print(outer_bound)
     max_lng = max(outer_bound[0][1],bounds['northeast']['lng']) + 10*tol #longitude that is definitely outside all bounding boxes
-    for yi in range(resolution + 1):
+    for yi in range(lat_steps):
         x = bounds['southwest']['lng']
         poly_prev = None
-        for xi in range(resolution + 1):
+        for xi in range(lng_steps):
             poly_curr = None
             if (poly_prev) and is_even(horz_intersect_poly(x - xstep, x, y, safe_poly[poly_prev]['geometry']['coordinates'][0][0]) ):
                 ## test intersections with polygon for line from previous point, if intersections are even, then it's in the same polygon
@@ -137,8 +140,8 @@ def poly_to_grid(safe_poly, bounds, resolution):
                             poly_prev = poly_curr
                             break #can only be in one polygon, so if we found one, stop looking
             if (not poly_curr):
-                ## didn't find a polygon for this point
-                result.append([x, y, poly_curr ])    
+                ## this point outside all polygons, use default
+                result.append([x, y, safety_default ])    
             x += xstep
         y += ystep
     return result
@@ -197,6 +200,7 @@ if (__name__ == "__main__"):
 
     outer_bound = []
     add_poly_bound(safe_poly,outer_bound)
+
     #print(outer_bound)
 ##    print('2 is even',is_even(2))
 ##    print('3 is even',is_even(3))
