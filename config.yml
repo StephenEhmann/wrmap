@@ -78,9 +78,9 @@ evaluation:
   enable:
     bus: 1
     grocery: 1
-    resources: 0
-    employment: 0
-    safety: 0
+    resources: 1
+    employment: 1
+    safety: 1
 
   value:
     bus:
@@ -132,7 +132,7 @@ evaluation:
     safety:
       selection:
         type: evaluated
-	function:
+    function:
       - point: [0.0,0.0]
       - linear
       - point: [9.0,1.0]
@@ -141,10 +141,11 @@ evaluation:
     mul:
       - bus
       - weighted_sum:
-          grocery: 1.0
-          resources: 0.0
-          employment: 0.0
-          safety: 0.0
+          bus: 0.54
+          grocery: 0.18
+          resources: 0.07
+          employment: 0.13
+          safety: 0.08
 
 ### Parameters for visualizing things
 visualization:
