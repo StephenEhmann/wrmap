@@ -143,7 +143,22 @@ def poly_to_grid(safe_poly, bounds, resolution):
                 result.append([x, y, safety_default ])    
     return result
 
-        
+## some tests of functions
+#print(outer_bound)
+#print('2 is even',is_even(2))
+#print('3 is even',is_even(3))
+#print('4.0 is even',is_even(4.0))
+#print('4.00001 is even',is_even(4.00001))
+#test_poly = safe_poly[48420]['geometry']['coordinates'][0][0] #need to remove extra list levels
+#print(horz_intersect(0,5,0,[[0,0],[5,2]]) )
+#print(horz_intersect_poly(-78.89, -78.8, 36.02, test_poly))
+#print(safe_poly['outer_bound'])
+#print(safe_poly[48420])
+
+def init():
+    with open(criterionName + '.yml', 'r') as in_file:
+        data = load(in_file, Loader=Loader)
+    return data
 
 if (__name__ == "__main__"):
     # main parser
@@ -166,6 +181,10 @@ if (__name__ == "__main__"):
         parser.print_help()
         sys.exit(0)
 
+    if (args.find and args.eval or not args.find and not args.eval):
+        print('ERROR: exactly one action must be given, choose exactly one of -find or -eval')
+        sys.exit(1)
+    
     # read locations
     try:
         stream = open('location.yml', 'r')
@@ -186,32 +205,29 @@ if (__name__ == "__main__"):
 
     bounds = locations[config['location']] ['bounds']
 
-    #read safety polygons
-    try:
-        stream = open(criterionName + '_polys.yml', 'r')
-        safe_poly = load(stream, Loader=Loader)
-        stream.close()
-    except Exception as e:
-        print(str(e))
-        raise Exception('ERROR: Failed to load yaml file ' + criterionName + '.yml')
+    if (args.find):    
+        #read safety polygons
+        try:
+            stream = open(criterionName + '_polys.yml', 'r')
+            safe_poly = load(stream, Loader=Loader)
+            stream.close()
+        except Exception as e:
+            print(str(e))
+            raise Exception('ERROR: Failed to load yaml file ' + criterionName + '.yml')
 
-    outer_bound = []
-    add_poly_bound(safe_poly,outer_bound)
-
-    #print(outer_bound)
-##    print('2 is even',is_even(2))
-##    print('3 is even',is_even(3))
-##    print('4.0 is even',is_even(4.0))
-##    print('4.00001 is even',is_even(4.00001))
-    #test_poly = safe_poly[48420]['geometry']['coordinates'][0][0] #need to remove extra list levels
-    #print(horz_intersect(0,5,0,[[0,0],[5,2]]) )
-    #print(horz_intersect_poly(-78.89, -78.8, 36.02, test_poly))
-    #print(safe_poly['outer_bound'])
-    #print(safe_poly[48420])
-
-    data = poly_to_grid(safe_poly, bounds, resolution)
-    #print(data)
-    with open(criterionName + '.yml', 'w') as yaml_file:
-        dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
+        outer_bound = []
+        add_poly_bound(safe_poly,outer_bound)
+        data = poly_to_grid(safe_poly, bounds, resolution)
         
+        with open(criterionName + '.yml', 'w') as yaml_file:
+            dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
+
+    elif (args.eval):
+        data = init()
+        latlong = args.eval.split(',')
+        e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['threshold'][criterionName])
+        print(str(e))
+
+    sys.exit(0)
+    
 # test:
