@@ -132,7 +132,7 @@ evaluation:
     safety:
       selection:
         type: evaluated
-    function:
+      function:
       - point: [0.0,0.0]
       - linear
       - point: [9.0,1.0]
