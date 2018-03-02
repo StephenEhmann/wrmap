@@ -110,15 +110,14 @@ def poly_to_grid(safe_poly, bounds, resolution):
     lng_steps = resolution
     lat_steps = utils.latStepsFromLngSteps(bounds, lng_steps)
     ystep = (bounds['northeast']['lat'] - bounds['southwest']['lat']) / float(lat_steps)
-    y = bounds['southwest']['lat']
     xstep = (bounds['northeast']['lng'] - bounds['southwest']['lng']) / float(lng_steps)
-    x = bounds['southwest']['lng']
     #print(outer_bound)
     max_lng = max(outer_bound[0][1],bounds['northeast']['lng']) + 10*tol #longitude that is definitely outside all bounding boxes
     for yi in range(lat_steps):
-        x = bounds['southwest']['lng']
+        y = bounds['southwest']['lat'] + (float(yi) + 0.5) * ystep
         poly_prev = None
         for xi in range(lng_steps):
+            x = bounds['southwest']['lng'] + (float(xi) + 0.5) * xstep
             poly_curr = None
             if (poly_prev) and is_even(horz_intersect_poly(x - xstep, x, y, safe_poly[poly_prev]['geometry']['coordinates'][0][0]) ):
                 ## test intersections with polygon for line from previous point, if intersections are even, then it's in the same polygon
@@ -142,8 +141,6 @@ def poly_to_grid(safe_poly, bounds, resolution):
             if (not poly_curr):
                 ## this point outside all polygons, use default
                 result.append([x, y, safety_default ])    
-            x += xstep
-        y += ystep
     return result
 
         
