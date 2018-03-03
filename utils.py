@@ -46,11 +46,14 @@ def latStepsFromLngSteps(bounds, lng_steps):
     ydist = distance((ystart, xstart), (yend, xstart))
     lat_steps = int((ydist / xdist) * lng_steps)
 
+    #print('lng_steps = ' + str(lng_steps))
+    #print('lat_steps = ' + str(lat_steps))
     #print('aspect ratio = ' + str(ydist / xdist))
     #print('xdist = ' + str(xdist))
     #print('xincr = ' + str(xdist / lng_steps))
     #print('ydist = ' + str(ydist))
     #print('yincr = ' + str(ydist / lat_steps))
+
     #xstep = (xend - xstart) / lng_steps
     #ystep = xstep * xdist / ydist
 
@@ -230,9 +233,7 @@ def evaluate_single_func(funcType, func, x):
     if (funcType == None or func == None):
         raise Exception('ERROR: function data is not given for range for x = ' + str(x))
 
-    if (funcType == 'const'):
-        return func
-    elif (funcType == 'linear'):
+    if (funcType == 'linear'):
         #print('linear func = ' + str(func))
         x1 = func[0][0]
         y1 = func[0][1]
@@ -269,7 +270,7 @@ def evaluate_function(function, x):
                     func.append(f[k])
                 if (x < f[k][0]):
                     return evaluate_single_func(funcType, func, x)
-            elif (k == 'const' or k == 'exp' or k == 'exp2'):
+            elif (k == 'exp' or k == 'exp2'):
                 funcType = k
                 func = f[k]
             else:
@@ -291,14 +292,16 @@ def evaluate_final(function, x):
     else:
         raise Exception('ERROR: final function ' + function + ' unimplemented')
 
-def evaluate_require_nearest(loc, data, value):
+def evaluate_require_nearest(loc, data, value, extraData=None):
     #print(str(value))
     selectionType = value['selection']['type']
     if (selectionType != 'nearest'):
         raise Exception('ERROR: can only evaluate for selection type \'nearest\'')
 
     nearest = getNearest(loc, data, value['selection']['nearest'])
-    #print('nearest dists = ' + str(nearest))
+    if (extraData != None):
+        extraData['nearest'] = nearest
+        print('nearest dists = ' + str(nearest))
     scores = []
     for n in nearest:
         scores.append(evaluate_function(value['function'], n))

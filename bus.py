@@ -98,21 +98,8 @@ def init():
         data = load(in_file, Loader=Loader)
     return data
 
-def evaluate(loc, data, value):
-    #print(str(value))
-    selection = value['selection']
-    if (selection != 'nearest'):
-        raise Exception('ERROR: can only evaluate for selection \'nearest\'')
-
-    minDist = 100
-    minK = ''
-    for k, v in iter(data.items()):
-        dist = utils.distance(loc, (v['location']['lat'], v['location']['lng']))
-        if (dist < minDist):
-            minDist = dist
-            minK = k
-    # distance to nearest grocery store is x
-    return utils.evaluate_function(value['function'], minDist)
+def evaluate(loc, data, value, extraData=None):
+    return utils.evaluate_require_nearest(loc, data, value, extraData=extraData)
 
 
 if (__name__ == "__main__"):
@@ -128,6 +115,7 @@ if (__name__ == "__main__"):
     parser.add_argument('-help', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('--help', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('-debug', action='store_true', help='print extra info')
+    parser.add_argument('-extraData', action='store_true', help='print extra data for evals')
     parser.add_argument('-find', action='store_true', help='find all DB items and write them to ' + criterionName + '.yml')
     parser.add_argument('-name', type=str, help='find only for this name')
     parser.add_argument('-cached', action='store_true', help='use cached search results in <type>.all.yml')
@@ -237,8 +225,13 @@ if (__name__ == "__main__"):
     elif (args.eval):
         data = init()
         latlong = args.eval.split(',')
-        e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['value'][criterionName])
+        extraData = None
+        if (args.extraData):
+            extraData = {}
+        e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['value'][criterionName], extraData=extraData)
         print(str(e))
+        if (args.extraData):
+            print('extraData = ' + str(extraData))
 
     #print('server queries:',server_queries)
 

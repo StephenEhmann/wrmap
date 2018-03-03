@@ -58,10 +58,10 @@ def init():
         data = load(in_file, Loader=Loader)
     return data
 
-def evaluate(loc, data, threshold):
+def evaluate(loc, data, value):
     # polygons are data[id][geometry]<some list nesting><list of x,y pairs (given as a list)>
     # crime data value (higher is more safe) is given by data[id][properties][c]
-    pass
+    return 0.0
 
 
 if (__name__ == "__main__"):
@@ -120,7 +120,7 @@ if (__name__ == "__main__"):
     elif (args.eval):
         data = init()
         latlong = args.eval.split(',')
-        e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['threshold'][criterionName])
+        e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['value'][criterionName])
         print(str(e))
 
     sys.exit(0)

@@ -48,64 +48,84 @@ if (0):
     print('directions_result = ' + str(directions_result))
 
 
+def initSingle(data, k, v):
+    data[k] = {}
+    data[k]['module'] = importlib.import_module(k, package=None)
+    data[k]['data'] = data[k]['module'].init()
+
 def init(config):
     data = {}
-    for k, v in iter(config['evaluation']['enable'].items()):
-        if (v):
-            # enabled
-            data[k] = {}
-            data[k]['module'] = importlib.import_module(k, package=None)
-            data[k]['data'] = data[k]['module'].init()
-            data[k]['value'] = config['evaluation']['value'][k]
+    for k, v in iter(config['evaluation']['value'].items()):
+        initSingle(data, k, v)
     return data
 
-
-def evaluate_data(loc, data, k):
+def evaluate_variable(loc, data, config, k):
     #print('eval for ' + k)
-    v = data[k]
-    return v['module'].evaluate(loc, v['data'], v['value'])
+    module = None
+    funcRecord = None
+    if (k in config['evaluation']['value']):
+        funcRecord = config['evaluation']['value'][k]
+        module = k
+    elif (k in config['evaluation']['otherFunctions']):
+        funcRecord = config['evaluation']['otherFunctions'][k]
+        module = funcRecord.get('module')
+    else:
+        raise Exception('ERROR: unregistered variable ' + k)
 
-def evaluate_weighted_sum(loc, data, weights):
+    if (module):
+        v = data[module]
+        return v['module'].evaluate(loc, v['data'], funcRecord)
+    else:
+        return evaluate_internal(loc, data, config, funcRecord)
+
+def evaluate_weighted_sum(loc, data, config, weights):
     score = 0.0
     for k, w in iter(weights.items()):
-        if (config['evaluation']['enable'][k]):
-            dataScore = evaluate_data(loc, data, k)
-            print('score for ' + k + ' = ' + str(dataScore))
-            score += w * dataScore
+        dataScore = evaluate_variable(loc, data, config, k)
+        print('score for ' + k + ' = ' + str(dataScore))
+        score += w * dataScore
     return score
 
-def evaluate_mul(loc, data, mul):
+def evaluate_mul(loc, data, config, mul):
     score = 1.0
     for v in mul:
         if (isinstance(v, dict)):
-            score *= evaluate(loc, data, v)
+            score *= evaluate_internal(loc, data, config, v)
         elif (isinstance(v, list)):
             raise Exception('ERROR: mul operand cannot be a list')
         else:
             # scalar
-            if (config['evaluation']['enable'][v]):
-                dataScore = evaluate_data(loc, data, v)
-                print('score for ' + v + ' = ' + str(dataScore))
-                score *= dataScore
+            dataScore = evaluate_variable(loc, data, config, v)
+            print('score for ' + v + ' = ' + str(dataScore))
+            score *= dataScore
     return score
 
-def evaluate(loc, data, final):
+def evaluate_internal(loc, data, config, function):
     count = 0
-    for op, v in iter(final.items()):
+    for op, v in iter(function.items()):
         if (op == 'mul'):
             if (not isinstance(v, list)):
                 raise Exception('ERROR: mul operator requires a list value')
-            return evaluate_mul(loc, data, v)
+            return evaluate_mul(loc, data, config, v)
         elif (op == 'weighted_sum'):
             if (not isinstance(v, dict)):
                 raise Exception('ERROR: weighted_sum operator requires a map value')
-            return evaluate_weighted_sum(loc, data, v)
+            return evaluate_weighted_sum(loc, data, config, v)
         else:
             raise Exception('ERROR: unimplemented op: ' + op)
         count += 1
 
     if (count > 1):
         raise Exception('ERROR: only one top level op allowed for now')
+
+def evaluate(loc, data, config, funcRecord):
+    count = 0
+    #print('funcrecord = ' + str(funcRecord))
+    function = funcRecord['function']
+    if (isinstance(function, list)):
+        raise Exception('ERROR: piecewise functions not implemented for non-module variables')
+
+    return evaluate_internal(loc, data, config, function)
 
 
 if (__name__ == "__main__"):
@@ -121,7 +141,9 @@ if (__name__ == "__main__"):
     parser.add_argument('-help', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('--help', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('-geocode', type=str, help='get coordinates and other information for a given named (string) location')
-    parser.add_argument('-out', type=str, help='optional output kmz name: <name>.kmz')
+    parser.add_argument('-out', type=str, help='optional output name: <name>.<ext>')
+    parser.add_argument('-kmz', action='store_true', help='output kmz (by default output png)')
+    parser.add_argument('-func', type=str, default='final', help='function to evaluate, default is to evaluate the final function')
     parser.add_argument('-location', type=str, help='location to evaluate')
     parser.add_argument('-resolution', type=int, help='evaluate the entire bounds of the location at this resolution (number of steps in the east/west direction, the north/south direction will be auto-scaled)')
     parser.add_argument('-eval', action='store_true', help='evaluate the overall score')
@@ -178,11 +200,38 @@ if (__name__ == "__main__"):
         print(dump(data, default_flow_style=False, Dumper=Dumper))
 
     elif (args.eval):
-        data = init(config)
+        # initialize
+        funcRecord = config['evaluation']['otherFunctions']['final']
+        if (args.func):
+            funcRecord = config['evaluation']['value'].get(args.func)
+            if (not funcRecord):
+                funcRecord = config['evaluation']['otherFunctions'].get(args.func)
+            else:
+                funcRecord['module'] = args.func
+            if (not funcRecord):
+                print('ERROR: -func does not refer to a valid function in the config file')
+                sys.exit(1)
+
+        #print('funcrecord = ' + str(funcRecord))
+        data = {}
+        if (funcRecord.get('module')):
+            # evaluating the metric value of a criterion
+            #print('init single data = ' + str(data))
+            initSingle(data, funcRecord.get('module'), funcRecord)
+            #print('data = ' + str(data))
+        else:
+            # evaluating some arbitrary function
+            data = init(config)
+
+        # evaluate
         if (args.location):
             latlong = args.location.split(',')
-            e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['final'])
+            if (funcRecord.get('module')):
+                e = evaluate_variable((latlong[0], latlong[1]), data, config, args.func)
+            else:
+                e = evaluate((latlong[0], latlong[1]), data, config, funcRecord)
             print(str(e))
+
         elif (args.resolution):
             results = {}
             if (args.resolution < 2 or args.resolution > 100):
@@ -191,6 +240,7 @@ if (__name__ == "__main__"):
 
             lng_steps = args.resolution
             lat_steps = utils.latStepsFromLngSteps(bounds, lng_steps)
+            sys.exit(0)
             i = 0
             for loc in utils.grid(bounds, lat_steps, lng_steps):
                 yi = i / lng_steps
@@ -198,17 +248,24 @@ if (__name__ == "__main__"):
                 y = loc['loc']['lat']
                 x = loc['loc']['lng']
                 results[(y, x)] = {}
-                if (1):
-                    results[(y, x)]['val'] = evaluate((y, x), data, config['evaluation']['final'])
+                if (0):
+                    if (args.func):
+                        results[(y, x)]['val'] = evaluate_variable((y, x), data, config, args.func)
+                    else:
+                        results[(y, x)]['val'] = evaluate((y, x), data, config, config['evaluation']['final'])
                 else:
                     # for testing with something like "wrmap.py -resolution 5 -eval"
                     results[(y, x)]['val'] = 'not eval'
                 results[(y, x)]['name'] = str(xi) + ',' + str(yi)
-                print('x,y = ' + str(x) + ' , ' + str(y) + ' = ' + str(results[(y, x)]['val']))
+                #print('x,y = ' + str(x) + ' , ' + str(y) + ' = ' + str(results[(y, x)]['val']))
 
             if (args.out):
-                os.makedirs(args.out, exist_ok=True)
-                kml.write(os.path.join(args.out, 'doc.kml'), config, data, results)
+                if (args.kmz):
+                    os.makedirs(args.out, exist_ok=True)
+                    kml.write(os.path.join(args.out, 'doc.kml'), config, data, results)
+                else:
+                    # TODO: write png
+                    pass
 
         else:
             print('INTERNAL ERROR')
