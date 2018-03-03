@@ -106,23 +106,32 @@ def is_even(x):
         return True
     
 def poly_to_grid(safe_poly, bounds, resolution):
-    result = []
+    #print(bounds)
+
+    result = {}
+    grid = []
     lng_steps = resolution
     lat_steps = utils.latStepsFromLngSteps(bounds, lng_steps)
     ystep = (bounds['northeast']['lat'] - bounds['southwest']['lat']) / float(lat_steps)
     xstep = (bounds['northeast']['lng'] - bounds['southwest']['lng']) / float(lng_steps)
-    #print(outer_bound)
+    
+    result['bounds'] = bounds
+    result['numsteps'] = {'lng': lng_steps, 'lat': lat_steps}
+    result['lenstep'] = {'x': xstep, 'y': ystep}
+    result['startgrid'] = bounds['southwest']
+    
     max_lng = max(outer_bound[0][1],bounds['northeast']['lng']) + 10*tol #longitude that is definitely outside all bounding boxes
     for yi in range(lat_steps):
-        y = bounds['southwest']['lat'] + (float(yi) + 0.5) * ystep
+        y = result['startgrid']['lat'] + (float(yi) + 0.5) * ystep
         poly_prev = None
+        row_grid = []
         for xi in range(lng_steps):
-            x = bounds['southwest']['lng'] + (float(xi) + 0.5) * xstep
+            x = result['startgrid']['lng'] + (float(xi) + 0.5) * xstep
             poly_curr = None
             if (poly_prev) and is_even(horz_intersect_poly(x - xstep, x, y, safe_poly[poly_prev]['geometry']['coordinates'][0][0]) ):
                 ## test intersections with polygon for line from previous point, if intersections are even, then it's in the same polygon
                 poly_curr = poly_prev
-                result.append([x, y, safe_poly[poly_curr]['properties']['c'] ])
+                row_grid.append(safe_poly[poly_curr]['properties']['c'] )
                 poly_prev = poly_curr
             else:
                 for nbhd in safe_poly:
@@ -135,12 +144,14 @@ def poly_to_grid(safe_poly, bounds, resolution):
                         if not is_even(horz_intersect_poly(x, max_lng, y, safe_poly[nbhd]['geometry']['coordinates'][0][0]) ):
                             ## test intersections with polygon for line to point definitely outside polygon, if intersections are odd, then it's in this polygon
                             poly_curr = nbhd
-                            result.append([x, y, safe_poly[poly_curr]['properties']['c'] ])
+                            row_grid.append(safe_poly[poly_curr]['properties']['c'])
                             poly_prev = poly_curr
                             break #can only be in one polygon, so if we found one, stop looking
             if (not poly_curr):
                 ## this point outside all polygons, use default
-                result.append([x, y, safety_default ])    
+                row_grid.append(safety_default)
+        grid.append(row_grid)
+    result['grid'] = grid
     return result
 
 ## some tests of functions
@@ -159,6 +170,18 @@ def init():
     with open(criterionName + '.yml', 'r') as in_file:
         data = load(in_file, Loader=Loader)
     return data
+
+def evaluate(loc, data, value):
+    if (not utils.isInside({'lat': loc[0], 'lng': loc[1]}, data['bounds']) ):
+        print('ERROR: evaluation point outside of safety grid bounds')
+        sys.exit(1)    
+    y_dist_start = loc[0] - data['startgrid']['lat']
+    x_dist_start = loc[1] - data['startgrid']['lng']
+    row = int(y_dist_start//data['lenstep']['y'])
+    col = int(x_dist_start//data['lenstep']['x'])
+    score = data['grid'][row][col]
+    return utils.evaluate_function(value['function'], score)
+
 
 if (__name__ == "__main__"):
     # main parser
@@ -204,7 +227,7 @@ if (__name__ == "__main__"):
         raise Exception('ERROR: Failed to load yaml file ' + 'config.yml')
 
     bounds = locations[config['location']] ['bounds']
-
+    #print(bounds)
     if (args.find):    
         #read safety polygons
         try:
@@ -218,6 +241,9 @@ if (__name__ == "__main__"):
         outer_bound = []
         add_poly_bound(safe_poly,outer_bound)
         data = poly_to_grid(safe_poly, bounds, resolution)
+
+        #print(data['bounds'])
+        #print(data['startgrid'])
         
         with open(criterionName + '.yml', 'w') as yaml_file:
             dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
@@ -225,7 +251,7 @@ if (__name__ == "__main__"):
     elif (args.eval):
         data = init()
         latlong = args.eval.split(',')
-        e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['threshold'][criterionName])
+        e = evaluate((float(latlong[0]), float(latlong[1])), data, config['evaluation']['value'][criterionName])
         print(str(e))
 
     sys.exit(0)
