@@ -10,7 +10,7 @@ import argparse
 import glob
 import re
 import time
-from datetime import datetime
+import json
 from yaml import load, dump
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
@@ -47,13 +47,14 @@ if (__name__ == "__main__"):
     parser.add_argument('-name', type=str, help='find only for this name')
     parser.add_argument('-location', type=str, help='location to evaluate (will default to the location given in the config.yml file)')
     parser.add_argument('-eval', type=str, help='evaluate the ' + criterionName + ' score for a given coordinate pair (eg. -eval 35.936164,-79.040997)')
+    parser.add_argument('-geojson', action='store_true', help='write geojson file')
     args = parser.parse_args()
 
     if (args.h or args.help):
         parser.print_help()
         sys.exit(0)
 
-    if (args.find and args.eval or not args.find and not args.eval):
+    if (args.find and args.eval or not args.find and not args.eval and not args.geojson):
         print('ERROR: exactly one action must be given, choose exactly one of -find or -eval')
         sys.exit(1)
 
@@ -131,6 +132,15 @@ if (__name__ == "__main__"):
         latlong = args.eval.split(',')
         e = evaluate((latlong[0], latlong[1]), data, config['evaluation']['value'][criterionName])
         print(str(e))
+
+    elif (args.geojson):
+        data = init()
+        geojson = {"type":"FeatureCollection","features":[]}
+        for k, v in iter(data.items()):
+            #{"type":"Feature","properties":{"name": "NC Division of Social Services"},"geometry":{"type":"Point","coordinates":[-78.8963752, 35.9918143]},"id":"1"}
+            geojson['features'].append({"type":"Feature","properties":{"name": v['name']},"geometry":{"type":"Point","coordinates":[v['location']['lng'], v['location']['lat']]}, "id":k})
+        with open(criterionName + '.geojsonp', 'w') as outfile:
+            json.dump(geojson, outfile)
 
     sys.exit(0)
 

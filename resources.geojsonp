@@ -1,9 +1,1 @@
-{"type":"FeatureCollection","features":[
-
-{"type":"Feature","properties":{"name": "World Relief Durham"}
-,"geometry":{"type":"Point","coordinates":[-78.88933349999999, 35.9961482]},"id":"0"},
-
-{"type":"Feature","properties":{"name": "NC Division of Social Services"}
-,"geometry":{"type":"Point","coordinates":[-78.8963752, 35.9918143]},"id":"1"}
-
-]}
+{"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"name": "World Relief Durham"}, "geometry": {"type": "Point", "coordinates": [-78.88933349999999, 35.9961482]}, "id": "ChIJ04HEWHvkrIkRffyJgCBR288"}, {"type": "Feature", "properties": {"name": "NC Division of Social Services"}, "geometry": {"type": "Point", "coordinates": [-78.8963752, 35.9918143]}, "id": "ChIJ06gVFm_krIkRxu72WO7BwVk"}, {"type": "Feature", "properties": {"name": "Duke University Hospital"}, "geometry": {"type": "Point", "coordinates": [-78.9371233, 36.0070978]}, "id": "ChIJ08E2_azmrIkRGdtgFH-J61M"}, {"type": "Feature", "properties": {"name": "Duke Regional Hospital"}, "geometry": {"type": "Point", "coordinates": [-78.9009894, 36.0361504]}, "id": "ChIJ81bPe7njrIkRbUGx2-NCVBc"}, {"type": "Feature", "properties": {"name": "Durham Station"}, "geometry": {"type": "Point", "coordinates": [-78.9069437, 35.9966131]}, "id": "ChIJK0iAqBLkrIkRH02jkSevMxU"}, {"type": "Feature", "properties": {"name": "Church World Service"}, "geometry": {"type": "Point", "coordinates": [-78.90893299999999, 35.9989402]}, "id": "EigxMTIgUyBEdWtlIFN0ICM0YiwgRHVyaGFtLCBOQyAyNzcwMSwgVVNB"}]}
