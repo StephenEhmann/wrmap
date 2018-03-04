@@ -23,6 +23,9 @@ gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU')
 
 import utils
 import kml
+import png
+
+debug = False
 
 # TODO: subdivison alg for getting around the 60 query limit
 
@@ -60,7 +63,7 @@ def init(config):
     return data
 
 def evaluate_variable(loc, data, config, k):
-    #print('eval for ' + k)
+    if (debug): print('eval var for ' + k)
     module = None
     funcRecord = None
     if (k in config['evaluation']['value']):
@@ -82,7 +85,7 @@ def evaluate_weighted_sum(loc, data, config, weights):
     score = 0.0
     for k, w in iter(weights.items()):
         dataScore = evaluate_variable(loc, data, config, k)
-        print('score for ' + k + ' = ' + str(dataScore))
+        if (debug): print('score for ' + k + ' = ' + str(dataScore))
         score += w * dataScore
     return score
 
@@ -96,11 +99,12 @@ def evaluate_mul(loc, data, config, mul):
         else:
             # scalar
             dataScore = evaluate_variable(loc, data, config, v)
-            print('score for ' + v + ' = ' + str(dataScore))
+            if (debug): print('score for ' + v + ' = ' + str(dataScore))
             score *= dataScore
     return score
 
 def evaluate_internal(loc, data, config, function):
+    if (debug): print('evalinternal function = ' + str(function))
     count = 0
     for op, v in iter(function.items()):
         if (op == 'mul'):
@@ -119,8 +123,7 @@ def evaluate_internal(loc, data, config, function):
         raise Exception('ERROR: only one top level op allowed for now')
 
 def evaluate(loc, data, config, funcRecord):
-    count = 0
-    #print('funcrecord = ' + str(funcRecord))
+    if (debug): print('top eval funcrecord = ' + str(funcRecord))
     function = funcRecord['function']
     if (isinstance(function, list)):
         raise Exception('ERROR: piecewise functions not implemented for non-module variables')
@@ -234,38 +237,60 @@ if (__name__ == "__main__"):
 
         elif (args.resolution):
             results = {}
-            if (args.resolution < 2 or args.resolution > 100):
-                print('ERROR: -resolution must be a value in the range [2..100]')
+            valResults = {}
+            if (args.resolution < 2 or args.resolution > 500):
+                print('ERROR: -resolution must be a value in the range [2..500]')
                 sys.exit(1)
 
             lng_steps = args.resolution
             lat_steps = utils.latStepsFromLngSteps(bounds, lng_steps)
-            sys.exit(0)
+            if (0):
+                # color gradient testing
+                valResults = {
+                    (0, 0): 0.0,
+                    (1, 0): 0.1,
+                    (2, 0): 0.2,
+                    (3, 0): 0.3,
+                    (4, 0): 0.4,
+                    (5, 0): 0.5,
+                    (6, 0): 0.6,
+                    (7, 0): 0.7,
+                    (8, 0): 0.8,
+                    (9, 0): 0.9,
+                    (10, 0): 1.0,
+                }
+                png.write(args.out, config, valResults, 11, 1)
+                sys.exit(0)
             i = 0
             for loc in utils.grid(bounds, lat_steps, lng_steps):
-                yi = i / lng_steps
+                yi = i // lng_steps
                 xi = i % lng_steps
+                #print('xi = ' + str(xi) + ' yi = ' + str(yi))
                 y = loc['loc']['lat']
                 x = loc['loc']['lng']
                 results[(y, x)] = {}
-                if (0):
-                    if (args.func):
+                if (1):
+                    if (funcRecord.get('module')):
                         results[(y, x)]['val'] = evaluate_variable((y, x), data, config, args.func)
                     else:
-                        results[(y, x)]['val'] = evaluate((y, x), data, config, config['evaluation']['final'])
+                        results[(y, x)]['val'] = evaluate((y, x), data, config, funcRecord)
+                    valResults[(xi,yi)] = results[(y, x)]['val']
                 else:
                     # for testing with something like "wrmap.py -resolution 5 -eval"
                     results[(y, x)]['val'] = 'not eval'
                 results[(y, x)]['name'] = str(xi) + ',' + str(yi)
                 #print('x,y = ' + str(x) + ' , ' + str(y) + ' = ' + str(results[(y, x)]['val']))
+                i += 1
 
             if (args.out):
                 if (args.kmz):
                     os.makedirs(args.out, exist_ok=True)
                     kml.write(os.path.join(args.out, 'doc.kml'), config, data, results)
                 else:
-                    # TODO: write png
-                    pass
+                    #print('valResults = ' + str(valResults))
+                    if (not re.search(r'\.png', args.out)):
+                        args.out += '.png'
+                    png.write(args.out, config, valResults, lng_steps, lat_steps)
 
         else:
             print('INTERNAL ERROR')
