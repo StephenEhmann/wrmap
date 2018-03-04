@@ -1,4 +1,4 @@
-wrmap_callback({"type":"FeatureCollection","features":[
+{"type":"FeatureCollection","features":[
 
 {"type":"Feature","properties":{"name": "World Relief Durham"}
 ,"geometry":{"type":"Point","coordinates":[-78.88933349999999, 35.9961482]},"id":"0"}
@@ -7,4 +7,3 @@ wrmap_callback({"type":"FeatureCollection","features":[
 ,"geometry":{"type":"Point","coordinates":[-78.8963752, 35.9918143]},"id":"1"}
 
 ]}
-)
