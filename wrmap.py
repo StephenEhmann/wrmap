@@ -62,7 +62,7 @@ def init(config):
         initSingle(data, k, v)
     return data
 
-def evaluate_variable(loc, data, config, k):
+def evaluate_variable(loc, data, config, k, reporting=False):
     if (debug): print('eval var for ' + k)
     module = None
     funcRecord = None
@@ -77,44 +77,46 @@ def evaluate_variable(loc, data, config, k):
 
     if (module):
         v = data[module]
-        return v['module'].evaluate(loc, v['data'], funcRecord)
+        result = v['module'].evaluate(loc, v['data'], funcRecord)
+        if (reporting): print(k + ': ' + str(result))
+        return result
     else:
-        return evaluate_internal(loc, data, config, funcRecord)
+        return evaluate_internal(loc, data, config, funcRecord, reporting=reporting)
 
-def evaluate_weighted_sum(loc, data, config, weights):
+def evaluate_weighted_sum(loc, data, config, weights, reporting=False):
     score = 0.0
     for k, w in iter(weights.items()):
-        dataScore = evaluate_variable(loc, data, config, k)
+        dataScore = evaluate_variable(loc, data, config, k, reporting=reporting)
         if (debug): print('score for ' + k + ' = ' + str(dataScore))
         score += w * dataScore
     return score
 
-def evaluate_mul(loc, data, config, mul):
+def evaluate_mul(loc, data, config, mul, reporting=False):
     score = 1.0
     for v in mul:
         if (isinstance(v, dict)):
-            score *= evaluate_internal(loc, data, config, v)
+            score *= evaluate_internal(loc, data, config, v, reporting=reporting)
         elif (isinstance(v, list)):
             raise Exception('ERROR: mul operand cannot be a list')
         else:
             # scalar
-            dataScore = evaluate_variable(loc, data, config, v)
+            dataScore = evaluate_variable(loc, data, config, v, reporting=reporting)
             if (debug): print('score for ' + v + ' = ' + str(dataScore))
             score *= dataScore
     return score
 
-def evaluate_internal(loc, data, config, function):
+def evaluate_internal(loc, data, config, function, reporting=False):
     if (debug): print('evalinternal function = ' + str(function))
     count = 0
     for op, v in iter(function.items()):
         if (op == 'mul'):
             if (not isinstance(v, list)):
                 raise Exception('ERROR: mul operator requires a list value')
-            return evaluate_mul(loc, data, config, v)
+            return evaluate_mul(loc, data, config, v, reporting=reporting)
         elif (op == 'weighted_sum'):
             if (not isinstance(v, dict)):
                 raise Exception('ERROR: weighted_sum operator requires a map value')
-            return evaluate_weighted_sum(loc, data, config, v)
+            return evaluate_weighted_sum(loc, data, config, v, reporting=reporting)
         else:
             raise Exception('ERROR: unimplemented op: ' + op)
         count += 1
@@ -122,13 +124,13 @@ def evaluate_internal(loc, data, config, function):
     if (count > 1):
         raise Exception('ERROR: only one top level op allowed for now')
 
-def evaluate(loc, data, config, funcRecord):
+def evaluate(loc, data, config, funcRecord, reporting=False):
     if (debug): print('top eval funcrecord = ' + str(funcRecord))
     function = funcRecord['function']
     if (isinstance(function, list)):
         raise Exception('ERROR: piecewise functions not implemented for non-module variables')
 
-    return evaluate_internal(loc, data, config, function)
+    return evaluate_internal(loc, data, config, function, reporting=reporting)
 
 
 if (__name__ == "__main__"):
@@ -232,7 +234,7 @@ if (__name__ == "__main__"):
             if (funcRecord.get('module')):
                 e = evaluate_variable((latlong[0], latlong[1]), data, config, args.func)
             else:
-                e = evaluate((latlong[0], latlong[1]), data, config, funcRecord)
+                e = evaluate((latlong[0], latlong[1]), data, config, funcRecord, reporting=True)
             print(str(e))
 
         elif (args.resolution):

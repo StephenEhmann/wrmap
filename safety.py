@@ -205,8 +205,8 @@ def evaluate(loc, data, value):
     if (not utils.isInside({'lat': loc[0], 'lng': loc[1]}, data['bounds']) ):
         print('ERROR: evaluation point outside of safety grid bounds')
         sys.exit(1)    
-    y_dist_start = loc[0] - data['startgrid']['lat']
-    x_dist_start = loc[1] - data['startgrid']['lng']
+    y_dist_start = float(loc[0]) - data['startgrid']['lat']
+    x_dist_start = float(loc[1]) - data['startgrid']['lng']
     row = int(y_dist_start//data['lenstep']['y'])
     col = int(x_dist_start//data['lenstep']['x'])
     score = data['grid'][row][col]

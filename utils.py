@@ -1,4 +1,5 @@
 import sys
+import time
 import heapq
 import math
 import urllib
@@ -17,8 +18,8 @@ else:
     gmaps = fgm.Client(key=criterionName)
 
 def isInside(loc, bounds):
-    return loc['lng'] > bounds['southwest']['lng'] and loc['lng'] < bounds['northeast']['lng'] and \
-           loc['lat'] > bounds['southwest']['lat'] and loc['lat'] < bounds['northeast']['lat']
+    return float(loc['lng']) > bounds['southwest']['lng'] and float(loc['lng']) < bounds['northeast']['lng'] and \
+           float(loc['lat']) > bounds['southwest']['lat'] and float(loc['lat']) < bounds['northeast']['lat']
 
 def distance(loc, ref):
     return geopy.distance.vincenty(loc, ref).miles
@@ -225,8 +226,24 @@ def getNearest(loc, data, n):
         return result
 
     h = []
-    for k, v in iter(data.items()):
-        heapq.heappush(h, distance(loc, (v['location']['lat'], v['location']['lng'])))
+    if (0):
+        #print('dists')
+        #startTime = time.time()
+        dists = []
+        for k, v in iter(data.items()):
+            dists.append(distance(loc, (v['location']['lat'], v['location']['lng'])))
+        #print('elapsedTime = ' + str(time.time() - startTime))
+
+        #print('heap')
+        #startTime = time.time()
+        for d in dists:
+            #heapq.heappush(h, distance(loc, (v['location']['lat'], v['location']['lng'])))
+            heapq.heappush(h, d)
+        #print('elapsedTime = ' + str(time.time() - startTime))
+    else:
+        for k, v in iter(data.items()):
+            heapq.heappush(h, distance(loc, (v['location']['lat'], v['location']['lng'])))
+
     return [heapq.heappop(h) for i in range(n)]
 
 def evaluate_single_func(funcType, func, x):
