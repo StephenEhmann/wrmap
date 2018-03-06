@@ -24,7 +24,7 @@ gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU')
 import utils
 
 criterionName = 'safety'
-resolution = 500
+resolution = 100
 safety_default = 9 # for points outside all polygons, default score to most safe
 
 tol = 10**-16 ## tolerance for testing lat/lng differences
