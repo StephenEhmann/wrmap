@@ -24,7 +24,7 @@ gmaps = googlemaps.Client(key='AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU')
 import utils
 
 criterionName = 'safety'
-resolution = 100
+resolution = 500
 safety_default = 9 # for points outside all polygons, default score to most safe
 
 tol = 10**-16 ## tolerance for testing lat/lng differences
@@ -135,7 +135,7 @@ def is_even(x):
     else:
         return True
     
-def poly_to_grid(safe_poly, bounds, resolution):
+def poly_to_grid(safe_poly, bounds, resolution, debug=None):
     #print(bounds)
 
     result = {}
@@ -149,6 +149,9 @@ def poly_to_grid(safe_poly, bounds, resolution):
     result['numsteps'] = {'lng': lng_steps, 'lat': lat_steps}
     result['lenstep'] = {'x': xstep, 'y': ystep}
     result['startgrid'] = bounds['southwest']
+
+    if (debug):
+        debug_out = []
     
     max_lng = max(outer_bound[0][1],bounds['northeast']['lng']) + 10*tol #longitude that is definitely outside all bounding boxes
     for yi in range(lat_steps):
@@ -163,6 +166,8 @@ def poly_to_grid(safe_poly, bounds, resolution):
                 poly_curr = poly_prev
                 row_grid.append(safe_poly[poly_curr]['properties']['c'] )
                 poly_prev = poly_curr
+                if (debug):
+                    debug_out.append({'x_y': [x,y], 'poly': poly_curr, 'score': row_grid[xi], 'how_found': 'prev'})
             else:
                 for nbhd in safe_poly:
                     min_x = safe_poly[nbhd]['geometry']['bound'][0][0]
@@ -176,12 +181,20 @@ def poly_to_grid(safe_poly, bounds, resolution):
                             poly_curr = nbhd
                             row_grid.append(safe_poly[poly_curr]['properties']['c'])
                             poly_prev = poly_curr
+                            if (debug):
+                                debug_out.append({'x_y': [x,y], 'poly': poly_curr, 'score': row_grid[xi], 'how_found': 'search'})
                             break #can only be in one polygon, so if we found one, stop looking
             if (not poly_curr):
                 ## this point outside all polygons, use default
                 row_grid.append(safety_default)
+                poly_prev = poly_curr
+                if (debug):
+                    debug_out.append({'x_y': [x,y], 'poly': 'none', 'score': row_grid[xi], 'how_found': 'none'})
         grid.append(row_grid)
     result['grid'] = grid
+    if (debug):
+        with open(criterionName + '_debug.yml', 'w') as yaml_file:
+            dump(debug_out, yaml_file, default_flow_style=False, Dumper=Dumper)    
     return result
 
 ## some tests of functions
@@ -229,7 +242,7 @@ if (__name__ == "__main__"):
     parser.add_argument('-find', type=str, help='polys: find safety polygons and write them to ' + criterionName + '_polys.yml \n' + 'grid: map polygons to grid and write it to ' + criterionName + '.yml')
     parser.add_argument('-eval', type=str, help='evaluate the ' + criterionName + ' score for a given coordinate pair (eg. -eval 35.936164,-79.040997)')
     args = parser.parse_args()
-
+    
     if (args.h or args.help):
         parser.print_help()
         sys.exit(0)
@@ -279,10 +292,13 @@ if (__name__ == "__main__"):
 
             outer_bound = []
             add_poly_bound(safe_poly,outer_bound)
-            data = poly_to_grid(safe_poly, bounds, resolution)
-            
-            with open(criterionName + '.yml', 'w') as yaml_file:
-                dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
+
+            if (args.debug):
+                poly_to_grid(safe_poly, bounds, resolution, debug = True)
+            else:
+                data = poly_to_grid(safe_poly, bounds, resolution)
+                with open(criterionName + '.yml', 'w') as yaml_file:
+                    dump(data, yaml_file, default_flow_style=False, Dumper=Dumper)
         else:
             raise Exception('ERROR: -find needs argument either polys or grid')
 

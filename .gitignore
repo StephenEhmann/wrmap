@@ -5,3 +5,5 @@ bus.all.yml
 __pycache__/
 
 *.xlsx
+safety_debug.yml
+safety1.png
