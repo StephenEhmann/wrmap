@@ -94,6 +94,49 @@ def write(filename, config, results, width, height):
         im = Image.frombytes('L', (width, height), str(data))
         im.save(filename,"PNG")
 
+def transform(i, o):
+    img = Image.open(i)
+    rgb_im = img.convert('RGB')
+    pix = rgb_im.load()
+    if (0):
+        #rgb_im[1,1] = (0,0,255)
+        pix[10,1] = (0,0,255)
+        if (1):
+            r, g, b = rgb_im.getpixel((1, 1))
+            r2, g2, b2 = pix[1,1]
+        else:
+            r, g, b = img.getpixel((1, 1))
+        print(r, g, b)
+        print(r2, g2, b2)
+
+    width, height = img.size
+    fi = [[0 for x in range(width)] for y in range(height)]
+    for y in range(height):
+        for x in range(width):
+            r, g, b = pix[x,y]
+            if (r == 255):
+                i = 510 - g
+            elif (g == 255):
+                i = r
+            else:
+                raise Exception('bad color')
+            f = 1.0 - i / 510.0
+            #print('x,y,f = ' + str((x, y, f)))
+            fi[y][x] = f
+            intVal = int(510 * (1.0 - f))
+            blue = 0
+            if (intVal >= 255):
+                red = 255
+                green = 255 - (intVal - 255)
+            else:
+                red = intVal
+                green = 255
+            if (0 && (red, green, blue) != (r, g, b)):
+                print('diff: ' + str((x, y, f)) + ' ' + str((red, green, blue)) + ' ' + str((r, g, b)))
+            pix[x,y] = (red, green, blue)
+
+    rgb_im.save(o, "PNG")
+
 if (__name__ == "__main__"):
     # main parser
     class MainParser(argparse.ArgumentParser):
@@ -107,7 +150,6 @@ if (__name__ == "__main__"):
     parser.add_argument('-help', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('--help', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('-debug', action='store_true', help='print extra info')
-    parser.add_argument('-cr', type=str, help='criterion name (eg. bus)')
     parser.add_argument('-input', type=str, help='input filename')
     parser.add_argument('-out', type=str, help='optional output kmz name: <name>.kmz')
     args = parser.parse_args()
@@ -137,24 +179,13 @@ if (__name__ == "__main__"):
 
     if (not args.input):
         raise Exception('ERROR: no -input file given')
-
-    if (not args.cr):
-        raise Exception('ERROR: no -cr criterion name given')
+    if (not re.search(r'\.png', args.input)):
+        args.input += '.png'
 
     if (not args.out):
-        args.out = re.sub(r'\.yml$', r'.kmz', args.input)
-    else:
-        if (not re.search(r'\.kmz', args.out)):
-            args.out += '.kmz'
+        args.out = re.sub(r'\.png$', r'_out.png', args.input)
+    if (not re.search(r'\.png', args.out)):
+        args.out += '.png'
 
-    try:
-        stream = open(args.input, 'r')
-        data = load(stream, Loader=Loader)
-        stream.close()
-    except Exception as e:
-        print(str(e))
-        raise Exception('ERROR: Failed to load yaml file ' + args.input)
-
-    # TODO
-    #write(args.out, config, data, None)
+    transform(args.input, args.out)
 
