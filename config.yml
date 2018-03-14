@@ -155,11 +155,11 @@ evaluation:
         mul:
           - bus2
           - weighted_sum:
-              bus: 0.54
-              grocery: 0.18
-              resources: 0.07
-              employment: 0.13
-              safety: 0.08
+              bus: 0.32
+              grocery: 0.25
+              resources: 0.12
+              employment: 0.16
+              safety: 0.15
 
 ### Parameters for visualizing things
 visualization:
