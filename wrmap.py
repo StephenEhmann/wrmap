@@ -10,6 +10,7 @@ import argparse
 import glob
 import re
 import time
+import struct
 import importlib
 from datetime import datetime
 from yaml import load, dump
@@ -289,10 +290,29 @@ if (__name__ == "__main__"):
                     os.makedirs(args.out, exist_ok=True)
                     kml.write(os.path.join(args.out, 'doc.kml'), config, data, results)
                 else:
-                    #print('valResults = ' + str(valResults))
-                    if (not re.search(r'\.png', args.out)):
-                        args.out += '.png'
-                    png.write(args.out, config, valResults, lng_steps, lat_steps)
+                    if (0):
+                        #print('valResults = ' + str(valResults))
+                        if (not re.search(r'\.png', args.out)):
+                            args.out += '.png'
+                        png.write(args.out, config, valResults, lng_steps, lat_steps)
+                    else:
+                        with open(args.out, 'wb') as f:
+                            width = lng_steps
+                            height = lat_steps
+                            #print(str(width))
+                            #print(str(height))
+                            f.write(struct.pack('i', width))
+                            f.write(struct.pack('i', height))
+                            for (x, y), v in iter(sorted(valResults.items())):
+                                #print(str((x, y)) + ' ' + str(v))
+                                f.write(struct.pack('f', v))
+
+                        if (0):
+                            with open(args.out, 'rb') as f:
+                                width = struct.unpack('i', f.read(4))[0]
+                                height = struct.unpack('i', f.read(4))[0]
+                                print(str(width))
+                                print(str(height))
 
         else:
             print('INTERNAL ERROR')

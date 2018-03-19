@@ -1,0 +1,26 @@
+wrmap.py -eval -resolution 100 -func grocery -out grocery.bin
+wrmap.py -eval -resolution 100 -func resources -out resources.bin
+wrmap.py -eval -resolution 100 -func safety -out safety.bin
+run2short wrmap.py -eval -resolution 100 -func bus -out bus.bin
+run2short wrmap.py -eval -resolution 100 -func employment -out employment.bin
+run2short wrmap.py -eval -resolution 100 -out final.bin
+
+
+png.py -input safety.bin -out safety.ryg.png -q red_green_hue
+png.py -input safety.bin -out safety.rwg.png -q red_white_green
+png.py -input safety.bin -out safety.rwb.png -q red_white_blue
+png.py -input safety.bin -out safety.fs10.png -q full_spectral_10
+
+png.py -input final.bin -out final.ryg.png -q red_green_hue
+png.py -input final.bin -out final.rwg.png -q red_white_green
+png.py -input final.bin -out final.rwb.png -q red_white_blue
+png.py -input final.bin -out final.fs.png -q full_spectral
+png.py -input final.bin -out final.fs10.png -q full_spectral_10
+
+https://postimg.org/gallery/1ivhix6rq/
+https://s10.postimg.org/fti75qhsp/final.fs.png
+https://s10.postimg.org/ai3al1b5l/final.fs10.png
+https://s10.postimg.org/jd44vjs89/final.rwb.png
+https://s10.postimg.org/dc6fyhl1l/final.rwg.png
+https://s10.postimg.org/doxu4ob15/final.ryg.png
+

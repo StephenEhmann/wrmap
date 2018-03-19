@@ -1,30 +1,3 @@
-<div id="map"></div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNyA5ZDP1JClw9sTnVXuFJP_1FvZk30zU"></script>
-
-/* Always set the map height explicitly to define the size of the div
- * element that contains the map. */
-#map {
-  height: 100%;
-}
-/* Optional: Makes the sample page fill the window. */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-canvas, img {
-    image-rendering: optimizeSpeed;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: optimize-contrast;
-    image-rendering: pixelated;
-    -ms-interpolation-mode: nearest-neighbor;
-    border: 5px solid #ddd;
-}
-
-// This example creates a custom overlay called USGSOverlay, containing
-// a U.S. Geological Survey (USGS) image of the relevant area on the map.
-
 // Set the custom overlay object's prototype to a new instance
 // of OverlayView. In effect, this will subclass the overlay class therefore
 // it's simpler to load the API synchronously, using
@@ -33,7 +6,7 @@ canvas, img {
 // parent class itself, because we do not wish to modify the parent class.
 
 var overlay;
-USGSOverlay.prototype = new google.maps.OverlayView();
+Overlay.prototype = new google.maps.OverlayView();
 
 // Initialize the map and the custom overlay.
 
@@ -52,24 +25,25 @@ function initMap() {
       }]
     }]
   });
+  
+  //var marker = new google.maps.Marker({
+  //        position: {lat: 35.9961482, lng: -78.88933349999999},
+  //        map: map
+  //});
 
   var bounds = new google.maps.LatLngBounds(
     new google.maps.LatLng(35.8667249, -79.00765),
     new google.maps.LatLng(36.1369289, -78.762172));
 
-  // The photograph is courtesy of the U.S. Geological Survey.
-  var srcImage = 'https://developers.google.com/maps/documentation/' +
-    'javascript/examples/full/images/talkeetna.png';
+  var srcImage = 'https://s10.postimg.org/doxu4ob15/final.ryg.png';
 
-  srcImage = 'https://s10.postimg.org/rjwg80v89/peru.png';
-
-  // The custom USGSOverlay object contains the USGS image,
+  // The custom OVerlay object contains the image,
   // the bounds of the image, and a reference to the map.
-  overlay = new USGSOverlay(bounds, srcImage, map);
+  overlay = new Overlay(bounds, srcImage, map);
 }
 
 /** @constructor */
-function USGSOverlay(bounds, image, map) {
+function Overlay(bounds, image, map) {
 
   // Initialize all properties.
   this.bounds_ = bounds;
@@ -89,7 +63,7 @@ function USGSOverlay(bounds, image, map) {
  * onAdd is called when the map's panes are ready and the overlay has been
  * added to the map.
  */
-USGSOverlay.prototype.onAdd = function() {
+Overlay.prototype.onAdd = function() {
 
   var div = document.createElement('div');
   div.style.borderStyle = 'none';
@@ -99,15 +73,16 @@ USGSOverlay.prototype.onAdd = function() {
   // Create the img element and attach it to the div.
   // Create the img element and attach it to the div.
   var canv = document.createElement('canvas');
-  canv.style.width = '100%';
-  canv.style.height = '100%';
+  // Size the cavas to the image
+  canv.width = 100;
+  canv.height = 135;
   canv.style.position = 'absolute';
   canv.style.opacity = 0.5;
   var ctx = canv.getContext('2d');
   
   var img = new Image();
   img.onload = function () {
-    ctx.drawImage(img, 0, 0, canv.width, canv.height)
+    ctx.drawImage(img, 0, 0)
   }
   img.src = this.image_;
   //img.src = this.image_;
@@ -119,13 +94,14 @@ USGSOverlay.prototype.onAdd = function() {
   div.appendChild(canv);
 
   this.div_ = div;
+  this.canv_ = canv;
 
   // Add the element to the "overlayLayer" pane.
   var panes = this.getPanes();
   panes.overlayLayer.appendChild(div);
 };
 
-USGSOverlay.prototype.draw = function() {
+Overlay.prototype.draw = function() {
 
   // We use the south-west and north-east
   // coordinates of the overlay to peg it to the correct position and size.
@@ -139,7 +115,7 @@ USGSOverlay.prototype.draw = function() {
   var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
 
   // Resize the image's div to fit the indicated dimensions.
-  var div = this.div_;
+  var div = this.canv_;
   div.style.left = sw.x + 'px';
   div.style.top = ne.y + 'px';
   div.style.width = (ne.x - sw.x) + 'px';
@@ -148,7 +124,7 @@ USGSOverlay.prototype.draw = function() {
 
 // The onRemove() method will be called automatically from the API if
 // we ever set the overlay's map property to 'null'.
-USGSOverlay.prototype.onRemove = function() {
+Overlay.prototype.onRemove = function() {
   this.div_.parentNode.removeChild(this.div_);
   this.div_ = null;
 };

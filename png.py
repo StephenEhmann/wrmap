@@ -10,6 +10,7 @@ import argparse
 import glob
 import re
 import time
+import struct
 import colorsys
 from datetime import datetime
 from yaml import load, dump
@@ -27,9 +28,18 @@ import utils
 #    'red_green': { 'ranges': 10, 'ranges': [(0.0, 255,0,0), (0.3, 255,255,0), (1.0, 0,255,0)] },
 quant = {
     #RETIRED because red_green_hue does the same thing... 'red_yellow_green': { 'mode': 'rgb', 'numValues': 10, 'ranges': [ [(255,0,0), (255,255,0)], [(255,255,0), (0,255,0)] ] },
-    'red_white_green': { 'mode': 'hsv', 'blend': 's', 'numValues': 10, 'ranges': [ [(0.0,1.0,1.0), (0.0,0.0,1.0)], [(120.0/360.0,0.0,1.0), (120.0/360.0,1.0,1.0)] ] },
-    'red_white_blue': { 'mode': 'hsv', 'blend': 's', 'numValues': 10, 'ranges': [ [(0.0,1.0,1.0), (0.0,0.0,1.0)], [(240.0/360.0,0.0,1.0), (240.0/360.0,1.0,1.0)] ] },
-    'red_green_hue': { 'mode': 'hsv', 'blend': 'h', 'numValues': 10, 'ranges': [ [(0.0,1.0,1.0), (120.0/360.0,1.0,1.0)] ] },
+    'red_white_green': { 'mode': 'hsv', 'numValues': 10, 'ranges': [ [(0.0,1.0,1.0), (0.0,0.0,1.0)], [(120.0/360.0,0.0,1.0), (120.0/360.0,1.0,1.0)] ] },
+    'red_white_blue': { 'mode': 'hsv', 'numValues': 10, 'ranges': [ [(0.0,1.0,1.0), (0.0,0.0,1.0)], [(240.0/360.0,0.0,1.0), (240.0/360.0,1.0,1.0)] ] },
+    'red_green_hue': { 'mode': 'hsv', 'numValues': 10, 'ranges': [ [(0.0,1.0,1.0), (120.0/360.0,1.0,1.0)] ] },
+    'full_spectral': { 'mode': 'hsv', 'numValues': 10, 'ranges': [ [(0.0,1.0,1.0), (240.0/360.0,1.0,1.0)] ] },
+    'full_spectral_10': { 'mode': 'hsv', 'numValues': 10, 'ranges': [ [
+        (0.027363184079601977, 0.690721649484536, 0.7607843137254902),
+        (0.6171171171171171, 0.9098360655737705, 0.47843137254901963)
+    ] ] },
+    'full_spectral_5': { 'mode': 'hsv', 'numValues': 5, 'ranges': [ [
+        (0.027363184079601977, 0.690721649484536, 0.7607843137254902),
+        (0.6171171171171171, 0.9098360655737705, 0.47843137254901963)
+    ] ] },
 }
 
 def write(filename, config, results, width, height):
@@ -122,29 +132,69 @@ def qtestImage(n, q):
         #colorRange = int(i * len(q['ranges']) / (2 * q['numValues']))
         a = int(colorRange * rangeLen)
         b = int((colorRange+1) * rangeLen)
-        t = ((i-1)//2 - a) / (b - a)
+        # SAE fix this up to snap endpoint colors properly
+        t = (i/2 - a) / (b - a)
         print('a,b,t = ' + str((a, b, t)))
         if (q['mode'] == 'rgb'):
             pix[(i-1) // 2, 0] = interpolate_rgb(q['ranges'][colorRange], t)
             print('color at ' + str((i-1) // 2) + ' = ' + str(pix[(i-1) // 2, 0]))
         elif (q['mode'] == 'hsv'):
-            if ('h' in q['blend']):
-                h = interpolate( (q['ranges'][colorRange][0][0], q['ranges'][colorRange][1][0]), t)
-            else:
-                h = q['ranges'][colorRange][0][0]
-            if ('s' in q['blend']):
-                s = interpolate( (q['ranges'][colorRange][0][1], q['ranges'][colorRange][1][1]), t)
-            else:
-                s = q['ranges'][colorRange][0][1]
-            if ('v' in q['blend']):
-                v = interpolate( (q['ranges'][colorRange][0][2], q['ranges'][colorRange][1][2]), t)
-            else:
-                v = q['ranges'][colorRange][0][2]
+            h = interpolate( (q['ranges'][colorRange][0][0], q['ranges'][colorRange][1][0]), t)
+            s = interpolate( (q['ranges'][colorRange][0][1], q['ranges'][colorRange][1][1]), t)
+            v = interpolate( (q['ranges'][colorRange][0][2], q['ranges'][colorRange][1][2]), t)
             print('hsv = ' + str((h, s, v)))
             pix[(i-1) // 2, 0] = my_hsv_to_rgb(h, s, v)
         else:
             raise Exception('unrecognized color mode')
     img.save(n + '.png', 'PNG')
+
+def render(infile, outfile, q):
+    q = quant[q]
+    colorLen = 1.0 / q['numValues']
+    rangeLen = colorLen * q['numValues'] / len(q['ranges'])
+    #print(str(colorLen))
+    #print(str(rangeLen))
+    with open(infile, 'rb') as f:
+        width = struct.unpack('i', f.read(4))[0]
+        height = struct.unpack('i', f.read(4))[0]
+        #print(str(width))
+        #print(str(height))
+        im = Image.new("RGB", (width, height))
+        data = im.load()
+        count = 0
+        for x in range(width):
+            #x = 50
+            #f.read(4*height*x)
+            #for y in range(65, height):
+            for y in range(height):
+                v = struct.unpack('f', f.read(4))[0]
+                #print('\nx,y,v = ' + str((x,y,v)))
+                colorRange = int(v / rangeLen)
+                if (colorRange == len(q['ranges'])):
+                    colorRange -= 1
+                #print('cr = ' + str(colorRange))
+                a = colorRange * rangeLen
+                b = (colorRange+1) * rangeLen
+                t = (v - a) / (b - a)
+                # snap t to be quantized
+                tidx = int(t * rangeLen / colorLen)
+                t = tidx * (colorLen / (rangeLen - colorLen))
+                #t = int(t * rangeLen / colorLen) * colorLen / rangeLen
+                #print('snap = ' + str(int(t * rangeLen / colorLen)))
+                #print('a,b,t = ' + str((a, b, t)))
+                if (q['mode'] == 'rgb'):
+                    data[x,height-y-1] = interpolate_rgb(q['ranges'][colorRange], t)
+                elif (q['mode'] == 'hsv'):
+                    h = interpolate( (q['ranges'][colorRange][0][0], q['ranges'][colorRange][1][0]), t)
+                    s = interpolate( (q['ranges'][colorRange][0][1], q['ranges'][colorRange][1][1]), t)
+                    v = interpolate( (q['ranges'][colorRange][0][2], q['ranges'][colorRange][1][2]), t)
+                    #print('hsv = ' + str((h, s, v)))
+                    data[x,height-y-1] = my_hsv_to_rgb(h, s, v)
+                count += 1
+                #if (count == 8):
+                if (count == -1):
+                    sys.exit(0)
+        im.save(outfile, "PNG")
 
 if (__name__ == "__main__"):
     # main parser
@@ -161,12 +211,33 @@ if (__name__ == "__main__"):
     parser.add_argument('-debug', action='store_true', help='print extra info')
     parser.add_argument('-input', type=str, help='input filename')
     parser.add_argument('-out', type=str, help='optional output png name: <name>.png')
-    parser.add_argument('-q', type=str, help='choose the qunatized color scheme, default red_gree')
+    parser.add_argument('-q', type=str, help='choose the quantized color scheme, default red_green_hue')
     parser.add_argument('-qtest', action='store_true', help='output quantized color scheme gradient images')
     args = parser.parse_args()
 
     if (args.h or args.help):
         parser.print_help()
+        sys.exit(0)
+
+    if (0):
+        def print_col(c):
+            hsv = colorsys.rgb_to_hsv(c[0]/255.0, c[1]/255.0, c[2]/255.0)
+            print(str(hsv))
+
+        r = (194, 82, 60)
+        o = (230, 142, 28)
+        y = (247, 215, 7)
+        g = (123, 237, 0)
+        og = (14, 196, 65)
+        t = (30, 144, 148)
+        b = (11, 44, 122)
+        print_col(r)
+        print_col(o)
+        print_col(y)
+        print_col(g)
+        print_col(og)
+        print_col(t)
+        print_col(b)
         sys.exit(0)
 
     if (args.qtest):
@@ -195,13 +266,22 @@ if (__name__ == "__main__"):
 
     if (not args.input):
         raise Exception('ERROR: no -input file given')
-    if (not re.search(r'\.png', args.input)):
-        args.input += '.png'
+    if (not re.search(r'\.bin$', args.input)):
+        raise Exception('ERROR: only .bin files can be used as input')
 
     if (not args.out):
-        args.out = re.sub(r'\.png$', r'_out.png', args.input)
+        args.out = re.sub(r'\.bin$', r'.png', args.input)
     if (not re.search(r'\.png', args.out)):
         args.out += '.png'
 
-    transform(args.input, args.out)
+    if (not args.q):
+        args.q = 'red_green_hue'
+
+    if (args.q not in quant):
+        raise Exception('ERROR: invalid -q value')
+
+    if (0):
+        transform(args.input, args.out)
+    else:
+        render(args.input, args.out, args.q)
 
